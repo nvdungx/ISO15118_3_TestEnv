@@ -1,0 +1,1 @@
+# general datatype used for all modules & application

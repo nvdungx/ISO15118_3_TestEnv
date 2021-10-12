@@ -6,6 +6,9 @@
 #include <string>
 #include <iostream>
 
+namespace TestLib {
+
+#define boolean bool
 class EnumMap
 {
 private:
@@ -18,7 +21,7 @@ public:
   {
   }
   ~EnumMap() {}
-  const char *operator[](ssize_t idx) const
+  const char *operator[](ssize_t idx) const noexcept
   {
     if ((idx < 0) || ((size_t)idx > table.size()))
     {
@@ -31,6 +34,36 @@ public:
   }
 };
 
+class EnumUnorderedMap
+{
+private:
+  // unordered_map to store the const string for enum map
+  std::unordered_map<int, const char*> table;
+  // string to print when input enum value is not existed
+  const char* ERROR_STRING = "OUT_OF_RANGE";
+public:
+  // && is rvalue reference, specify rvalue because we initialize
+  // the string vector table with rvalue
+  EnumUnorderedMap(std::unordered_map<int, const char*>&& input_table)
+    : table(std::move(input_table)) {}
+  ~EnumUnorderedMap() {}
+
+  // override the operator []
+  const char* operator[](ssize_t idx) const noexcept
+  {
+    // index checking
+    if (0 == table.count(idx))
+    {
+      // return ERROR string incase of input value is not exist in enum type
+      return ERROR_STRING;
+    }
+    else
+    {
+      // return corresponding string
+      return table.at(idx);
+    }
+  }
+};
 namespace DataStructure_TestVerification
 {
   const EnumMap VERDICT_RESULT({"NONE", "PASS", "INCONCLUSION", "FAIL", "ERROR"});
@@ -271,5 +304,12 @@ namespace DataStructure_PIXIT_15118
     none_
   } Pause;
 }
+
+typedef enum enDLinkStatusType {
+  NO_LINK = 0,
+  LINK_ESTABLISHED
+} DLinkStatusType;
+
+} // namespace TestLib
 
 #endif // __DATATYPE_H__

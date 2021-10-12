@@ -6,6 +6,7 @@
 #include "basic_signal.hpp"
 #include "datatype.hpp"
 
+using namespace TestLib;
 
 int main(int argc, char **argv)
 {

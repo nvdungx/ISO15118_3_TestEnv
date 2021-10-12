@@ -66,3 +66,10 @@ variable "set" or "unset" not inside a function call binds to the current direct
 Environment variable: $ENV{<variable>}.
 
 variable reference has the form ${<variable>}, is replaced by the value of the variable, or by the empty string if the variable is not set.
+
+
+system:
+SUT Interface: IEC61851(ControlPilot), ISO15118(HPGP Plc - logical link)
+TestSystem Timer, external system control function
+Encode/Decode, DataType
+io_service: for asynchronous operation during testing runtime (timer, send/receive event, ControlPilot io event, tester control input)

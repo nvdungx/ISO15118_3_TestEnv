@@ -76,5 +76,11 @@
     "typeinfo": "cpp",
     "variant": "cpp",
     "unordered_set": "cpp"
-  }
+  },
+  "cSpell.words": [
+    "GPIOIF",
+    "HPGP",
+    "SECC",
+    "SLOGD"
+  ]
 }

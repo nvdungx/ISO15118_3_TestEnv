@@ -4,9 +4,16 @@
 #include <array>
 #include <vector>
 
-#define hexstring(A) std::array<uint8_t, A>
 // template<typename s>
 // using hexstring = std::array<uint8_t, s>;
+namespace TestLib {
+
+#define hexstring(A) std::array<uint8_t, A>
+
+extern hexstring(6) par_slac_node2_mac;
+extern hexstring(6) par_slac_node3_mac;
+extern hexstring(6) par_slac_node4_mac;
+extern hexstring(6) par_slac_node5_mac;
 
 namespace DataStructure_SLAC
 {
@@ -59,6 +66,7 @@ namespace DataStructure_SLAC
   typedef hexstring(4) RetryTimer10ms_TYPE;
   typedef hexstring(2) MStatus_TYPE;
 
+  /* MME	 Management	Message	Entry */
   #define MME_CM_SLAC_PARM_REQ        ((uint16_t)0x6064)
   #define MME_CM_SLAC_PARM_CNF        ((uint16_t)0x6065)
   #define MME_CM_START_ATTEN_CHAR_IND ((uint16_t)0x606A)
@@ -364,5 +372,6 @@ namespace DataStructure_SLAC
 // {
 //   encode "SLAC";
 // }
+} // namespace TestLib
 
 #endif // __SLAC_TYPE_H__
