@@ -9,6 +9,7 @@
 namespace TestLib {
 
 #define boolean bool
+#define integer int
 class EnumMap
 {
 private:

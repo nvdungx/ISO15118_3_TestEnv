@@ -11,6 +11,11 @@ component	uses	the	HAL_61851_Port	(see	Table	5)	to	communicate	with	an
 IEC	61851‐1	SUT	Adapter	and	the	HAL_61851_Internal_Port	to	communicate
 with	the	MTC.
 
+test system interface
+TSI
+test	component	that	provides	a	mapping	of	the	ports	available	in	the	(abstract)	TTCN‐3	test	system	to
+those	offered	by	a	real	test	system
+
 SLAC_Port: This	port	is	used	to	send/receive	SLAC	messages	defined	in	ISO	15118‐3
 to/from	the	EVCC/SECC.
 

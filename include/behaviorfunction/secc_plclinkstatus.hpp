@@ -1,0 +1,5 @@
+#ifndef __SECC_PLCLINKSTATUS_H__
+#define __SECC_PLCLINKSTATUS_H__
+
+
+#endif // __SECC_PLCLINKSTATUS_H__

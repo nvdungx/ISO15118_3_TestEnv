@@ -1,33 +1,44 @@
-module LibFunctions_15118_3 {
-group generalFunctions {
-type record ListOfFloat {
-record length (0 .. 10) of float v_float
+#include "libfunctions.hpp"
+
+namespace TestLib {
+namespace LibFunctions_15118_3
+{
+namespace generalFunctions
+{
+void fx_logToFile(std::vector<float> &v_listOfFloat, std::vector<boolean> &v_listOfBoolean)
+{
 }
-type record ListOfBoolean {
-record length (0 .. 10) of boolean v_boolean
+hexstring(10) fx_generateNID(hexstring(10) &nmk)
+{
 }
-external function fx_logToFile(in template ListOfFloat v_listOfFloat,
-in template ListOfBoolean v_listOfBoolean);
-external function fx_generateNID(hexstring nmk) return hexstring;
-external function fx_captureTraffic(in integer v_interfaceIdx);
-external function fx_stopCapturing();
-function f_randomHexStringGen(integer hexLength) return hexstring {
-var hexstring randomHex := ''H;
-for (var integer i:=0; i<hexLength/2; i:=i + 1) {
-var float rndFloat := -1.0;
-while(rndFloat<0.0 or rndFloat>255.0){
-rndFloat := rnd(rnd());
-rndFloat := rndFloat*10E2;
+void fx_captureTraffic(int v_interfaceIdx)
+{
 }
-var hexstring randomHexByte := int2hex(float2int(rndFloat),2);
-randomHex := randomHex & randomHexByte;
+void fx_stopCapturing(void)
+{
 }
-return randomHex;
+std::vector<uint8_t> f_randomHexStringGen(int hexLength)
+{
+  std::vector<uint8_t> randomHex{};
+  for (int i = 0; i < hexLength / 2; i++)
+  {
+    float rndFloat = -1.0;
+    while ((rndFloat < 0.0) || (rndFloat > 255.0))
+    {
+      rndFloat = rnd(rnd());
+      rndFloat = rndFloat * 10E2;
+    }
+    hexstring randomHexByte = int2hex(float2int(rndFloat), 2);
+    randomHex = randomHex & randomHexByte;
+  }
+  return randomHex;
 }
-function sleep(float time) {
-timer t := time;
-t.start;
-t.timeout;
+void sleep(float time)
+{
+  // timer t := time;
+  // t.start;
+  // t.timeout;
+}
 }
 }
 }

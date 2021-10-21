@@ -1,0 +1,5 @@
+#ifndef __EVCC_PLCLINKSTATUS_H__
+#define __EVCC_PLCLINKSTATUS_H__
+
+
+#endif // __EVCC_PLCLINKSTATUS_H__
