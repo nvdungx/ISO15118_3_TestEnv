@@ -1,4 +1,4 @@
-#include "libfunctions.hpp"
+#include "supported/libfunctions.hpp"
 
 namespace TestLib {
 namespace LibFunctions_15118_3
@@ -19,7 +19,7 @@ void fx_stopCapturing(void)
 }
 std::vector<uint8_t> f_randomHexStringGen(int hexLength)
 {
-  std::vector<uint8_t> randomHex{};
+  /* std::vector<uint8_t> randomHex{};
   for (int i = 0; i < hexLength / 2; i++)
   {
     float rndFloat = -1.0;
@@ -31,7 +31,7 @@ std::vector<uint8_t> f_randomHexStringGen(int hexLength)
     hexstring randomHexByte = int2hex(float2int(rndFloat), 2);
     randomHex = randomHex & randomHexByte;
   }
-  return randomHex;
+  return randomHex; */
 }
 void sleep(float time)
 {

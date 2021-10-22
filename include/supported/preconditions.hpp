@@ -18,8 +18,6 @@ namespace TestLib
     PreConditions_SECC_15118_3& operator=(const PreConditions_SECC_15118_3&) = delete;
 
     static PreConditions_SECC_15118_3 &get_instance() {
-      std::mutex mutex;
-      std::lock(mutex);
       static PreConditions_SECC_15118_3 instance;
       return instance;
     }

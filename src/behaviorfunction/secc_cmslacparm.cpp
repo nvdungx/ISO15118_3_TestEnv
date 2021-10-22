@@ -1,4 +1,10 @@
 #include "behaviorfunction/secc_cmslacparm.hpp"
+#include "management/pics_cfg.hpp"
+#include "management/pixit_cfg.hpp"
+#include "management/timer_cfg.hpp"
+#include "supported/libfunctions.hpp"
+#include "datatype.hpp"
+#include "slac_type.hpp"
 
 // module TestBehavior_SECC_CmSlacParm {
 // import from Templates_CMN_CmSlacParm all;
@@ -18,7 +24,7 @@ using namespace Timer_15118::Timer_par_15118;
 using namespace Timer_15118_3::Timer_par_15118_3;
 using namespace LibFunctions_15118_3::generalFunctions;
 
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_001(VerdictValue v_vct)
+/* VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_001(VerdictValue v_vct)
 {
   MME v_responseMessage;
   boolean v_repetition = true;
@@ -586,5 +592,5 @@ VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_003(
     SECC_Tester::setverdict(fail, "No nominal duty cycle could be detected.");
   }
   return SECC_Tester::getverdict();
-}
+} */
 }

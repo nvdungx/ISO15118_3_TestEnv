@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "datatype.hpp"
+#include "slac_type.hpp"
 
 namespace TestLib
 {

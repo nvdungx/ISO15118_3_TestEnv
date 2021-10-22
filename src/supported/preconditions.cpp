@@ -1,5 +1,5 @@
-#include "preconditions.hpp"
-
+#include "supported/preconditions.hpp"
+#include "supported/libfunctions.hpp"
 namespace TestLib
 {
 // import from TestBehavior_SECC_CmSlacParm all;
@@ -23,7 +23,7 @@ namespace TestLib
 
 using namespace LibFunctions_15118_3::generalFunctions;
 
-VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_StateA_001(
+/* VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_StateA_001(
     std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = pass;
@@ -466,5 +466,5 @@ VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_CmAmpMap_001(
     }
   }
   return verdict;
-}
+} */
 }

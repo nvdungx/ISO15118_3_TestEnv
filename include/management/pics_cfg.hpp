@@ -40,7 +40,6 @@ namespace TestLib
   }
   namespace Pics_15118_3
   {
-    using namespace DataStructure_PICS_15118_3;
     namespace PICS_15118_3
     {
       namespace PICS_CMN

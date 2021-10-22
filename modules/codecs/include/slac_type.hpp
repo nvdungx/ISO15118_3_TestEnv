@@ -19,52 +19,73 @@ namespace DataStructure_SLAC
 {
   typedef struct SLAC_Header
   {
-    hexstring(2) application_type;
-    hexstring(2) security_type;
+    uint8_t application_type;
+    uint8_t security_type;
+    SLAC_Header(const SLAC_Header &other)
+    {
+      application_type = other.application_type;
+      security_type = other.security_type;
+    }
+    void operator=(SLAC_Header &other)
+    {
+      application_type = other.application_type;
+      security_type = other.security_type;
+    }
+    SLAC_Header(SLAC_Header &&other)
+    {
+      application_type = std::move(other.application_type);
+      security_type = std::move(other.security_type);
+    }
+    SLAC_Header &operator=(SLAC_Header &&other)
+    {
+      application_type = std::move(other.application_type);
+      security_type = std::move(other.security_type);
+      return *this;
+    }
   } SLAC_Header_st;
-  typedef hexstring(2) MMV_TYPE;
-  typedef hexstring(2) Fmi_TYPE;
-  typedef hexstring(2) Fmsn_TYPE;
-  typedef hexstring(6) OUI_TYPE;         // with{variant "byteOrder=big-endian"};
-  typedef hexstring(32) NMK_TYPE;        // with{variant "byteOrder=big-endian"};
-  typedef hexstring(14) NID_TYPE;        // with{variant "byteOrder=big-endian"};
-  typedef hexstring(12) MACAddress_TYPE; // with{variant "byteOrder=big-endian"};
-  typedef hexstring(34) StationID_TYPE;
-  typedef hexstring(16) RunID_TYPE;
-  typedef hexstring(2) TimeOut_TYPE;
-  typedef hexstring(2) NumSounds_TYPE;
-  typedef hexstring(2) NumGroups_TYPE;
-  typedef hexstring(2) ToggleNum_TYPE;
-  typedef hexstring(2) RespType_TYPE;
-  typedef hexstring(2) Aag_TYPE;
-  typedef hexstring(2) Result_TYPE;
-  typedef hexstring(4) Mvflength_TYPE;
-  typedef hexstring(16) Res0_TYPE;
-  typedef hexstring(2) Res1_TYPE;
-  typedef hexstring(2) Count_TYPE;
-  typedef hexstring(32) SourceRnd_Type;
-  typedef hexstring(2) Attenuation_TYPE;
-  typedef hexstring(2) SignalType_TYPE;
-  typedef hexstring(2) PilotTimer_TYPE;
-  typedef hexstring(2) KeyType_TYPE;
-  typedef hexstring(8) MyNonce_TYPE;
-  typedef hexstring(8) YourNonce_TYPE;
-  typedef hexstring(2) PID_TYPE;
-  typedef hexstring(4) PRN_TYPE;
-  typedef hexstring(2) PMN_TYPE;
-  typedef hexstring(2) CCoCapability_TYPE;
-  typedef hexstring(2) NewEKS_TYPE;
-  typedef hexstring(32) NewKey_TYPE; // with{variant "byteOrder=big-endian"};
-  typedef hexstring(2) LnkStatus_TYPE;
-  typedef hexstring(2) NumStas_TYPE;
-  typedef hexstring(2) DataRate_TYPE;
-  typedef hexstring(4) Amlen_TYPE;
-  typedef hexstring(2) Amdata_TYPE;
-  typedef hexstring(2) HostActionReq_TYPE;
-  typedef hexstring(2) SessionId_TYPE;
-  typedef hexstring(4) OutstandingRetries_TYPE;
-  typedef hexstring(4) RetryTimer10ms_TYPE;
-  typedef hexstring(2) MStatus_TYPE;
+  typedef uint8_t MMV_TYPE;
+  typedef uint8_t Fmi_TYPE;
+  typedef uint8_t Fmsn_TYPE;
+  typedef hexstring(3) OUI_TYPE;         // with{variant "byteOrder=big-endian"};
+  typedef hexstring(16) NMK_TYPE;        // with{variant "byteOrder=big-endian"};
+  typedef hexstring(7) NID_TYPE;        // with{variant "byteOrder=big-endian"};
+  typedef hexstring(6) MACAddress_TYPE; // with{variant "byteOrder=big-endian"};
+  typedef hexstring(17) StationID_TYPE;
+  typedef hexstring(8) RunID_TYPE;
+  typedef uint8_t TimeOut_TYPE;
+  typedef uint8_t NumSounds_TYPE;
+  typedef uint8_t NumGroups_TYPE;
+  typedef uint8_t ToggleNum_TYPE;
+  typedef uint8_t RespType_TYPE;
+  typedef uint8_t Aag_TYPE;
+  typedef uint8_t Result_TYPE;
+  typedef uint16_t Mvflength_TYPE;
+  typedef hexstring(8) Res0_TYPE;
+  typedef uint8_t Res1_TYPE;
+  typedef uint8_t Count_TYPE;
+  typedef hexstring(16) SourceRnd_Type;
+  typedef uint8_t Attenuation_TYPE;
+  typedef uint8_t SignalType_TYPE;
+  typedef uint8_t PilotTimer_TYPE;
+  typedef uint8_t KeyType_TYPE;
+  typedef uint32_t MyNonce_TYPE;
+  typedef uint32_t YourNonce_TYPE;
+  typedef uint8_t PID_TYPE;
+  typedef uint16_t PRN_TYPE;
+  typedef uint8_t PMN_TYPE;
+  typedef uint8_t CCoCapability_TYPE;
+  typedef uint8_t NewEKS_TYPE;
+  typedef hexstring(16) NewKey_TYPE; // with{variant "byteOrder=big-endian"};
+  typedef uint8_t LnkStatus_TYPE;
+  typedef uint8_t NumStas_TYPE;
+  typedef uint8_t DataRate_TYPE;
+  typedef uint16_t Amlen_TYPE;
+  typedef uint8_t Amdata_TYPE;
+  typedef uint8_t HostActionReq_TYPE;
+  typedef uint8_t SessionId_TYPE;
+  typedef uint16_t OutstandingRetries_TYPE;
+  typedef uint16_t RetryTimer10ms_TYPE;
+  typedef uint8_t MStatus_TYPE;
 
   /* MME	 Management	Message	Entry */
   #define MME_CM_SLAC_PARM_REQ        ((uint16_t)0x6064)
@@ -90,7 +111,7 @@ namespace DataStructure_SLAC
   #define MME_CM_NW_STATS_CNF         ((uint16_t)0x6049)
   typedef union MM_TYPE
   {
-    hexstring(2) value;
+    uint16_t value;
     uint16_t CM_SLAC_PARM_REQ;
     uint16_t CM_SLAC_PARM_CNF;
     uint16_t CM_START_ATTEN_CHAR_IND;
@@ -112,12 +133,50 @@ namespace DataStructure_SLAC
     uint16_t VS_HST_ACTION_RSP;
     uint16_t CM_NW_STATS_REQ;
     uint16_t CM_NW_STATS_CNF;
+    MM_TYPE(const MM_TYPE &other)
+    {
+      value = other.value;
+    }
+    void operator=(MM_TYPE &other)
+    {
+      value = other.value;
+    }
+    MM_TYPE(MM_TYPE &&other)
+    {
+      value = std::move(other.value);
+    }
+    MM_TYPE &operator=(MM_TYPE &&other)
+    {
+      value = std::move(other.value);
+      return *this;
+    }
   } MM_TYPE_st;
   typedef struct AttenProfile_TYPE
   {
     std::vector<Attenuation_TYPE> attenuation;
     const uint8_t min_size = 1;
     const uint8_t max_size = 58;
+    AttenProfile_TYPE(const std::vector<Attenuation_TYPE> &atten)
+    {
+
+    }
+    AttenProfile_TYPE(const AttenProfile_TYPE &other)
+    {
+      attenuation = other.attenuation;
+    }
+    void operator=(AttenProfile_TYPE &other)
+    {
+      attenuation = other.attenuation;
+    }
+    AttenProfile_TYPE(AttenProfile_TYPE &&other)
+    {
+      attenuation = std::move(other.attenuation);
+    }
+    AttenProfile_TYPE &operator=(AttenProfile_TYPE &&other)
+    {
+      attenuation = std::move(other.attenuation);
+      return *this;
+    }
   } AttenProfile_TYPE_st;
   typedef struct ACVarField_TYPE
   {

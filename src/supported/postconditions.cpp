@@ -1,17 +1,18 @@
-#include "configurations.hpp"
 #include <spdlog/spdlog.h>
 #include "slac_type.hpp"
-#include "component.hpp"
-#include "port.hpp"
-#include "libfunctions.hpp"
-#include "timer_cfg.hpp"
+#include "supported/configurations.hpp"
+#include "execution/maintestcomponent.hpp"
+#include "execution/paralleltestcomponent.hpp"
+#include "execution/port.hpp"
+#include "supported/libfunctions.hpp"
+#include "management/timer_cfg.hpp"
 
 namespace TestLib
 {
   using namespace LibFunctions_15118_3::generalFunctions;
-  using namespace Timer_15118::Timer_15118_3;
+  using namespace Timer_15118::Timer_par_15118;
 
-  void all_timer_stop(void)
+  /* void all_timer_stop(void)
   {
 
   }
@@ -50,5 +51,5 @@ namespace TestLib
     spdlog::info((par_EVCC_waitForNextTC), " Sec timer started");
     sleep(par_EVCC_waitForNextTC);
     spdlog::info((par_EVCC_waitForNextTC), " Sec timer stopped");
-  }
+  } */
 }
