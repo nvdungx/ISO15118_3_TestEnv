@@ -25,9 +25,9 @@ namespace TestLib
     // return a io_service_index
     std::atomic<size_t> _io_service_index;
     // state of Service
-    std::atomic<bool> _started;
+    std::atomic_bool _started;
     // true use pool or false use per-thread
-    std::atomic<bool> _pool_used;
+    std::atomic_bool _pool_used;
 
   public:
     Service(size_t threads = 1, bool pool = false);
@@ -41,6 +41,7 @@ namespace TestLib
     // return number of threads
     size_t threads(void) const noexcept { return _thread_list.size(); }
     bool is_started(void) const noexcept { return _started; }
+    bool is_strand_required(void) const noexcept { return _pool_used; }
     bool start(void);
     bool stop(void);
     bool restart(void);

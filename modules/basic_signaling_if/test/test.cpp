@@ -2,6 +2,7 @@
 #include "boost/asio.hpp"
 #include "basic_signal.hpp"
 #include "spdlog/spdlog.h"
+#include "service.hpp"
 #include "datatype.hpp"
 
 using namespace TestLib;
@@ -35,8 +36,9 @@ int main(int argc, char **argv)
   (void)argc;
   (void)argv;
   spdlog::set_level(spdlog::level::level_enum::debug);
-  auto io = std::make_shared<boost::asio::io_service>();
-  BasicSignalling bc(io, SUTType::SECC);
+  std::shared_ptr<Service> serv = std::make_shared<Service>(2, true);
+  BasicSignalling bc(serv, SUTType::SECC);
+  serv->start();
   bc.start();
   if (bc.is_started())
     spdlog::info("started");

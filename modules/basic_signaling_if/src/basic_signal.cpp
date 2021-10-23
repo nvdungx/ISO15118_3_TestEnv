@@ -12,11 +12,6 @@
 
 namespace TestLib
 {
-
-  static void debounce_filter(const boost::system::error_code &ec,
-                              std::atomic<bool> *execute_flag, int pull_type, int pi, uint32_t gpio,
-                              BasicSignalling *self, boost::asio::steady_timer *t);
-
   const EnumUnorderedMap GPIOIF_ERROR({{pigif_bad_send, "pigif_bad_send"},
                                        {pigif_bad_recv, "pigif_bad_recv"},
                                        {pigif_bad_getaddrinfo, "pigif_bad_getaddrinfo"},
@@ -33,20 +28,20 @@ namespace TestLib
   const EnumMap STATE_MAP({"A", "B", "C", "D", "E", "F", "NA", "none_"});
   const EnumMap ERROR_MAP({"LOST_CP", "LOST_PE", "LOST_DIODE", "SHORT_CP_PE"});
 
-  BasicSignalling::BasicSignalling(
-      const std::shared_ptr<boost::asio::io_service> &io_service, const SUTType &SUT)
-      : _sut_type(SUT), _io_service(io_service), _strand(*_io_service),
-        _strand_required(false),
+  BasicSignalling::BasicSignalling(const std::shared_ptr<Service> &service, const SUTType &SUT)
+      : _sut_type(SUT), _io_service(service->get_asio_service()), _strand(*_io_service),
+        _strand_required(service->is_strand_required()),
         _started(false)
   {
     _state = IEC_61851_States::none_;
-    if (io_service == nullptr)
+    if (service == nullptr)
     {
       throw std::invalid_argument("Asio io_service is invalid!");
     }
   }
   BasicSignalling::~BasicSignalling()
   {
+    // cancel available callback before stop pigpiod
     if (0 > callback_cancel(this->gpiod_callback_id))
     {
       SLOGE("Failed to cancel callback");
@@ -62,6 +57,7 @@ namespace TestLib
       SLOGW("BasicSignal module is already started");
       return false;
     }
+    // get gpiod_id from local pigpio daemon
     this->gpiod_pid = pigpio_start(NULL, NULL);
     if (0 > this->gpiod_pid)
     {
@@ -69,6 +65,7 @@ namespace TestLib
       return false;
     }
     int result = 0;
+    // setup output gpio control relays
     for (auto &relay : this->RELAYS)
     {
       int temp = 0;
@@ -82,6 +79,7 @@ namespace TestLib
       }
     }
     int temp = 0;
+    // setup input gpio for button interrupt
     temp += set_mode(this->gpiod_pid, INPUT_BUTTON_PIN, PI_INPUT);
     temp += set_pull_up_down(this->gpiod_pid, INPUT_BUTTON_PIN, PI_PUD_DOWN);
     this->gpiod_callback_id = callback_ex(this->gpiod_pid, INPUT_BUTTON_PIN, RISING_EDGE, &BasicSignalling::btn_isr, this);
@@ -103,10 +101,12 @@ namespace TestLib
 
   void BasicSignalling::stop(void)
   {
+    // cancel callback
     if (0 > callback_cancel(this->gpiod_callback_id))
     {
       SLOGE("Failed to cancel calback");
     }
+    // stop gpiod
     pigpio_stop(this->gpiod_pid);
     this->_started = false;
   }
@@ -152,6 +152,7 @@ namespace TestLib
           }
         }
         this->_state = state;
+        this->_notify(CallbackType::STATE);
         SLOGI(fmt::format("Set state {}", STATE_MAP[state]));
       }
       else
@@ -211,6 +212,7 @@ namespace TestLib
     bool result = true;
     if (!target_relay_only)
     {
+      // set all relays for specific error state
       for (size_t i = 0; i < this->RELAYS.size(); i++)
       {
         int value = gpio_write(this->gpiod_pid, this->RELAYS[i], this->ERROR_RELAY_MAP[error_state][i]);
@@ -224,6 +226,7 @@ namespace TestLib
     }
     else
     {
+      // set only 1 relay that cause error state
       std::map<IEC_61851_ErrStates, relay_pin_t> target{
           {LOST_CP, RELAY_RES_B},
           {LOST_PE, RELAY_PE_LINE},
@@ -294,8 +297,8 @@ namespace TestLib
     }
   }
 
-  static void debounce_filter(const boost::system::error_code &ec,
-                              std::atomic<bool> *execute_flag, int pull_type, int pi, uint32_t gpio,
+  void BasicSignalling::debounce_filter(const boost::system::error_code &ec,
+                              std::atomic_bool *execute_flag, int pull_type, int pi, uint32_t gpio,
                               BasicSignalling *self, boost::asio::steady_timer *t)
   {
     static uint32_t press_state = 0x00000001;
@@ -323,7 +326,11 @@ namespace TestLib
         if ((press_state != 0xFFFFFFFF) && (press_state != 0xE0000000))
         {
           SLOGD("wait next poll");
-          t->async_wait(boost::bind(debounce_filter, boost::placeholders::_1, execute_flag, pull_type, pi, gpio, self, t));
+          if (((BasicSignalling *)self)->_strand_required)
+            t->async_wait(boost::asio::bind_executor(((BasicSignalling *)self)->_strand,
+              boost::bind(debounce_filter, boost::placeholders::_1, execute_flag, pull_type, pi, gpio, self, t)));
+          else
+            t->async_wait(boost::bind(debounce_filter, boost::placeholders::_1, execute_flag, pull_type, pi, gpio, self, t));
         }
         else
         {
@@ -346,13 +353,17 @@ namespace TestLib
     // timer poll the gpio value each 10us
     // ERROR: could not check self validity > error when BasicSignal object is disposed > self refer to invalid object.
     static boost::asio::steady_timer debounce_timer((*((BasicSignalling *)self)->_io_service), std::chrono::microseconds{5});
-    static std::atomic<bool> execute_flag = false;
+    static std::atomic_bool execute_flag = false;
     // register falling_edge signal of input button pin and timer is not in execution
     if ((gpio == INPUT_BUTTON_PIN) && (execute_flag == false))
     {
       SLOGD(fmt::format("await timer {}", level));
       execute_flag = true;
-      debounce_timer.async_wait(boost::bind(debounce_filter, boost::placeholders::_1, &execute_flag, PI_PUD_DOWN, pi, gpio, (BasicSignalling *)self, &debounce_timer));
+      if (((BasicSignalling *)self)->_strand_required)
+        debounce_timer.async_wait(boost::asio::bind_executor(((BasicSignalling *)self)->_strand,
+          boost::bind(debounce_filter, boost::placeholders::_1, &execute_flag, PI_PUD_DOWN, pi, gpio, (BasicSignalling *)self, &debounce_timer)));
+      else
+        debounce_timer.async_wait(boost::bind(debounce_filter, boost::placeholders::_1, &execute_flag, PI_PUD_DOWN, pi, gpio, (BasicSignalling *)self, &debounce_timer));
     }
     else
     {

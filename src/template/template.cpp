@@ -11,24 +11,24 @@ namespace TestLib
 
     SLAC_Header m_CMN_CMN_SlacPayloadHeader_001()
     {
-      return (SLAC_Header){.application_type = {0x00}, .security_type = {0x00}};
+      return (SLAC_Header){.application_type = 0x00, .security_type = 0x00};
     }
     SLAC_Header m_CMN_CMN_SlacPayloadHeaderInvalid_001()
     {
-      return (SLAC_Header){.application_type = {0xFF}, .security_type = {0x00}};
+      return (SLAC_Header){.application_type = 0xFF, .security_type = 0x00};
     }
     SLAC_Header m_CMN_CMN_SlacPayloadHeaderInvalid_002()
     {
-      return (SLAC_Header){.application_type = {0x00}, .security_type = {0xFF}};
+      return (SLAC_Header){.application_type = 0x00, .security_type = 0xFF};
     }
   }
   namespace Templates_CMN_SlacManagementMessageEntry
   {
     using namespace DataStructure_SLAC;
-    MME md_CMN_CMN_SlacMme_001(const MME_Header &p_mme_header,const  MME_Payload &p_mme_payload)
+    /* MME md_CMN_CMN_SlacMme_001(const MME_Header &p_mme_header,const  MME_Payload &p_mme_payload)
     {
-      return (MME){.mme_header = std::move(p_mme_header), .mme_payload = std::move(p_mme_payload)};
-    }
+      return (MME){.mme_header = p_mme_header, .mme_payload = p_mme_payload};
+    } */
     /* MME_Header md_CMN_CMN_SlacMmeCmnHeader_001(MMTYPE p_mmtype)
     {
       mmv = 0x01;

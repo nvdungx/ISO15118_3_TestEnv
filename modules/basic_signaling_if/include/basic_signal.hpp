@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <list>
 #include <memory>
-#include <boost/asio.hpp>
+#include "service.hpp"
 #include "datatype.hpp"
 
 namespace TestLib
@@ -18,6 +18,9 @@ namespace TestLib
   class BasicSignalling : public std::enable_shared_from_this<BasicSignalling>
   {
   private:
+    /* GPIO of input button */
+    #define INPUT_BUTTON_PIN 21
+    /* enum value for relay GPIO on PI extension board */
     typedef enum en_relay_pin_t
     {
       RELAY_PE_LINE = 26,      // PE line, ON = connect/ OFF = disconnect
@@ -27,12 +30,13 @@ namespace TestLib
       RELAY_RES_C = 13,        // resistor value to state C (need RES_B connect)
       RELAY_RES_D = 19         // resistor  value to state D (need RES_B and RES_C)
     } relay_pin_t;
+    /* relay state */
     typedef enum en_relay_val_t
     {
       OFF = 0,
       ON
     } relay_val_t;
-    #define INPUT_BUTTON_PIN 21
+
     #define NUM_STATE 6
     #define NUM_RELAY 6
     #define NUM_ERROR 4
@@ -64,12 +68,12 @@ namespace TestLib
     // Asio service strand for serialized handler execution
     boost::asio::io_service::strand _strand;
     bool _strand_required;
-    std::atomic<bool> _started;
+    std::atomic_bool _started;
     // CP state
     IEC_61851_States _state;
 
   public:
-    BasicSignalling(const std::shared_ptr<boost::asio::io_service> &io_service, const SUTType &SUT);
+    BasicSignalling(const std::shared_ptr<Service> &service, const SUTType &SUT);
     ~BasicSignalling();
     // common
     bool start(void);
@@ -117,6 +121,9 @@ namespace TestLib
   private:
     bool verify_state(IEC_61851_States state);
     static void btn_isr(int pi, uint32_t gpio, uint32_t level, uint32_t tick, void *self);
+    static void debounce_filter(const boost::system::error_code &ec,
+                              std::atomic_bool *execute_flag, int pull_type, int pi, uint32_t gpio,
+                              BasicSignalling *self, boost::asio::steady_timer *t);
   };
 
 } // namespace TestLib

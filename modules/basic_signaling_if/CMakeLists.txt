@@ -13,10 +13,10 @@ add_library(lib_basic_signaling_if OBJECT ${src_files})
 get_property(GBL_LINK_LIBS GLOBAL PROPERTY glb_ext_libs)
 
 target_link_libraries(lib_basic_signaling_if PRIVATE pigpiodif::pigpiodif
-                                            PUBLIC ${GBL_LINK_LIBS} lib_datatype)
+                                            PUBLIC ${GBL_LINK_LIBS} lib_datatype lib_runtime_if)
 target_include_directories(lib_basic_signaling_if PUBLIC "./include")
 
 # test module
 add_executable(test_basic_signaling ./test/test.cpp)
 
-target_link_libraries(test_basic_signaling PUBLIC lib_basic_signaling_if)
+target_link_libraries(test_basic_signaling PUBLIC lib_basic_signaling_if lib_runtime_if)

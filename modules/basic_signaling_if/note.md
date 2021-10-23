@@ -1,10 +1,11 @@
 # this module shall responsible for change voltage level, pwm duty/frequency, CP state control, detect state change, create abnormal CP condition
 # BASIC CHARGING Control operation
 
-[V2G5-004] The	IEC	61851‐1	SUT	adapter	shall	adapt	the	HAL	61851‐1	functions	to	a	PWM	Signal
-defined	in	7.7.7
-NOTE	2	 The	IEC	61851‐1	SUT	adapter	can	need	additional	hardware	for	adapting	the	HAL	61851‐1	functions
-to	PWM	Signalling	according	to	IEC	61851‐1:2017,	Annex	A.
+> REF: IEC61851-1, ISO15118-3, DIN70121
+
+[V2G5-004] The IEC 61851‐1 SUT adapter shall adapt the HAL 61851‐1 functions to a PWM Signal defined in 7.7.7
+NOTE 2  The IEC 61851‐1 SUT adapter can need additional hardware for adapting the HAL 61851‐1 functions
+to PWM Signalling according to IEC 61851‐1:2017, Annex A.
 
 
 sudo apt-get install autoconf autoconf-archive libtool libkmod-dev pkg-config

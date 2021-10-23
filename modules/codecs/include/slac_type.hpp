@@ -21,27 +21,6 @@ namespace DataStructure_SLAC
   {
     uint8_t application_type;
     uint8_t security_type;
-    SLAC_Header(const SLAC_Header &other)
-    {
-      application_type = other.application_type;
-      security_type = other.security_type;
-    }
-    void operator=(SLAC_Header &other)
-    {
-      application_type = other.application_type;
-      security_type = other.security_type;
-    }
-    SLAC_Header(SLAC_Header &&other)
-    {
-      application_type = std::move(other.application_type);
-      security_type = std::move(other.security_type);
-    }
-    SLAC_Header &operator=(SLAC_Header &&other)
-    {
-      application_type = std::move(other.application_type);
-      security_type = std::move(other.security_type);
-      return *this;
-    }
   } SLAC_Header_st;
   typedef uint8_t MMV_TYPE;
   typedef uint8_t Fmi_TYPE;
@@ -133,50 +112,12 @@ namespace DataStructure_SLAC
     uint16_t VS_HST_ACTION_RSP;
     uint16_t CM_NW_STATS_REQ;
     uint16_t CM_NW_STATS_CNF;
-    MM_TYPE(const MM_TYPE &other)
-    {
-      value = other.value;
-    }
-    void operator=(MM_TYPE &other)
-    {
-      value = other.value;
-    }
-    MM_TYPE(MM_TYPE &&other)
-    {
-      value = std::move(other.value);
-    }
-    MM_TYPE &operator=(MM_TYPE &&other)
-    {
-      value = std::move(other.value);
-      return *this;
-    }
   } MM_TYPE_st;
   typedef struct AttenProfile_TYPE
   {
     std::vector<Attenuation_TYPE> attenuation;
     const uint8_t min_size = 1;
     const uint8_t max_size = 58;
-    AttenProfile_TYPE(const std::vector<Attenuation_TYPE> &atten)
-    {
-
-    }
-    AttenProfile_TYPE(const AttenProfile_TYPE &other)
-    {
-      attenuation = other.attenuation;
-    }
-    void operator=(AttenProfile_TYPE &other)
-    {
-      attenuation = other.attenuation;
-    }
-    AttenProfile_TYPE(AttenProfile_TYPE &&other)
-    {
-      attenuation = std::move(other.attenuation);
-    }
-    AttenProfile_TYPE &operator=(AttenProfile_TYPE &&other)
-    {
-      attenuation = std::move(other.attenuation);
-      return *this;
-    }
   } AttenProfile_TYPE_st;
   typedef struct ACVarField_TYPE
   {
