@@ -12,7 +12,7 @@ namespace TestLib
   using namespace LibFunctions_15118_3::generalFunctions;
   using namespace Timer_15118::Timer_par_15118;
 
-  /* void all_timer_stop(void)
+  void all_timer_stop(void)
   {
 
   }
@@ -51,5 +51,5 @@ namespace TestLib
     spdlog::info((par_EVCC_waitForNextTC), " Sec timer started");
     sleep(par_EVCC_waitForNextTC);
     spdlog::info((par_EVCC_waitForNextTC), " Sec timer stopped");
-  } */
+  }
 }

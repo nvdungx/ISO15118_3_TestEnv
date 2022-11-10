@@ -24,14 +24,14 @@ using namespace Timer_15118::Timer_par_15118;
 using namespace Timer_15118_3::Timer_par_15118_3;
 using namespace LibFunctions_15118_3::generalFunctions;
 
-/* VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_001(VerdictValue v_vct)
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_001(VerdictValue v_vct)
 {
   MME v_responseMessage;
   boolean v_repetition = true;
   integer v_count1 = 0;
   integer v_count2 = 0;
   MACAddress_TYPE v_sut_mac;
-  SECC_Tester::vc_macAddresList = m_CMN_CMN_EmptyMacAddresList();
+  SECC_Tester::vc_macAddresList = m_CMN_CMN_EmptyMacAddressList();
   SECC_Tester::vc_RunID = f_randomHexStringGen(16);
   while (v_repetition)
   {
@@ -147,7 +147,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_002(
       while (true)
       {
         if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
-          md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = '6065'H}),?)))
+          md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}),?)))
         {
           SECC_Tester::setverdict(fail, "CM_SLAC_PARM.CNF was sent from the SUT although "
                                         "the timer TT_EVSE_SLAC_init should have "
@@ -223,7 +223,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_004(void)
   integer v_count2 = 0;
   MACAddress_TYPE v_sut_mac;
   tc_T_conn_max_comm.start;
-  SECC_Tester::vc_macAddresList = m_CMN_CMN_EmptyMacAddresList();
+  SECC_Tester::vc_macAddresList = m_CMN_CMN_EmptyMacAddressList();
   SECC_Tester::vc_RunID = f_randomHexStringGen(16);
   while (v_repetition)
   {
@@ -296,7 +296,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_005(
   MACAddress_TYPE v_sut_mac;
   f_SECC_setIsConfirmationFlagDC();
   f_SECC_confirmDutyCycle(v_HAL_61851_Listener, par_T_conn_max_comm, fail);
-  SECC_Tester::vc_macAddresList = m_CMN_CMN_EmptyMacAddresList();
+  SECC_Tester::vc_macAddresList = m_CMN_CMN_EmptyMacAddressList();
   SECC_Tester::vc_RunID = f_randomHexStringGen(16);
   tc_TT_match_response.start(par_TT_match_response);
   SECC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_REQ = '6064' H}),
@@ -592,5 +592,5 @@ VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_003(
     SECC_Tester::setverdict(fail, "No nominal duty cycle could be detected.");
   }
   return SECC_Tester::getverdict();
-} */
+}
 }

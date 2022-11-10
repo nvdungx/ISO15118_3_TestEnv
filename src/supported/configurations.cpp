@@ -15,7 +15,7 @@ as a collection of ports. A TSI has no local timers, constants or variables. Onl
 During the test  case execution test  components ports  can be mapped dynamically to the TSI ports to
 establish communication channel to the real test system interface. In the test configuration the TSI uses
 the type System_EVCC or System_SECC depending on the type of the SUT */
-/*
+
 void Configurations_15118_3::map()
 {
 
@@ -44,15 +44,14 @@ void Configurations_15118_3::disconnect()
 void Configurations_15118_3::all_component_kill()
 {
 
-} */
-/*
+}
+
 // ::::::::::::::::::::::: Config Functions :::::::::::::::::::::::::
 // :::::::::::::::::::::::::: SECC Tester :::::::::::::::::::::::::::
 void Configurations_15118_3::f_SECC_CMN_PR_InitConfiguration_SLAC_001(
     std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener,
     std::shared_ptr<SystemSECC> &v_SystemSECC)
 {
-
   map(SECC_Tester::pt_SLAC_Port, v_SystemSECC->pt_SLAC_Port);
   v_HAL_61851_Listener = HAL_61851_Listener::create("IEC 61851 Listener");
   map(SECC_Tester::pt_HAL_61851_Port, v_SystemSECC->pt_HAL_61851_Port);
@@ -158,7 +157,6 @@ void Configurations_15118_3::f_SECC_CMN_PO_ShutdownConfiguration_SLAC_002(
   all_component_kill();
 }
 
-
 // ::::::::::::::::::::::: Config Functions :::::::::::::::::::::::::
 // :::::::::::::::::::::::::: EVCC Tester :::::::::::::::::::::::::::
 void Configurations_15118_3::f_EVCC_CMN_PR_InitConfiguration_SLAC_001(
@@ -217,6 +215,6 @@ void Configurations_15118_3::f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_002(
   unmap(EVCC_Tester::pt_SLAC_Port, v_SystemEVCC->pt_SLAC_Port);
   unmap(v_SLAC_Tester2->pt_SLAC_Port, v_SystemEVCC->pt_SLAC_Port);
   all_component_kill();
-} */
+}
 
 }

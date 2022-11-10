@@ -2,28 +2,10 @@
 #include "supported/libfunctions.hpp"
 namespace TestLib
 {
-// import from TestBehavior_SECC_CmSlacParm all;
-// import from TestBehavior_SECC_AttenuationCharacterization all;
-// import from TestBehavior_SECC_CmSlacMatch all;
-// import from TestBehavior_SECC_CmSetKey all;
-// import from TestBehavior_SECC_PLCLinkStatus all;
-// import from TestBehavior_SECC_CmValidate all;
-// import from TestBehavior_SECC_CmAmpMap all;
-// import from Timer_15118_3 all;
-// import from ComponentsAndPorts all
-// import from LibFunctions_15118_3 all;
-// import from Services_HAL_61851 all;
-// import from Pics_15118_3 all;
-// import from Pixit_15118_3 all;
-// import from Pics_15118 all;
-// import from Services_PLCLinkStatus all;
-// import from Timer_15118 all;
-// import from Services_EIMIdentification all;
-// import from Services_TXPowerLimitation all;
 
 using namespace LibFunctions_15118_3::generalFunctions;
 
-/* VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_StateA_001(
+VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_StateA_001(
     std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = pass;
@@ -252,27 +234,8 @@ VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_CmAmpMap_001(
   return verdict;
 }
 
-// import from TestBehavior_EVCC_CmSetKey all;
-// import from TestBehavior_EVCC_CmSlacParm all;
-// import from TestBehavior_EVCC_PLCLinkStatus all;
-// import from TestBehavior_EVCC_AttenuationCharacterization all;
-// import from TestBehavior_EVCC_CmSlacMatch all;
-// import from TestBehavior_EVCC_CmValidate all;
-// import from TestBehavior_EVCC_CmAmpMap all;
-// import from TestBehavior_EVCC_CmValidateOrCmSlacMatch all;
-// import from Timer_15118_3 all;
-// import from ComponentsAndPorts all;
-// import from LibFunctions_15118_3 { group generalFunctions; }
-// import from Services_HAL_61851 all;
-// import from Pics_15118_3 all;
-// import from Pics_15118 all;
-// import from Pixit_15118_3 all;
-// import from Services_PLCLinkStatus all;
-// import from Pixit_15118 all;
-// import from Timer_15118 all;
-// import from Services_TXPowerLimitation all;
-// import from TTlibrary_Logging all;
-// import from LibFunctions_15118_2 {VerdictValue f_CMN_PhysicalValue_GetValue};
+using namespace LibFunctions_15118_3::generalFunctions;
+// EVCC
 VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_SetPowerFlowConfiguration_001(void)
 {
   VerdictValue verdict = pass;
@@ -466,5 +429,5 @@ VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_CmAmpMap_001(
     }
   }
   return verdict;
-} */
+}
 }

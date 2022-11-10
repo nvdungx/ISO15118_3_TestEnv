@@ -4,7 +4,6 @@
 
 namespace TestLib
 {
-
   namespace Templates_CMN_SlacPayloadHeader
   {
     using namespace DataStructure_SLAC;
@@ -25,109 +24,120 @@ namespace TestLib
   namespace Templates_CMN_SlacManagementMessageEntry
   {
     using namespace DataStructure_SLAC;
-    /* MME md_CMN_CMN_SlacMme_001(const MME_Header &p_mme_header,const  MME_Payload &p_mme_payload)
+    MME md_CMN_CMN_SlacMme_001(const MME_Header &p_mme_header,const  MME_Payload &p_mme_payload)
     {
       return (MME){.mme_header = p_mme_header, .mme_payload = p_mme_payload};
-    } */
-    /* MME_Header md_CMN_CMN_SlacMmeCmnHeader_001(MMTYPE p_mmtype)
-    {
-      mmv = 0x01;
-      mmtype = p_mmtype;
-      fmi = 0x00;
-      fmsn = 0x00;
     }
-    MME_Header md_CMN_CMN_SlacMmeOuiHeader_001(MMTYPE p_mmtype)
+    MME_Header md_CMN_CMN_SlacMmeCmnHeader_001(const MM_TYPE &p_mmtype)
     {
-      mmv = 0x00;
-      mmtype = p_mmtype;
-      fmi = omit;
-      fmsn = omit;
-    } */
+      return (MME_Header){
+      .mmv = 0x01,
+      .mmtype = p_mmtype,
+      .fmi = 0x00,
+      .fmi_isUsed = true,
+      .fmsn = 0x00,
+      .fmsn_isUsed = true};
+    }
+    MME_Header md_CMN_CMN_SlacMmeOuiHeader_001(const MM_TYPE &p_mmtype)
+    {
+      return (MME_Header){
+      .mmv = 0x00,
+      .mmtype = p_mmtype,
+      .fmi_isUsed = false,
+      .fmsn_isUsed = false};
+    }
   }
-  /* namespace Templates_CMN_CmSlacParm
+  namespace Templates_CMN_CmSlacParm
   {
     using namespace DataStructure_SLAC;
-    MME_Payload md_CMN_CMN_CmSlacParmReq_001(
-        SLAC_Header v_slac_header,
-        RunID_TYPE v_runid)
+    MME_Payload md_CMN_CMN_CmSlacParmReq_001(const SLAC_Header &v_slac_header,const RunID_TYPE &v_runid)
     {
-      payload = { cm_slac_parm_req = {
-                      slac_header = v_slac_header,
-                      runid = v_runid} }
+      MME_Payload temp;
+      temp.payload.cm_slac_match_req.slac_header = v_slac_header;
+      temp.payload.cm_slac_match_req.runid = v_runid;
+      return temp;
     }
-    MME_Payload md_CMN_CMN_CmSlacParmCnf_001(
+    /* MME_Payload md_CMN_CMN_CmSlacParmCnf_001(
         MACAddress_TYPE p_forwarding_sta,
         SLAC_Header p_appheader,
         RunID_TYPE p_runid)
     {
-      payload = { cm_slac_parm_cnf = {
-                      msound_target = 0xFFFFFFFFFFFF,
-                      num_sounds = 0x0A,
-                      time_out = 0x06,
-                      resp_type = 0x01,
-                      forwarding_sta = p_forwarding_sta,
-                      appheader = p_appheader,
-                      runid = p_runid} }
+      return (MME_Payload){
+        .payload = {
+          .cm_slac_parm_cnf = {
+            .msound_target = 0xFFFFFFFFFFFF,
+            .num_sounds = 0x0A,
+            .time_out = 0x06,
+            .resp_type = 0x01,
+            .forwarding_sta = p_forwarding_sta,
+            .appheader = p_appheader,
+            .runid = p_runid}}};
     }
     MME_Payload md_CMN_CMN_CmSlacParmCnf_002(
-        MACAddress_TYPE p_msound_target,
-        NumSounds_TYPE p_num_sounds,
-        TimeOut_TYPE p_time_out,
-        RespType_TYPE p_resp_type,
-        MACAddress_TYPE p_forwarding_sta,
-        SLAC_Header p_appheader,
-        RunID_TYPE p_runid)
+        const MACAddress_TYPE &p_msound_target,
+        const NumSounds_TYPE &p_num_sounds,
+        const TimeOut_TYPE &p_time_out,
+        const RespType_TYPE &p_resp_type,
+        const MACAddress_TYPE &p_forwarding_sta,
+        const SLAC_Header &p_appheader,
+        const RunID_TYPE &p_runid)
     {
-      payload = { cm_slac_parm_cnf = {
-                      msound_target = p_msound_target,
-                      num_sounds = p_num_sounds,
-                      time_out = p_time_out,
-                      resp_type = p_resp_type,
-                      forwarding_sta = p_forwarding_sta,
-                      appheader = p_appheader,
-                      runid = p_runid} }
-    }
-    MACAddressList_TYPE m_CMN_CMN_EmptyMacAddresList()
+      return (MME_Payload){
+        .payload = {
+          .cm_slac_parm_cnf = {
+            .msound_target = p_msound_target,
+            .num_sounds = p_num_sounds,
+            .time_out = p_time_out,
+            .resp_type = p_resp_type,
+            .forwarding_sta = p_forwarding_sta,
+            .appheader = p_appheader,
+            .runid = p_runid}}};
+    } */
+    MACAddressList_TYPE m_CMN_CMN_EmptyMacAddressList()
     {
-      macAddressList = omit
+      return (MACAddressList_TYPE){.macAddressList_isUsed = false};
     }
   }
-  namespace Templates_CMN_CmStartAttenCharInd
+  /* namespace Templates_CMN_CmStartAttenCharInd
   {
     using namespace DataStructure_SLAC;
     MME_Payload md_CMN_CMN_CmStartAttenCharInd_001(
-        SLAC_Header v_slac_header,
-        NumSounds_TYPE v_num_sounds,
-        TimeOut_TYPE v_time_out,
-        RespType_TYPE v_resp_type,
-        MACAddress_TYPE v_forwarding_sta,
-        RunID_TYPE v_runid)
+        const SLAC_Header &v_slac_header,
+        const NumSounds_TYPE &v_num_sounds,
+        const TimeOut_TYPE &v_time_out,
+        const RespType_TYPE &v_resp_type,
+        const MACAddress_TYPE &v_forwarding_sta,
+        const RunID_TYPE &v_runid)
     {
-      payload = { cm_start_atten_char_ind = {
-                      slac_header = v_slac_header,
-                      num_sounds = v_num_sounds,
-                      time_out = v_time_out,
-                      resp_type = v_resp_type,
-                      forwarding_sta = v_forwarding_sta,
-                      runid = v_runid} }
+      return (MME_Payload){
+        .payload = {
+          .cm_start_atten_char_ind = {
+            .slac_header = v_slac_header,
+            .num_sounds = v_num_sounds,
+            .time_out = v_time_out,
+            .resp_type = v_resp_type,
+            .forwarding_sta = v_forwarding_sta,
+            .runid = v_runid}}};
     }
   }
   namespace Templates_CMN_CmMnbcSoundInd
   {
     using namespace DataStructure_SLAC;
     MME_Payload md_CMN_CMN_CmMnbcSoundInd_001(
-        SLAC_Header v_slac_header,
-        Count_TYPE v_count,
-        RunID_TYPE v_runid,
-        SourceRnd_Type v_source_rnd)
+        const SLAC_Header &v_slac_header,
+        const Count_TYPE &v_count,
+        const RunID_TYPE &v_runid,
+        const SourceRnd_Type &v_source_rnd)
     {
-      payload = { cm_mnbc_sound_ind = {
-                      slac_header = v_slac_header,
-                      source_id = 0x0000000000000000000000000000000000,
-                      count = v_count,
-                      runid = v_runid,
-                      res0 = 0x0000000000000000,
-                      source_rnd = v_source_rnd} }
+      return (MME_Payload){
+        .payload = {
+          .cm_mnbc_sound_ind = {
+            .slac_header = v_slac_header,
+            .source_id = hexstring(17){0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+            .count = v_count,
+            .runid = v_runid,
+            .res0 = hexstring(8){0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+            .source_rnd = v_source_rnd}}};
     }
   }
   namespace Templates_CMN_CmAttenCharRsp
@@ -314,347 +324,347 @@ namespace TestLib
                       res1 = 0x00,
                       nmk = v_nmk} }
     }
-    namespace Templates_CMN_CmSetKey
+  }
+  namespace Templates_CMN_CmSetKey
+  {
+    using namespace DataStructure_SLAC;
+    MME_Payload md_CMN_CMN_CmSetKeyReq_001(
+        NID_TYPE v_nid,
+        NewKey_TYPE v_neykey)
     {
-      using namespace DataStructure_SLAC;
-      MME_Payload md_CMN_CMN_CmSetKeyReq_001(
-          NID_TYPE v_nid,
-          NewKey_TYPE v_neykey)
+      payload = { cm_set_key_req = {
+                      keytype = 0x01,
+                      mynonce = 0x00000000,
+                      yournonce = 0x00000000,
+                      pid = 0x04,
+                      prn = 0x0000,
+                      pmn = 0x00,
+                      ccocapability = 0x00,
+                      nid = v_nid,
+                      neweks = 0x01,
+                      neykey = v_neykey} }
+    }
+    MME_Payload mdw_CMN_CMN_CmSetKeyCnf_001(
+        Result_TYPE p_result)
+    {
+      payload = { cm_set_key_cnf = {
+                      result = p_result,
+                      mynonce =       ?,
+                      yournonce =     ?,
+                      pid =           ?,
+                      prn =           ?,
+                      pmn =           ?,
+                      ccocapability = ? } }
+    }
+  }
+  namespace Templates_CMN_CmAmpMap
+  {
+    using namespace DataStructure_SLAC;
+    MME_Payload m_CMN_CMN_CmAmpMapReq_001()
+    {
       {
-        payload = { cm_set_key_req = {
-                        keytype = 0x01,
-                        mynonce = 0x00000000,
-                        yournonce = 0x00000000,
-                        pid = 0x04,
-                        prn = 0x0000,
-                        pmn = 0x00,
-                        ccocapability = 0x00,
-                        nid = v_nid,
-                        neweks = 0x01,
-                        neykey = v_neykey} }
-      }
-      MME_Payload mdw_CMN_CMN_CmSetKeyCnf_001(
-          Result_TYPE p_result)
-      {
-        payload = { cm_set_key_cnf = {
-                        result = p_result,
-                        mynonce =       ?,
-                        yournonce =     ?,
-                        pid =           ?,
-                        prn =           ?,
-                        pmn =           ?,
-                        ccocapability = ? } }
+        cm_amp_map_req = { amlen = 0x0395,
+                            listAmdata = {
+                                amdata = {
+                                            0xC0} &
+                                        {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00}} }
       }
     }
-    namespace Templates_CMN_CmAmpMap
+    MME_Payload md_CMN_CMN_CmAmpMapReq_002(
+        Amlen_TYPE p_amlen,
+        ListofAmdata_TYPE p_listAmdata)
     {
-      using namespace DataStructure_SLAC;
-      MME_Payload m_CMN_CMN_CmAmpMapReq_001()
       {
-        {
-          cm_amp_map_req = { amlen = 0x0395,
-                             listAmdata = {
-                                 amdata = {
-                                              0xC0} &
-                                          {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00}} }
-        }
-      }
-      MME_Payload md_CMN_CMN_CmAmpMapReq_002(
-          Amlen_TYPE p_amlen,
-          ListofAmdata_TYPE p_listAmdata)
-      {
-        {
-          cm_amp_map_req = { amlen = p_amlen,
-                             listAmdata = p_listAmdata
-          }
-        }
-      }
-      MME_Payload md_CMN_CMN_CmAmpMapReq_003(
-          Amlen_TYPE p_amlen)
-      {
-        {
-          cm_amp_map_req = { amlen = p_amlen,
-                             listAmdata = {
-                                 amdata = {
-                                              0xC0} &
-                                          {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00}} }
-        }
-      }
-      MME_Payload md_CMN_CMN_CmAmpMapCnf_001(
-          Result_TYPE p_result)
-      {
-        {
-          cm_amp_map_cnf = { result = p_result
-          }
+        cm_amp_map_req = { amlen = p_amlen,
+                            listAmdata = p_listAmdata
         }
       }
     }
-    namespace Templates_CMN_CmNwStats
+    MME_Payload md_CMN_CMN_CmAmpMapReq_003(
+        Amlen_TYPE p_amlen)
     {
-      using namespace DataStructure_SLAC;
-      MME_Payload md_CMN_CMN_CmNwStatsReq_001()
       {
-        {
-          cm_nw_stats_req = {}
-        }
+        cm_amp_map_req = { amlen = p_amlen,
+                            listAmdata = {
+                                amdata = {
+                                            0xC0} &
+                                        {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xC0} & {0xBC} & {0xBC} & {0xAA} & {0xAA} & {0x8F} & {0x8F} & {0x8F} & {0x8F} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0xA1} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00} & {0x00}} }
       }
-      MME_Payload md_CMN_CMN_CmNwStatsCnf_001()
+    }
+    MME_Payload md_CMN_CMN_CmAmpMapCnf_001(
+        Result_TYPE p_result)
+    {
       {
-        {
-          cm_nw_stats_cnf = { numStas =    ?,
-                              listOfStas = ? }
-        }
-      }
-      MME_Payload md_CMN_CMN_CmNwStatsCnf_002()
-      {
-        {
-          cm_nw_stats_cnf = { numStas = 0x00,
-                              listOfStas = omit
-          }
+        cm_amp_map_cnf = { result = p_result
         }
       }
     }
-    namespace Templates_EVCC_CmAttenProfileInd
+  }
+  namespace Templates_CMN_CmNwStats
+  {
+    using namespace DataStructure_SLAC;
+    MME_Payload md_CMN_CMN_CmNwStatsReq_001()
     {
-      using namespace DataStructure_SLAC;
-      MME_Payload md_EVCC_CMN_CmAttenProfileInd_001(
-          MACAddress_TYPE v_pev_address,
-          NumGroups_TYPE v_num_groups,
-          AttenProfile_TYPE v_attenuation_list)
       {
-        payload = { cm_atten_profile_ind = {
-                        pev_address = v_pev_address,
-                        num_groups = v_num_groups,
-                        res1 = 0x00,
-                        attenuation_list = v_attenuation_list} }
-      }
-      AttenProfile_TYPE mw_EVCC_CMN_AttenProfile_001()
-      {
-        attenuation = {
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ? }
+        cm_nw_stats_req = {}
       }
     }
-    namespace Templates_EVCC_CmAttenCharInd
+    MME_Payload md_CMN_CMN_CmNwStatsCnf_001()
     {
-      using namespace DataStructure_SLAC all;
-      MME_Payload md_EVCC_CMN_CmAttenCharInd_001(
-          SLAC_Header v_slac_header,
-          MACAddress_TYPE v_source_address,
-          RunID_TYPE v_runid,
-          NumSounds_TYPE v_num_sounds,
-          AttenProfile_TYPE v_atten_list)
       {
-        payload = { cm_atten_char_ind = {
-                        slac_header = v_slac_header,
-                        source_address = v_source_address,
-                        runid = v_runid,
-                        source_id = 0x0000000000000000000000000000000000,
-                        resp_id = 0x0000000000000000000000000000000000,
-                        num_sounds = v_num_sounds,
-                        num_groups = 0x3A,
-                        attenuation_list = v_atten_list} }
+        cm_nw_stats_cnf = { numStas =    ?,
+                            listOfStas = ? }
       }
-      MME_Payload md_EVCC_CMN_CmAttenCharInd_002(
-          SLAC_Header v_slac_header,
-          MACAddress_TYPE v_source_address,
-          RunID_TYPE v_runid,
-          NumSounds_TYPE v_num_sounds,
-          StationID_TYPE v_source_id,
-          StationID_TYPE v_resp_id,
-          NumGroups_TYPE v_num_groups,
-          AttenProfile_TYPE v_atten_list)
+    }
+    MME_Payload md_CMN_CMN_CmNwStatsCnf_002()
+    {
       {
-        payload = { cm_atten_char_ind = {
-                        slac_header = v_slac_header,
-                        source_address = v_source_address,
-                        runid = v_runid,
-                        source_id = v_source_id,
-                        resp_id = v_resp_id,
-                        num_sounds = v_num_sounds,
-                        num_groups = v_num_groups,
-                        attenuation_list = v_atten_list} }
-      }
-      AttenProfile_TYPE m_EVCC_CMN_atten_list_001()
-      {
-        attenuation = { 0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E,
-                        0x1E
+        cm_nw_stats_cnf = { numStas = 0x00,
+                            listOfStas = omit
         }
       }
-      AttenProfile_TYPE m_EVCC_CMN_atten_list_002()
-      {
-        attenuation = { 0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28,
-                        0x28
-        }
+    }
+  }
+  namespace Templates_EVCC_CmAttenProfileInd
+  {
+    using namespace DataStructure_SLAC;
+    MME_Payload md_EVCC_CMN_CmAttenProfileInd_001(
+        MACAddress_TYPE v_pev_address,
+        NumGroups_TYPE v_num_groups,
+        AttenProfile_TYPE v_attenuation_list)
+    {
+      payload = { cm_atten_profile_ind = {
+                      pev_address = v_pev_address,
+                      num_groups = v_num_groups,
+                      res1 = 0x00,
+                      attenuation_list = v_attenuation_list} }
+    }
+    AttenProfile_TYPE mw_EVCC_CMN_AttenProfile_001()
+    {
+      attenuation = {
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ? }
+    }
+  }
+  namespace Templates_EVCC_CmAttenCharInd
+  {
+    using namespace DataStructure_SLAC all;
+    MME_Payload md_EVCC_CMN_CmAttenCharInd_001(
+        SLAC_Header v_slac_header,
+        MACAddress_TYPE v_source_address,
+        RunID_TYPE v_runid,
+        NumSounds_TYPE v_num_sounds,
+        AttenProfile_TYPE v_atten_list)
+    {
+      payload = { cm_atten_char_ind = {
+                      slac_header = v_slac_header,
+                      source_address = v_source_address,
+                      runid = v_runid,
+                      source_id = 0x0000000000000000000000000000000000,
+                      resp_id = 0x0000000000000000000000000000000000,
+                      num_sounds = v_num_sounds,
+                      num_groups = 0x3A,
+                      attenuation_list = v_atten_list} }
+    }
+    MME_Payload md_EVCC_CMN_CmAttenCharInd_002(
+        SLAC_Header v_slac_header,
+        MACAddress_TYPE v_source_address,
+        RunID_TYPE v_runid,
+        NumSounds_TYPE v_num_sounds,
+        StationID_TYPE v_source_id,
+        StationID_TYPE v_resp_id,
+        NumGroups_TYPE v_num_groups,
+        AttenProfile_TYPE v_atten_list)
+    {
+      payload = { cm_atten_char_ind = {
+                      slac_header = v_slac_header,
+                      source_address = v_source_address,
+                      runid = v_runid,
+                      source_id = v_source_id,
+                      resp_id = v_resp_id,
+                      num_sounds = v_num_sounds,
+                      num_groups = v_num_groups,
+                      attenuation_list = v_atten_list} }
+    }
+    AttenProfile_TYPE m_EVCC_CMN_atten_list_001()
+    {
+      attenuation = { 0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E,
+                      0x1E
       }
-    } */
-
-  } // namespace TestLib
+    }
+    AttenProfile_TYPE m_EVCC_CMN_atten_list_002()
+    {
+      attenuation = { 0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28,
+                      0x28
+      }
+    }
+  } */
+} // namespace TestLib
