@@ -4,35 +4,82 @@
 #include <array>
 #include <vector>
 #include <cstdint>
+#include <string_view>
 #include <cstring>
 
-// template<typename s>
-// using hexstring = std::array<uint8_t, s>;
+#define SLOGW(msg) spdlog::warn("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGI(msg) spdlog::info("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGE(msg) spdlog::error("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
+
 namespace TestLib {
 
-// template <size_t size>
-// class hexstring
-// {
-// private:
-//   uint8_t raw_data[size/2];
+template <size_t size>
+class hexstring
+{
+private:
+  uint8_t raw_data[size];
 
-// public:
-//   hexstring(const std::array<uint8_t, size/2> &input)
-//   {
-//   }
-//   hexstring(const char input[size])
-//   {
-//   }
-// };
+  uint8_t get_nibble(const char &c)
+  {
+    if (('0' <= c) && ('9' >= c))
+    {
+      return c - '0';
+    }
+    else if (('A' <= c) && ('F' >= c))
+    {
+      return (c - 'A' + 0x0A);
+    }
+    else if (('a' <= c) && ('f' >= c))
+    {
+      return (c - 'a' + 0x0A);
+    }
+    else
+    {
+      SLOGE("Invalid hex nibble");
+      return 0;
+    }
+  }
+public:
+  hexstring(const std::array<uint8_t, size> &input)
+  {
+    for (size_t i = 0; i < size/2; i++)
+    {
+      raw_data[i] = input[i];
+    }
+  }
+  hexstring(const std::string_view &input)
+  {
+    /* clear array */
+    for (size_t i = 0; i < size; i++)
+    {
+      raw_data[i] = 0;
+    }
+    /* go through all char and char index smaller than size*2 */
+    for (size_t i = 0; (i < input.size()) && (size > (i/2)); i++)
+    {
+      if (i%2 == 0)
+      {
+        /* even index char at high nibble */
+        raw_data[i/2] = this->get_nibble(c) << 4;
+      }
+      else
+      {
+        /* odd at low nibble of hex */
+        raw_data[i/2] |= this->get_nibble(c);
+      }
+    }
+  }
+};
 
-// ISO15118 hexstring(2) = '00' << 1 byte, TBD: check if required to change to
+// ISO15118 hexstring<2> = '00' << 1 byte, TBD: check if required to change to
 // template class hexstring<size>
-#define hexstring(A) std::array<uint8_t, A>
+// #define hexstring(A) std::array<uint8_t, A>
 
-extern hexstring(6) par_slac_node2_mac;
-extern hexstring(6) par_slac_node3_mac;
-extern hexstring(6) par_slac_node4_mac;
-extern hexstring(6) par_slac_node5_mac;
+extern hexstring<6> par_slac_node2_mac;
+extern hexstring<6> par_slac_node3_mac;
+extern hexstring<6> par_slac_node4_mac;
+extern hexstring<6> par_slac_node5_mac;
 
 namespace DataStructure_SLAC
 {
@@ -45,12 +92,12 @@ namespace DataStructure_SLAC
   typedef uint8_t MMV_TYPE;   // hexstring len 2
   typedef uint8_t Fmi_TYPE;   // hexstring len 2
   typedef uint8_t Fmsn_TYPE;  // hexstring len 2
-  typedef hexstring(3) OUI_TYPE;          // hexstring len 6 with{variant "byteOrder=big-endian"};
-  typedef hexstring(16) NMK_TYPE;         // hexstring len 32 with{variant "byteOrder=big-endian"};
-  typedef hexstring(7) NID_TYPE;          // hexstring len 14 with{variant "byteOrder=big-endian"};
-  typedef hexstring(6) MACAddress_TYPE;   // hexstring len 12 with{variant "byteOrder=big-endian"};
-  typedef hexstring(17) StationID_TYPE;   // hexstring len 34
-  typedef hexstring(8) RunID_TYPE;        // hexstring len 16
+  typedef hexstring<3> OUI_TYPE;          // hexstring len 6 with{variant "byteOrder=big-endian"};
+  typedef hexstring<16> NMK_TYPE;         // hexstring len 32 with{variant "byteOrder=big-endian"};
+  typedef hexstring<7> NID_TYPE;          // hexstring len 14 with{variant "byteOrder=big-endian"};
+  typedef hexstring<6> MACAddress_TYPE;   // hexstring len 12 with{variant "byteOrder=big-endian"};
+  typedef hexstring<17> StationID_TYPE;   // hexstring len 34
+  typedef hexstring<8> RunID_TYPE;        // hexstring len 16
   typedef uint8_t TimeOut_TYPE;   // hexstring len 2
   typedef uint8_t NumSounds_TYPE; // hexstring len 2
   typedef uint8_t NumGroups_TYPE; // hexstring len 2
@@ -59,10 +106,10 @@ namespace DataStructure_SLAC
   typedef uint8_t Aag_TYPE;       // hexstring len 2
   typedef uint8_t Result_TYPE;    // hexstring len 2
   typedef uint16_t Mvflength_TYPE;  // hexstring len 4
-  typedef hexstring(8) Res0_TYPE; // hexstring len 16
+  typedef hexstring<8> Res0_TYPE; // hexstring len 16
   typedef uint8_t Res1_TYPE;  // hexstring len 2
   typedef uint8_t Count_TYPE; // hexstring len 2
-  typedef hexstring(16) SourceRnd_Type; // hexstring len 32
+  typedef hexstring<16> SourceRnd_Type; // hexstring len 32
   typedef uint8_t Attenuation_TYPE; // hexstring len 2
   typedef uint8_t SignalType_TYPE;  // hexstring len 2
   typedef uint8_t PilotTimer_TYPE;  // hexstring len 2
@@ -74,7 +121,7 @@ namespace DataStructure_SLAC
   typedef uint8_t PMN_TYPE;       // hexstring len 2
   typedef uint8_t CCoCapability_TYPE; // hexstring len 2
   typedef uint8_t NewEKS_TYPE;        // hexstring len 2
-  typedef hexstring(16) NewKey_TYPE; // hexstring len 32 with{variant "byteOrder=big-endian"};
+  typedef hexstring<16> NewKey_TYPE; // hexstring len 32 with{variant "byteOrder=big-endian"};
   typedef uint8_t LnkStatus_TYPE; // hexstring len 2
   typedef uint8_t NumStas_TYPE; // hexstring len 2
   typedef uint8_t DataRate_TYPE;  // hexstring len 2
@@ -140,6 +187,35 @@ namespace DataStructure_SLAC
     std::vector<Attenuation_TYPE> attenuation;
     const uint8_t min_size = 1;
     const uint8_t max_size = 58;
+    stAttenProfile_TYPE(const std::vector<Attenuation_TYPE> &attProfile)
+    {
+      attenuation = attProfile;
+    }
+    stAttenProfile_TYPE(const std::vector<Attenuation_TYPE> &&attProfile)
+    {
+      attenuation = std::move(attProfile);
+    }
+    stAttenProfile_TYPE(const stAttenProfile_TYPE &obj)
+    {
+      attenuation = obj.attenuation;
+    }
+    stAttenProfile_TYPE(const stAttenProfile_TYPE &&obj)
+    {
+      attenuation = std::move(obj.attenuation);
+    }
+    stAttenProfile_TYPE &operator=(const stAttenProfile_TYPE &rho)
+    {
+      if (this != &rho)
+      {
+        this->attenuation = rho.attenuation;
+      }
+      return *this;
+    }
+    stAttenProfile_TYPE &operator=(const stAttenProfile_TYPE &&rho)
+    {
+      this->attenuation = std::move(rho.attenuation);
+      return *this;
+    }
   } AttenProfile_TYPE;
 
   typedef struct stACVarField_TYPE
@@ -238,6 +314,33 @@ namespace DataStructure_SLAC
     NumSounds_TYPE num_sounds;
     NumGroups_TYPE num_groups;
     AttenProfile_TYPE attenuation_list;
+    stCM_ATTEN_CHAR_IND &operator=(const stCM_ATTEN_CHAR_IND &rho)
+    {
+      if (this != &rho)
+      {
+        this->slac_header = rho.slac_header;
+        this->source_address = rho.source_address;
+        this->runid = rho.runid;
+        this->source_id = rho.source_id;
+        this->resp_id = rho.resp_id;
+        this->num_sounds = rho.num_sounds;
+        this->num_groups = rho.num_groups;
+        this->attenuation_list = rho.attenuation_list;
+      }
+      return *this;
+    }
+    stCM_ATTEN_CHAR_IND &operator=(const stCM_ATTEN_CHAR_IND &&rho)
+    {
+      this->slac_header = std::move(rho.slac_header);
+      this->source_address = std::move(rho.source_address);
+      this->runid = std::move(rho.runid);
+      this->source_id = std::move(rho.source_id);
+      this->resp_id = std::move(rho.resp_id);
+      this->num_sounds = rho.num_sounds;
+      this->num_groups = rho.num_groups;
+      this->attenuation_list = std::move(rho.attenuation_list);
+      return *this;
+    }
   } CM_ATTEN_CHAR_IND;
 
   /* EVCC */
@@ -424,13 +527,66 @@ namespace DataStructure_SLAC
       VS_HST_ACTION_RSP vs_hst_action_rsp;
       CM_NW_STATS_REQ cm_nw_stats_req;
       CM_NW_STATS_CNF cm_nw_stats_cnf;
-      unPayload(){};
-      ~unPayload(){};
+      unPayload()
+      {
+        std::memset(this, sizeof(unPayload), 0);
+      }
+      unPayload(const unPayload &obj)
+      {
+        std::memcpy(this, &obj, sizeof(obj));
+      }
+      unPayload(const unPayload &&obj)
+      {
+        std::memcpy(this, &obj, sizeof(obj));
+      }
+      ~unPayload()
+      {
+      }
+      unPayload &operator=(const unPayload &rho)
+      {
+        if (this != &rho)
+        {
+          std::memcpy(this, &rho, sizeof(rho));
+        }
+        return *this;
+      }
+      unPayload &operator=(const unPayload &&rho)
+      {
+        std::memcpy(this, &rho, sizeof(rho));
+        return *this;
+      }
     } payload;
     // TBD: clean payload methods, constructor -> cannot be initialized with an initializer list
-    stMME_Payload(){};
-    stMME_Payload(const MME_Payload &obj){std::memcpy(&this->payload, &obj.payload, sizeof(obj.payload));};
+    stMME_Payload()
+    {}
+    ~stMME_Payload()
+    {}
+    stMME_Payload(const unPayload &_payload)
+    {
+      this->payload = _payload;
+    }
+    stMME_Payload(const MME_Payload &obj)
+    {
+      this->payload = obj.payload;
+    }
+    stMME_Payload(const MME_Payload &&obj)
+    {
+      this->payload = std::move(obj.payload);
+    }
     // need to define copy, move constructor/semantic to use in template part
+    MME_Payload &operator=(const MME_Payload &rho)
+    {
+      if (this != &rho)
+      {
+        this->payload = rho.payload;
+      }
+      return *this;
+    }
+    MME_Payload &operator=(const MME_Payload &&rho)
+    {
+      this->payload = std::move(rho.payload);
+      return *this;
+    }
   } MME_Payload;
 
   /* management message entry: messages exchange between PLC node */

@@ -69,7 +69,7 @@ void Configurations_15118_3::f_SECC_CMN_PR_InitConfiguration_SLAC_002(
     std::shared_ptr<SLAC_Tester> &v_SLAC_Tester5,
     std::shared_ptr<SystemSECC> &systemSECC)
 {
-  hexstring(6) emptyMacAddress{0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+  hexstring<12> emptyMacAddress({0x00, 0x00, 0x00, 0x00, 0x00, 0x00});
   map(SECC_Tester::pt_SLAC_Port, systemSECC->pt_SLAC_Port);
   if (par_slac_node2_mac != emptyMacAddress)
   {
@@ -176,7 +176,7 @@ void Configurations_15118_3::f_EVCC_CMN_PR_InitConfiguration_SLAC_002(
     std::shared_ptr<SLAC_Tester> &v_SLAC_Tester2,
     std::shared_ptr<SystemEVCC> &systemEVCC)
 {
-  hexstring(6) emptyMacAddress{0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+  hexstring<12> emptyMacAddress({0x00, 0x00, 0x00, 0x00, 0x00, 0x00});
   map(EVCC_Tester::pt_SLAC_Port, systemEVCC->pt_SLAC_Port);
   if ((par_slac_node2_mac != emptyMacAddress) || isbound(v_SLAC_Tester2))
   {
