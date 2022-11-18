@@ -6,11 +6,7 @@
 #include <cstdint>
 #include <string_view>
 #include <cstring>
-
-#define SLOGW(msg) spdlog::warn("{0} {1}: {2}", __FILE__, __LINE__, msg)
-#define SLOGI(msg) spdlog::info("{0} {1}: {2}", __FILE__, __LINE__, msg)
-#define SLOGE(msg) spdlog::error("{0} {1}: {2}", __FILE__, __LINE__, msg)
-#define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#include <spdlog/spdlog.h>
 
 namespace TestLib {
 
@@ -36,11 +32,18 @@ private:
     }
     else
     {
-      SLOGE("Invalid hex nibble");
+      spdlog::error("{0} {1}: {2}", __FILE__, __LINE__, "Invalid hex nibble");
       return 0;
     }
   }
 public:
+  hexstring()
+  {
+    for (size_t i = 0; i < size; i++)
+    {
+      raw_data[i] = 0;
+    }
+  }
   hexstring(const std::array<uint8_t, size> &input)
   {
     for (size_t i = 0; i < size/2; i++)
@@ -61,14 +64,32 @@ public:
       if (i%2 == 0)
       {
         /* even index char at high nibble */
-        raw_data[i/2] = this->get_nibble(c) << 4;
+        raw_data[i/2] = this->get_nibble(input[i]) << 4;
       }
       else
       {
         /* odd at low nibble of hex */
-        raw_data[i/2] |= this->get_nibble(c);
+        raw_data[i/2] |= this->get_nibble(input[i]);
       }
     }
+  }
+  bool operator!=(const hexstring<size> &rho)
+  {
+    bool result = true;
+    for (size_t i = 0; i < size; i++)
+    {
+      result &= (rho.raw_data[i] != raw_data[i]);
+    }
+    return result;
+  }
+  bool operator==(const hexstring<size> &rho)
+  {
+    bool result = true;
+    for (size_t i = 0; i < size; i++)
+    {
+      result &= (rho.raw_data[i] == raw_data[i]);
+    }
+    return result;
   }
 };
 
@@ -184,38 +205,7 @@ namespace DataStructure_SLAC
 
   typedef struct stAttenProfile_TYPE
   {
-    std::vector<Attenuation_TYPE> attenuation;
-    const uint8_t min_size = 1;
-    const uint8_t max_size = 58;
-    stAttenProfile_TYPE(const std::vector<Attenuation_TYPE> &attProfile)
-    {
-      attenuation = attProfile;
-    }
-    stAttenProfile_TYPE(const std::vector<Attenuation_TYPE> &&attProfile)
-    {
-      attenuation = std::move(attProfile);
-    }
-    stAttenProfile_TYPE(const stAttenProfile_TYPE &obj)
-    {
-      attenuation = obj.attenuation;
-    }
-    stAttenProfile_TYPE(const stAttenProfile_TYPE &&obj)
-    {
-      attenuation = std::move(obj.attenuation);
-    }
-    stAttenProfile_TYPE &operator=(const stAttenProfile_TYPE &rho)
-    {
-      if (this != &rho)
-      {
-        this->attenuation = rho.attenuation;
-      }
-      return *this;
-    }
-    stAttenProfile_TYPE &operator=(const stAttenProfile_TYPE &&rho)
-    {
-      this->attenuation = std::move(rho.attenuation);
-      return *this;
-    }
+    std::array<Attenuation_TYPE, 58> attenuation;
   } AttenProfile_TYPE;
 
   typedef struct stACVarField_TYPE
@@ -314,33 +304,6 @@ namespace DataStructure_SLAC
     NumSounds_TYPE num_sounds;
     NumGroups_TYPE num_groups;
     AttenProfile_TYPE attenuation_list;
-    stCM_ATTEN_CHAR_IND &operator=(const stCM_ATTEN_CHAR_IND &rho)
-    {
-      if (this != &rho)
-      {
-        this->slac_header = rho.slac_header;
-        this->source_address = rho.source_address;
-        this->runid = rho.runid;
-        this->source_id = rho.source_id;
-        this->resp_id = rho.resp_id;
-        this->num_sounds = rho.num_sounds;
-        this->num_groups = rho.num_groups;
-        this->attenuation_list = rho.attenuation_list;
-      }
-      return *this;
-    }
-    stCM_ATTEN_CHAR_IND &operator=(const stCM_ATTEN_CHAR_IND &&rho)
-    {
-      this->slac_header = std::move(rho.slac_header);
-      this->source_address = std::move(rho.source_address);
-      this->runid = std::move(rho.runid);
-      this->source_id = std::move(rho.source_id);
-      this->resp_id = std::move(rho.resp_id);
-      this->num_sounds = rho.num_sounds;
-      this->num_groups = rho.num_groups;
-      this->attenuation_list = std::move(rho.attenuation_list);
-      return *this;
-    }
   } CM_ATTEN_CHAR_IND;
 
   /* EVCC */
@@ -529,64 +492,11 @@ namespace DataStructure_SLAC
       CM_NW_STATS_CNF cm_nw_stats_cnf;
       unPayload()
       {
-        std::memset(this, sizeof(unPayload), 0);
-      }
-      unPayload(const unPayload &obj)
-      {
-        std::memcpy(this, &obj, sizeof(obj));
-      }
-      unPayload(const unPayload &&obj)
-      {
-        std::memcpy(this, &obj, sizeof(obj));
       }
       ~unPayload()
       {
       }
-      unPayload &operator=(const unPayload &rho)
-      {
-        if (this != &rho)
-        {
-          std::memcpy(this, &rho, sizeof(rho));
-        }
-        return *this;
-      }
-      unPayload &operator=(const unPayload &&rho)
-      {
-        std::memcpy(this, &rho, sizeof(rho));
-        return *this;
-      }
     } payload;
-    // TBD: clean payload methods, constructor -> cannot be initialized with an initializer list
-    stMME_Payload()
-    {}
-    ~stMME_Payload()
-    {}
-    stMME_Payload(const unPayload &_payload)
-    {
-      this->payload = _payload;
-    }
-    stMME_Payload(const MME_Payload &obj)
-    {
-      this->payload = obj.payload;
-    }
-    stMME_Payload(const MME_Payload &&obj)
-    {
-      this->payload = std::move(obj.payload);
-    }
-    // need to define copy, move constructor/semantic to use in template part
-    MME_Payload &operator=(const MME_Payload &rho)
-    {
-      if (this != &rho)
-      {
-        this->payload = rho.payload;
-      }
-      return *this;
-    }
-    MME_Payload &operator=(const MME_Payload &&rho)
-    {
-      this->payload = std::move(rho.payload);
-      return *this;
-    }
   } MME_Payload;
 
   /* management message entry: messages exchange between PLC node */

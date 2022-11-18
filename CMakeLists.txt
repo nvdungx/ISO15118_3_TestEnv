@@ -45,7 +45,7 @@ set_property(GLOBAL PROPERTY glb_ext_libs "${GLB_LINK_LIBS}")
 
 add_subdirectory(modules)
 
-file(GLOB_RECURSE src_files LIST_DIRECTORIES false CONFIGURE_DEPENDS "src/*.cpp")
+# file(GLOB_RECURSE src_files LIST_DIRECTORIES false CONFIGURE_DEPENDS "src/*.cpp")
 list(APPEND src_files ${CMAKE_CURRENT_SOURCE_DIR}/test/main.cpp)
 
 add_executable(main ${src_files})
