@@ -227,12 +227,12 @@ namespace TestLib
     else
     {
       // set only 1 relay that cause error state
-      std::map<IEC_61851_ErrStates, relay_pin_t> target{
+      std::map<IEC_61851_ErrStates, relayPin> target{
           {LOST_CP, RELAY_RES_B},
           {LOST_PE, RELAY_PE_LINE},
           {LOST_DIODE, RELAY_DIODE},
           {SHORT_CP_PE, RELAY_SHORT_CIRCUIT}};
-      int value = gpio_write(this->gpiod_pid, target[error_state], relay_val_t::ON);
+      int value = gpio_write(this->gpiod_pid, target[error_state], RelayVal::ON);
       if (0 > value)
       {
         SLOGE(fmt::format("Failed to write gpio {}", GPIOIF_ERROR[result]));

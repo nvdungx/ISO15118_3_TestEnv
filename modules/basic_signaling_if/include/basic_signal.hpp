@@ -21,7 +21,7 @@ namespace TestLib
     /* GPIO of input button */
     #define INPUT_BUTTON_PIN 21
     /* enum value for relay GPIO on PI extension board */
-    typedef enum en_relay_pin_t
+    typedef enum enRelayPin
     {
       RELAY_PE_LINE = 26,      // PE line, ON = connect/ OFF = disconnect
       RELAY_SHORT_CIRCUIT = 0, // short circuit, ON = no short/ OFF short
@@ -29,19 +29,19 @@ namespace TestLib
       RELAY_RES_B = 6,         // resistor value to state B
       RELAY_RES_C = 13,        // resistor value to state C (need RES_B connect)
       RELAY_RES_D = 19         // resistor  value to state D (need RES_B and RES_C)
-    } relay_pin_t;
+    } relayPin;
     /* relay state */
-    typedef enum en_relay_val_t
+    typedef enum enRelayVal
     {
       OFF = 0,
       ON
-    } relay_val_t;
+    } RelayVal;
 
     #define NUM_STATE 6
     #define NUM_RELAY 6
     #define NUM_ERROR 4
     const std::vector<uint32_t> RELAYS{RELAY_PE_LINE, RELAY_RES_B, RELAY_RES_C, RELAY_RES_D, RELAY_DIODE, RELAY_SHORT_CIRCUIT};
-    const relay_val_t STATE_RELAY_MAP[NUM_STATE][NUM_RELAY] = {
+    const RelayVal STATE_RELAY_MAP[NUM_STATE][NUM_RELAY] = {
         // PE    B     C    D     DIODE  SH
         [A] = {OFF, OFF, OFF, OFF, OFF, OFF},
         [B] = {ON, ON, OFF, OFF, OFF, OFF},
@@ -49,7 +49,7 @@ namespace TestLib
         [D] = {ON, ON, OFF, ON, OFF, OFF},
         [E] = {ON, ON, OFF, OFF, OFF, ON},
         [F] = {OFF, OFF, OFF, OFF, OFF, OFF}};
-    const relay_val_t ERROR_RELAY_MAP[NUM_ERROR][NUM_RELAY] = {
+    const RelayVal ERROR_RELAY_MAP[NUM_ERROR][NUM_RELAY] = {
         // PE    B     C    D     DIODE  SH
         [LOST_CP] = {OFF, OFF, OFF, OFF, OFF, OFF},
         [LOST_PE] = {OFF, ON, OFF, OFF, OFF, OFF},
