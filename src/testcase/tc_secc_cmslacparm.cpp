@@ -18,8 +18,8 @@ import from Pixit_15118_3 all;
 import from Templates_CMN_SlacPayloadHeader all;
   testcase TC_SECC_CMN_VTB_CmSlacParm_001() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_StateB_001(v_HAL_61851_Listener);
@@ -38,8 +38,8 @@ import from Templates_CMN_SlacPayloadHeader all;
   }
   testcase TC_SECC_CMN_VTB_CmSlacParm_002() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     vc_state = C;
@@ -59,8 +59,8 @@ import from Templates_CMN_SlacPayloadHeader all;
   }
   testcase TC_SECC_CMN_VTB_CmSlacParm_003() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     vc_state = D;
@@ -80,8 +80,8 @@ import from Templates_CMN_SlacPayloadHeader all;
   }
   testcase TC_SECC_CMN_VTB_CmSlacParm_004() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_StateB_001(v_HAL_61851_Listener);
@@ -100,8 +100,8 @@ import from Templates_CMN_SlacPayloadHeader all;
   }
   testcase TC_SECC_CMN_VTB_CmSlacParm_005() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_StateB_001(v_HAL_61851_Listener);
@@ -121,8 +121,8 @@ import from Templates_CMN_SlacPayloadHeader all;
   }
   testcase TC_SECC_CMN_VTB_CmSlacParm_006() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_StateB_001(v_HAL_61851_Listener);
@@ -142,8 +142,8 @@ import from Templates_CMN_SlacPayloadHeader all;
   }
   testcase TC_SECC_CMN_VTB_CmSlacParm_007() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_StateB_001(v_HAL_61851_Listener);
@@ -162,8 +162,8 @@ import from Templates_CMN_SlacPayloadHeader all;
   }
   testcase TC_SECC_CMN_VTB_CmSlacParm_008() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     vc_sleepAfterPlugOut = true;
@@ -183,8 +183,8 @@ import from Templates_CMN_SlacPayloadHeader all;
   }
   testcase TC_SECC_CMN_VTB_CmSlacParm_009() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     vc_sleepAfterPlugOut = true;
@@ -204,9 +204,9 @@ import from Templates_CMN_SlacPayloadHeader all;
   }
   testcase TC_SECC_AC_VTB_CmSlacParm_001() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
-    var verdicttype verdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
+    verdicttype verdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     vc_activateNominal = false;
@@ -252,8 +252,8 @@ import from Templates_CMN_SlacPayloadHeader all;
   }
   testcase TC_SECC_AC_VTB_CmSlacParm_002() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     vc_activateNominal = false;
@@ -273,9 +273,9 @@ import from Templates_CMN_SlacPayloadHeader all;
   }
   testcase TC_SECC_AC_VTB_CmSlacParm_003() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
-    var verdicttype verdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
+    verdicttype verdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     vc_testCaseSpecific = true;
@@ -320,9 +320,9 @@ import from Templates_CMN_SlacPayloadHeader all;
   }
   testcase TC_SECC_AC_VTB_CmSlacParm_004() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
-    var verdicttype verdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
+    verdicttype verdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     vc_testCaseSpecific = true;

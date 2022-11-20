@@ -50,7 +50,7 @@ namespace TestLib
       namespace PIXIT_EVCC_Tester
       {
         /* Indication for explicit testing of EVCC Validation process. If
-          PIXIT_EVCC_CMN_CmValidate := cmValidate, test system sends a
+          PIXIT_EVCC_CMN_CmValidate = cmValidate, test system sends a
           manipulated attenuation profile (attenuation was increased) to
           trigger a validation process
           Choice: i) cmValidate, ii) unknown, iii) none_ */

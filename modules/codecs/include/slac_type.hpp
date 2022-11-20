@@ -229,7 +229,7 @@ namespace DataStructure_SLAC
     Result_TYPE result;
   } VCVarField_TYPE;
 
-  // typedef struct of MME ResponseMessageList_TYPE;
+  typedef std::vector<MME> ResponseMessageList_TYPE;
   typedef struct stMACAddressList_TYPE
   {
     std::vector<MACAddress_TYPE> macAddressList;

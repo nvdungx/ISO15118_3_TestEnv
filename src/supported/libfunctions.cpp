@@ -8,7 +8,7 @@ namespace generalFunctions
   void fx_logToFile(std::vector<float> &v_listOfFloat, std::vector<boolean> &v_listOfBoolean)
   {
   }
-  hexstring<32> fx_generateNID(hexstring<32> &nmk)
+  hexstring<16> fx_generateNID(hexstring<16> &nmk)
   {
   }
   void fx_captureTraffic(int v_interfaceIdx)
@@ -35,7 +35,7 @@ namespace generalFunctions
   }
   void sleep(float time)
   {
-    // timer t := time;
+    // timer t = time;
     // t.start;
     // t.timeout;
   }

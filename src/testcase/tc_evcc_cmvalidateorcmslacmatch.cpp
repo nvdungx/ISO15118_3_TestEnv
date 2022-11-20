@@ -16,8 +16,8 @@ import from TestBehavior_EVCC_AttenuationCharacterization all;
 import from TestBehavior_EVCC_CmSlacParm all;
   testcase TC_EVCC_CMN_VTB_CmValidateOrCmSlacMatch_001() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
