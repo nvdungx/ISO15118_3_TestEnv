@@ -17,8 +17,8 @@ import from LibFunctions_15118_3 { group generalFunctions;
 testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_001() runs on EVCC_Tester
     system SystemEVCC
 {
-  var HAL_61851_Listener v_HAL_61851_Listener;
-  var verdicttype preConVerdict;
+  HAL_61851_Listener v_HAL_61851_Listener;
+  verdicttype preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -38,9 +38,9 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_001() runs on EVCC_Tester
 testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_002() runs on EVCC_Tester
     system SystemEVCC
 {
-  var HAL_61851_Listener v_HAL_61851_Listener;
-  var SLAC_Tester2 v_SLAC_Tester2;
-  var verdicttype preConVerdict;
+  HAL_61851_Listener v_HAL_61851_Listener;
+  SLAC_Tester2 v_SLAC_Tester2;
+  verdicttype preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_002(v_HAL_61851_Listener, v_SLAC_Tester2, system);
   preConVerdict = f_EVCC_CMN_PR_DutyCycle_001(v_HAL_61851_Listener);
@@ -48,7 +48,7 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_002() runs on EVCC_Tester
   if (preConVerdict == pass)
   {
     v_SLAC_Tester2.start(f_EVCC_CMN_TB_VTB_AttenuationCharacterization_002());
-    var verdicttype testbehaviorVerdict = f_EVCC_CMN_TB_VTB_CmSlacParm_001(fail);
+    verdicttype testbehaviorVerdict = f_EVCC_CMN_TB_VTB_CmSlacParm_001(fail);
     if (testbehaviorVerdict == pass)
     {
       f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(fail);
@@ -66,8 +66,8 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_002() runs on EVCC_Tester
 testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_003() runs on EVCC_Tester
     system SystemEVCC
 {
-  var HAL_61851_Listener v_HAL_61851_Listener;
-  var verdicttype preConVerdict;
+  HAL_61851_Listener v_HAL_61851_Listener;
+  verdicttype preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -87,8 +87,8 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_003() runs on EVCC_Tester
 testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_004() runs on EVCC_Tester
     system SystemEVCC
 {
-  var HAL_61851_Listener v_HAL_61851_Listener;
-  var verdicttype preConVerdict;
+  HAL_61851_Listener v_HAL_61851_Listener;
+  verdicttype preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -98,9 +98,9 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_004() runs on EVCC_Tester
     f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(md_EVCC_CMN_CmAttenCharInd_002(
         m_CMN_CMN_SlacPayloadHeaderInvalid_001(),
         vc_sut_mac, vc_RunID, vc_Num_sounds,
-        '0000000000000000000000000000000000' H,
-        '0000000000000000000000000000000000' H,
-        '3A' H, m_EVCC_CMN_atten_list_001()));
+        "0000000000000000000000000000000000",
+        "0000000000000000000000000000000000",
+        "3A", m_EVCC_CMN_atten_list_001()));
   }
   else
   {
@@ -113,8 +113,8 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_004() runs on EVCC_Tester
 testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_005() runs on EVCC_Tester
     system SystemEVCC
 {
-  var HAL_61851_Listener v_HAL_61851_Listener;
-  var verdicttype preConVerdict;
+  HAL_61851_Listener v_HAL_61851_Listener;
+  verdicttype preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -124,9 +124,9 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_005() runs on EVCC_Tester
     f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(md_EVCC_CMN_CmAttenCharInd_002(
         m_CMN_CMN_SlacPayloadHeaderInvalid_002(),
         vc_sut_mac, vc_RunID, vc_Num_sounds,
-        '0000000000000000000000000000000000' H,
-        '0000000000000000000000000000000000' H,
-        '3A' H, m_EVCC_CMN_atten_list_001()));
+        "0000000000000000000000000000000000",
+        "0000000000000000000000000000000000",
+        "3A", m_EVCC_CMN_atten_list_001()));
   }
   else
   {
@@ -139,8 +139,8 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_005() runs on EVCC_Tester
 testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_006() runs on EVCC_Tester
     system SystemEVCC
 {
-  var HAL_61851_Listener v_HAL_61851_Listener;
-  var verdicttype preConVerdict;
+  HAL_61851_Listener v_HAL_61851_Listener;
+  verdicttype preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -149,11 +149,11 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_006() runs on EVCC_Tester
   {
     f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(md_EVCC_CMN_CmAttenCharInd_002(
         m_CMN_CMN_SlacPayloadHeader_001(),
-        '000000000000' H, vc_RunID,
+        "000000000000", vc_RunID,
         vc_Num_sounds,
-        '0000000000000000000000000000000000' H,
-        '0000000000000000000000000000000000' H,
-        '3A' H, m_EVCC_CMN_atten_list_001()));
+        "0000000000000000000000000000000000",
+        "0000000000000000000000000000000000",
+        "3A", m_EVCC_CMN_atten_list_001()));
   }
   else
   {
@@ -166,23 +166,23 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_006() runs on EVCC_Tester
 testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_007() runs on EVCC_Tester
     system SystemEVCC
 {
-  var HAL_61851_Listener v_HAL_61851_Listener;
-  var verdicttype preConVerdict;
+  HAL_61851_Listener v_HAL_61851_Listener;
+  verdicttype preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
   //-------------- Test behavior---------------------------------------------------------
   if (preConVerdict == pass)
   {
-    var RunID_TYPE v_RunID = f_randomHexStringGen(16);
+    RunID_TYPE v_RunID = f_randomHexStringGen(16);
     if (v_RunID != vc_RunID)
     {
       f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(md_EVCC_CMN_CmAttenCharInd_002(
           m_CMN_CMN_SlacPayloadHeader_001(),
           vc_sut_mac, v_RunID, vc_Num_sounds,
-          '0000000000000000000000000000000000' H,
-          '0000000000000000000000000000000000' H,
-          '3A' H, m_EVCC_CMN_atten_list_001()));
+          "0000000000000000000000000000000000",
+          "0000000000000000000000000000000000",
+          "3A", m_EVCC_CMN_atten_list_001()));
     }
     else
     {
@@ -200,8 +200,8 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_007() runs on EVCC_Tester
 testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_008() runs on EVCC_Tester
     system SystemEVCC
 {
-  var HAL_61851_Listener v_HAL_61851_Listener;
-  var verdicttype preConVerdict;
+  HAL_61851_Listener v_HAL_61851_Listener;
+  verdicttype preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -211,9 +211,9 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_008() runs on EVCC_Tester
     f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(md_EVCC_CMN_CmAttenCharInd_002(
         m_CMN_CMN_SlacPayloadHeader_001(),
         vc_sut_mac, vc_RunID, vc_Num_sounds,
-        '0000000000000000000000000000000001' H,
-        '0000000000000000000000000000000000' H,
-        '3A' H, m_EVCC_CMN_atten_list_001()));
+        "0000000000000000000000000000000001",
+        "0000000000000000000000000000000000",
+        "3A", m_EVCC_CMN_atten_list_001()));
   }
   else
   {
@@ -226,8 +226,8 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_008() runs on EVCC_Tester
 testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_009() runs on EVCC_Tester
     system SystemEVCC
 {
-  var HAL_61851_Listener v_HAL_61851_Listener;
-  var verdicttype preConVerdict;
+  HAL_61851_Listener v_HAL_61851_Listener;
+  verdicttype preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -237,9 +237,9 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_009() runs on EVCC_Tester
     f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(md_EVCC_CMN_CmAttenCharInd_002(
         m_CMN_CMN_SlacPayloadHeader_001(),
         vc_sut_mac, vc_RunID, vc_Num_sounds,
-        '0000000000000000000000000000000000' H,
-        '0000000000000000000000000000000001' H,
-        '3A' H, m_EVCC_CMN_atten_list_001()));
+        "0000000000000000000000000000000000",
+        "0000000000000000000000000000000001",
+        "3A", m_EVCC_CMN_atten_list_001()));
   }
   else
   {
@@ -252,8 +252,8 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_009() runs on EVCC_Tester
 testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_010() runs on EVCC_Tester
     system SystemEVCC
 {
-  var HAL_61851_Listener v_HAL_61851_Listener;
-  var verdicttype preConVerdict;
+  HAL_61851_Listener v_HAL_61851_Listener;
+  verdicttype preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -263,9 +263,9 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_010() runs on EVCC_Tester
     f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(md_EVCC_CMN_CmAttenCharInd_002(
         m_CMN_CMN_SlacPayloadHeader_001(),
         vc_sut_mac, vc_RunID, vc_Num_sounds,
-        '0000000000000000000000000000000000' H,
-        '0000000000000000000000000000000000' H,
-        '00' H, m_EVCC_CMN_atten_list_001()));
+        "0000000000000000000000000000000000",
+        "0000000000000000000000000000000000",
+        "00", m_EVCC_CMN_atten_list_001()));
   }
   else
   {
@@ -278,8 +278,8 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_010() runs on EVCC_Tester
 testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_011() runs on EVCC_Tester
     system SystemEVCC
 {
-  var HAL_61851_Listener v_HAL_61851_Listener;
-  var verdicttype preConVerdict;
+  HAL_61851_Listener v_HAL_61851_Listener;
+  verdicttype preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -288,10 +288,10 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_011() runs on EVCC_Tester
   {
     f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(md_EVCC_CMN_CmAttenCharInd_002(
         m_CMN_CMN_SlacPayloadHeader_001(),
-        vc_sut_mac, vc_RunID, '00' H,
-        '0000000000000000000000000000000000' H,
-        '0000000000000000000000000000000000' H,
-        '3A' H, m_EVCC_CMN_atten_list_001()));
+        vc_sut_mac, vc_RunID, "00",
+        "0000000000000000000000000000000000",
+        "0000000000000000000000000000000000",
+        "3A", m_EVCC_CMN_atten_list_001()));
   }
   else
   {
@@ -304,8 +304,8 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_011() runs on EVCC_Tester
 testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_012() runs on EVCC_Tester
     system SystemEVCC
 {
-  var HAL_61851_Listener v_HAL_61851_Listener;
-  var verdicttype preConVerdict;
+  HAL_61851_Listener v_HAL_61851_Listener;
+  verdicttype preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -325,8 +325,8 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_012() runs on EVCC_Tester
 testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_013() runs on EVCC_Tester
     system SystemEVCC
 {
-  var HAL_61851_Listener v_HAL_61851_Listener;
-  var verdicttype preConVerdict;
+  HAL_61851_Listener v_HAL_61851_Listener;
+  verdicttype preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -346,8 +346,8 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_013() runs on EVCC_Tester
 testcase TC_EVCC_AC_VTB_AttenuationCharacterization_001() runs on EVCC_Tester
     system SystemEVCC
 {
-  var HAL_61851_Listener v_HAL_61851_Listener;
-  var verdicttype preConVerdict;
+  HAL_61851_Listener v_HAL_61851_Listener;
+  verdicttype preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -367,8 +367,8 @@ testcase TC_EVCC_AC_VTB_AttenuationCharacterization_001() runs on EVCC_Tester
 testcase TC_EVCC_AC_VTB_AttenuationCharacterization_002() runs on EVCC_Tester
     system SystemEVCC
 {
-  var HAL_61851_Listener v_HAL_61851_Listener;
-  var verdicttype preConVerdict;
+  HAL_61851_Listener v_HAL_61851_Listener;
+  verdicttype preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);

@@ -25,8 +25,8 @@ import from Pics_15118 all;
 import from Timer_15118_2 all;
   testcase TC_EVCC_CMN_VTB_PLCLinkStatus_001() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
@@ -45,8 +45,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_CMN_VTB_PLCLinkStatus_002() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_CMN_PR_PLCLinkStatus_001(v_HAL_61851_Listener);
@@ -65,8 +65,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_CMN_VTB_PLCLinkStatus_003() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
@@ -85,8 +85,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_CMN_VTB_PLCLinkStatus_004() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
@@ -105,8 +105,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_CMN_VTB_PLCLinkStatus_005() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     vc_DutyCycleDelay = 7.5;
@@ -131,8 +131,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_CMN_VTB_PLCLinkStatus_006() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_CMN_PR_PLCLinkStatus_001(v_HAL_61851_Listener);
@@ -151,8 +151,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_CMN_VTB_PLCLinkStatus_007() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_CMN_PR_PLCLinkStatus_001(v_HAL_61851_Listener);
@@ -171,8 +171,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_CMN_VTB_PLCLinkStatus_008() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_CMN_PR_PLCLinkStatus_001(v_HAL_61851_Listener);
@@ -191,8 +191,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_AC_VTB_PLCLinkStatus_001() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_AC_PR_SessionStop_002(v_HAL_61851_Listener);
@@ -222,8 +222,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_AC_VTB_PLCLinkStatus_002() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_AC_PR_SessionStop_002(v_HAL_61851_Listener);
@@ -253,8 +253,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_AC_VTB_PLCLinkStatus_003() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_CMN_PR_PLCLinkStatus_001(v_HAL_61851_Listener);
@@ -274,8 +274,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_AC_VTB_PLCLinkStatus_004() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_CMN_PR_PLCLinkStatus_001(v_HAL_61851_Listener);
@@ -294,8 +294,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_AC_VTB_PLCLinkStatus_005() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_CMN_PR_PLCLinkStatus_001(v_HAL_61851_Listener);
@@ -314,8 +314,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_AC_VTB_PLCLinkStatus_006() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_AC_PR_SessionStop_003(v_HAL_61851_Listener);
@@ -337,8 +337,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_AC_VTB_PLCLinkStatus_007() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_CMN_PR_PLCLinkStatus_001(v_HAL_61851_Listener);
@@ -358,8 +358,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_AC_VTB_PLCLinkStatus_008() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_CMN_PR_PLCLinkStatus_001(v_HAL_61851_Listener);
@@ -378,8 +378,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_AC_VTB_PLCLinkStatus_009() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_AC_PR_SessionStop_002(v_HAL_61851_Listener);
@@ -409,8 +409,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_AC_VTB_PLCLinkStatus_010() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_AC_PR_SessionStop_002(v_HAL_61851_Listener);
@@ -440,8 +440,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_DC_VTB_PLCLinkStatus_001() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_DC_PR_WeldingDetectionOrSessionStop_002(
@@ -472,8 +472,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_DC_VTB_PLCLinkStatus_002() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_DC_PR_WeldingDetectionOrSessionStop_002(
@@ -504,8 +504,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_DC_VTB_PLCLinkStatus_003() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_DC_PR_WeldingDetectionOrSessionStop_003(v_HAL_61851_Listener);
@@ -527,8 +527,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_DC_VTB_PLCLinkStatus_004() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_DC_PR_WeldingDetectionOrSessionStop_002(
@@ -559,8 +559,8 @@ import from Timer_15118_2 all;
   }
   testcase TC_EVCC_DC_VTB_PLCLinkStatus_005() runs on EVCC_Tester system SystemEVCC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_EVCC_CMN_PR_InitConfiguration_001(v_HAL_61851_Listener, system);
     preConVerdict = f_EVCC_DC_PR_WeldingDetectionOrSessionStop_002(

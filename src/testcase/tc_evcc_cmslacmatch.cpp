@@ -15,11 +15,11 @@ import from TestBehavior_EVCC_AttenuationCharacterization all;
 import from TestBehavior_EVCC_CmSlacParm all;
 import from LibFunctions_15118_3 { group generalFunctions; }
 testcase TC_EVCC_CMN_VTB_CmSlacMatch_001() runs on EVCC_Tester system SystemEVCC {
-var HAL_61851_Listener v_HAL_61851_Listener;
-var verdicttype preConVerdict;
+HAL_61851_Listener v_HAL_61851_Listener;
+verdicttype preConVerdict;
 // -------------- Pre Conditions-------------------------------------------------------
 f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
-preConVerdict := f_EVCC_CMN_PR_CmValidate_001(v_HAL_61851_Listener);
+preConVerdict = f_EVCC_CMN_PR_CmValidate_001(v_HAL_61851_Listener);
 //-------------- Test behavior---------------------------------------------------------
 if( preConVerdict == pass ) {
 f_EVCC_CMN_TB_VTB_CmSlacMatch_001();
@@ -31,11 +31,11 @@ f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
 f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
 testcase TC_EVCC_CMN_VTB_CmSlacMatch_002() runs on EVCC_Tester system SystemEVCC {
-var HAL_61851_Listener v_HAL_61851_Listener;
-var verdicttype preConVerdict;
+HAL_61851_Listener v_HAL_61851_Listener;
+verdicttype preConVerdict;
 // -------------- Pre Conditions-------------------------------------------------------
 f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
-preConVerdict := f_EVCC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
+preConVerdict = f_EVCC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
 //-------------- Test behavior---------------------------------------------------------
 if( preConVerdict == pass ) {
 f_EVCC_CMN_TB_VTB_CmSlacMatch_001();
@@ -47,11 +47,11 @@ f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
 f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
 testcase TC_EVCC_CMN_VTB_CmSlacMatch_003() runs on EVCC_Tester system SystemEVCC {
-var HAL_61851_Listener v_HAL_61851_Listener;
-var verdicttype preConVerdict;
+HAL_61851_Listener v_HAL_61851_Listener;
+verdicttype preConVerdict;
 // -------------- Pre Conditions-------------------------------------------------------
 f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
-preConVerdict := f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
+preConVerdict = f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
 //-------------- Test behavior---------------------------------------------------------
 if( preConVerdict == pass ) {
 f_EVCC_CMN_TB_VTB_CmSlacMatch_002();
@@ -63,11 +63,11 @@ f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
 f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
 testcase TC_EVCC_CMN_VTB_CmSlacMatch_004() runs on EVCC_Tester system SystemEVCC {
-var HAL_61851_Listener v_HAL_61851_Listener;
-var verdicttype preConVerdict;
+HAL_61851_Listener v_HAL_61851_Listener;
+verdicttype preConVerdict;
 // -------------- Pre Conditions-------------------------------------------------------
 f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
-preConVerdict := f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
+preConVerdict = f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
 //-------------- Test behavior---------------------------------------------------------
 if( preConVerdict == pass ) {
 f_EVCC_CMN_TB_VTB_CmSlacMatch_003(md_CMN_CMN_CmSlacMatchCnf_002(
@@ -86,11 +86,11 @@ f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
 f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
 testcase TC_EVCC_CMN_VTB_CmSlacMatch_005() runs on EVCC_Tester system SystemEVCC {
-var HAL_61851_Listener v_HAL_61851_Listener;
-var verdicttype preConVerdict;
+HAL_61851_Listener v_HAL_61851_Listener;
+verdicttype preConVerdict;
 // -------------- Pre Conditions-------------------------------------------------------
 f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
-preConVerdict := f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
+preConVerdict = f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
 //-------------- Test behavior---------------------------------------------------------
 if( preConVerdict == pass ) {
 f_EVCC_CMN_TB_VTB_CmSlacMatch_003(md_CMN_CMN_CmSlacMatchCnf_002(
@@ -109,11 +109,11 @@ f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
 f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
 testcase TC_EVCC_CMN_VTB_CmSlacMatch_006() runs on EVCC_Tester system SystemEVCC {
-var HAL_61851_Listener v_HAL_61851_Listener;
-var verdicttype preConVerdict;
+HAL_61851_Listener v_HAL_61851_Listener;
+verdicttype preConVerdict;
 // -------------- Pre Conditions-------------------------------------------------------
 f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
-preConVerdict := f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
+preConVerdict = f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
 //-------------- Test behavior---------------------------------------------------------
 if( preConVerdict == pass ) {
 f_EVCC_CMN_TB_VTB_CmSlacMatch_003(md_CMN_CMN_CmSlacMatchCnf_002(
@@ -132,11 +132,11 @@ f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
 f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
 testcase TC_EVCC_CMN_VTB_CmSlacMatch_007() runs on EVCC_Tester system SystemEVCC {
-var HAL_61851_Listener v_HAL_61851_Listener;
-var verdicttype preConVerdict;
+HAL_61851_Listener v_HAL_61851_Listener;
+verdicttype preConVerdict;
 // -------------- Pre Conditions-------------------------------------------------------
 f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
-preConVerdict := f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
+preConVerdict = f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
 //-------------- Test behavior---------------------------------------------------------
 if( preConVerdict == pass ) {
 f_EVCC_CMN_TB_VTB_CmSlacMatch_003(md_CMN_CMN_CmSlacMatchCnf_002(
@@ -155,11 +155,11 @@ f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
 f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
 testcase TC_EVCC_CMN_VTB_CmSlacMatch_008() runs on EVCC_Tester system SystemEVCC {
-var HAL_61851_Listener v_HAL_61851_Listener;
-var verdicttype preConVerdict;
+HAL_61851_Listener v_HAL_61851_Listener;
+verdicttype preConVerdict;
 // -------------- Pre Conditions-------------------------------------------------------
 f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
-preConVerdict := f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
+preConVerdict = f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
 //-------------- Test behavior---------------------------------------------------------
 if( preConVerdict == pass ) {
 f_EVCC_CMN_TB_VTB_CmSlacMatch_003(md_CMN_CMN_CmSlacMatchCnf_002(
@@ -178,11 +178,11 @@ f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
 f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
 testcase TC_EVCC_CMN_VTB_CmSlacMatch_009() runs on EVCC_Tester system SystemEVCC {
-var HAL_61851_Listener v_HAL_61851_Listener;
-var verdicttype preConVerdict;
+HAL_61851_Listener v_HAL_61851_Listener;
+verdicttype preConVerdict;
 // -------------- Pre Conditions-------------------------------------------------------
 f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
-preConVerdict := f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
+preConVerdict = f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
 //-------------- Test behavior---------------------------------------------------------
 if( preConVerdict == pass ) {
 f_EVCC_CMN_TB_VTB_CmSlacMatch_003(md_CMN_CMN_CmSlacMatchCnf_002(
@@ -201,11 +201,11 @@ f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
 f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
 testcase TC_EVCC_CMN_VTB_CmSlacMatch_010() runs on EVCC_Tester system SystemEVCC {
-var HAL_61851_Listener v_HAL_61851_Listener;
-var verdicttype preConVerdict;
+HAL_61851_Listener v_HAL_61851_Listener;
+verdicttype preConVerdict;
 // -------------- Pre Conditions-------------------------------------------------------
 f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
-preConVerdict := f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
+preConVerdict = f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
 //-------------- Test behavior---------------------------------------------------------
 if( preConVerdict == pass ) {
 f_EVCC_CMN_TB_VTB_CmSlacMatch_003(md_CMN_CMN_CmSlacMatchCnf_002(
@@ -224,14 +224,14 @@ f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
 f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
 testcase TC_EVCC_CMN_VTB_CmSlacMatch_011() runs on EVCC_Tester system SystemEVCC {
-var HAL_61851_Listener v_HAL_61851_Listener;
-var verdicttype preConVerdict;
+HAL_61851_Listener v_HAL_61851_Listener;
+verdicttype preConVerdict;
 // -------------- Pre Conditions-------------------------------------------------------
 f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
-preConVerdict := f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
+preConVerdict = f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
 //-------------- Test behavior---------------------------------------------------------
 if( preConVerdict == pass ) {
-var RunID_TYPE v_RunID := f_randomHexStringGen(16);
+RunID_TYPE v_RunID = f_randomHexStringGen(16);
 if(v_RunID != vc_RunID) {
 f_EVCC_CMN_TB_VTB_CmSlacMatch_003(md_CMN_CMN_CmSlacMatchCnf_002(
 m_CMN_CMN_SlacPayloadHeader_001(),
@@ -250,18 +250,18 @@ f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
 f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
 testcase TC_EVCC_CMN_VTB_CmSlacMatch_012() runs on EVCC_Tester system SystemEVCC {
-var HAL_61851_Listener v_HAL_61851_Listener;
-var SLAC_Tester2 v_SLAC_Tester2;
-var verdicttype preConVerdict;
+HAL_61851_Listener v_HAL_61851_Listener;
+SLAC_Tester2 v_SLAC_Tester2;
+verdicttype preConVerdict;
 // -------------- Pre Conditions-------------------------------------------------------
 f_EVCC_CMN_PR_InitConfiguration_SLAC_002(v_HAL_61851_Listener, v_SLAC_Tester2, system);
-preConVerdict := f_EVCC_CMN_PR_DutyCycle_001(v_HAL_61851_Listener);
+preConVerdict = f_EVCC_CMN_PR_DutyCycle_001(v_HAL_61851_Listener);
 //-------------- Test behavior---------------------------------------------------------
 if( preConVerdict == pass ) {
 v_SLAC_Tester2.start(f_EVCC_CMN_TB_VTB_AttenuationCharacterization_003());
-var verdicttype testbehaviorVerdict := f_EVCC_CMN_TB_VTB_CmSlacParm_001(fail);
+verdicttype testbehaviorVerdict = f_EVCC_CMN_TB_VTB_CmSlacParm_001(fail);
 if(testbehaviorVerdict == pass) {
-testbehaviorVerdict := f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(fail);
+testbehaviorVerdict = f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(fail);
 }
 if(testbehaviorVerdict == pass) {
 f_EVCC_CMN_TB_VTB_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener, fail);

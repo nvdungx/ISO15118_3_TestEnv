@@ -1,11 +1,16 @@
 #include <spdlog/spdlog.h>
+#include "datatype.hpp"
 #include "slac_type.hpp"
-#include "supported/configurations.hpp"
+#include "supported/postconditions.hpp"
 #include "execution/maintestcomponent.hpp"
 #include "execution/paralleltestcomponent.hpp"
-#include "execution/port.hpp"
 #include "supported/libfunctions.hpp"
 #include "management/timer_cfg.hpp"
+
+#define SLOGW(msg) spdlog::warn("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGI(msg) spdlog::info("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGE(msg) spdlog::error("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 
 namespace TestLib
 {
@@ -32,9 +37,9 @@ namespace TestLib
     f_SECC_setProximity(0);
     v_HAL_61851_Listener->stop();
     all_timer_stop();
-    spdlog::info(par_SECC_waitForNextTC, " Sec timer started");
+    SLOGI("par_SECC_waitForNextTC Sec timer started");
     sleep(par_SECC_waitForNextTC);
-    spdlog::info(par_SECC_waitForNextTC, " Sec timer stopped");
+    SLOGI("par_SECC_waitForNextTC Sec timer stopped");
   }
 
   void PostConditions_EVCC_15118_3::f_EVCC_CMN_PO_InitialState_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
@@ -48,8 +53,8 @@ namespace TestLib
     f_EVCC_setProximity(0);
     v_HAL_61851_Listener->stop();
     all_timer_stop();
-    spdlog::info((par_EVCC_waitForNextTC), " Sec timer started");
+    SLOGI("par_EVCC_waitForNextTC Sec timer started");
     sleep(par_EVCC_waitForNextTC);
-    spdlog::info((par_EVCC_waitForNextTC), " Sec timer stopped");
+    SLOGI("par_EVCC_waitForNextTC Sec timer stopped");
   }
 }

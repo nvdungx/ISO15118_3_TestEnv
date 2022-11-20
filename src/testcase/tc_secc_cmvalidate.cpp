@@ -12,8 +12,8 @@ import from Templates_CMN_CmValidate all;
 import from Timer_15118_3 all;
   testcase TC_SECC_CMN_VTB_CmValidate_001() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -32,8 +32,8 @@ import from Timer_15118_3 all;
   }
   testcase TC_SECC_CMN_VTB_CmValidate_002() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -52,8 +52,8 @@ import from Timer_15118_3 all;
   }
   testcase TC_SECC_CMN_VTB_CmValidate_003() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -72,18 +72,18 @@ import from Timer_15118_3 all;
   }
   testcase TC_SECC_CMN_VTB_CmValidate_004() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
     //-------------- Test behavior---------------------------------------------------------
     if (preConVerdict == pass)
     {
-      var hexstring v_pilotTimer = int2hex(float2int((par_TP_EV_vald_toggle * 10.0) - 1.0), 2);
+      hexstring v_pilotTimer = int2hex(float2int((par_TP_EV_vald_toggle * 10.0) - 1.0), 2);
       f_SECC_CMN_TB_VTB_CmValidate_004(v_HAL_61851_Listener,
                                        md_CMN_CMN_CmValidateReq_004(
-                                           'FF' H, v_pilotTimer, '01' H));
+                                           "FF", v_pilotTimer, "01"));
     }
     else
     {
@@ -95,17 +95,17 @@ import from Timer_15118_3 all;
   }
   testcase TC_SECC_CMN_VTB_CmValidate_005() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
     //-------------- Test behavior---------------------------------------------------------
     if (preConVerdict == pass)
     {
-      var hexstring v_pilotTimer = int2hex(float2int((par_TP_EV_vald_toggle * 10.0) - 1.0), 2);
+      hexstring v_pilotTimer = int2hex(float2int((par_TP_EV_vald_toggle * 10.0) - 1.0), 2);
       f_SECC_CMN_TB_VTB_CmValidate_005(md_CMN_CMN_CmValidateReq_004(
-          '00' H, v_pilotTimer,
+          "00", v_pilotTimer,
           par_cmValidate_result_notReady));
     }
     else
@@ -118,17 +118,17 @@ import from Timer_15118_3 all;
   }
   testcase TC_SECC_CMN_VTB_CmValidate_006() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
     //-------------- Test behavior---------------------------------------------------------
     if (preConVerdict == pass)
     {
-      var hexstring v_pilotTimer = int2hex(float2int((par_TP_EV_vald_toggle * 10.0) - 1.0), 2);
+      hexstring v_pilotTimer = int2hex(float2int((par_TP_EV_vald_toggle * 10.0) - 1.0), 2);
       f_SECC_CMN_TB_VTB_CmValidate_005(md_CMN_CMN_CmValidateReq_004(
-          '00' H, v_pilotTimer,
+          "00", v_pilotTimer,
           par_cmValidate_result_success));
     }
     else
@@ -141,17 +141,17 @@ import from Timer_15118_3 all;
   }
   testcase TC_SECC_CMN_VTB_CmValidate_007() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
     //-------------- Test behavior---------------------------------------------------------
     if (preConVerdict == pass)
     {
-      var hexstring v_pilotTimer = int2hex(float2int((par_TP_EV_vald_toggle * 10.0) - 1.0), 2);
+      hexstring v_pilotTimer = int2hex(float2int((par_TP_EV_vald_toggle * 10.0) - 1.0), 2);
       f_SECC_CMN_TB_VTB_CmValidate_005(md_CMN_CMN_CmValidateReq_004(
-          '00' H, v_pilotTimer,
+          "00", v_pilotTimer,
           par_cmValidate_result_failure));
     }
     else
@@ -164,17 +164,17 @@ import from Timer_15118_3 all;
   }
   testcase TC_SECC_CMN_VTB_CmValidate_008() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
     //-------------- Test behavior---------------------------------------------------------
     if (preConVerdict == pass)
     {
-      var hexstring v_pilotTimer = int2hex(float2int((par_TP_EV_vald_toggle * 10.0) - 1.0), 2);
+      hexstring v_pilotTimer = int2hex(float2int((par_TP_EV_vald_toggle * 10.0) - 1.0), 2);
       f_SECC_CMN_TB_VTB_CmValidate_005(md_CMN_CMN_CmValidateReq_004(
-          '00' H, v_pilotTimer,
+          "00", v_pilotTimer,
           par_cmValidate_result_notRequired));
     }
     else
@@ -187,12 +187,12 @@ import from Timer_15118_3 all;
   }
   testcase TC_SECC_CMN_VTB_CmValidate_009() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var SLAC_Tester2 v_SLAC_Tester2;
-    var SLAC_Tester3 v_SLAC_Tester3;
-    var SLAC_Tester4 v_SLAC_Tester4;
-    var SLAC_Tester5 v_SLAC_Tester5;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    SLAC_Tester2 v_SLAC_Tester2;
+    SLAC_Tester3 v_SLAC_Tester3;
+    SLAC_Tester4 v_SLAC_Tester4;
+    SLAC_Tester5 v_SLAC_Tester5;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_002(v_HAL_61851_Listener, v_SLAC_Tester2,
                                              v_SLAC_Tester3, v_SLAC_Tester4,
@@ -227,8 +227,8 @@ import from Timer_15118_3 all;
   }
   testcase TC_SECC_CMN_VTB_CmValidate_010() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -252,8 +252,8 @@ import from Timer_15118_3 all;
   }
   testcase TC_SECC_CMN_VTB_CmValidate_011() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -282,8 +282,8 @@ import from Timer_15118_3 all;
   }
   testcase TC_SECC_CMN_VTB_CmValidate_012() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -308,8 +308,8 @@ import from Timer_15118_3 all;
   }
   testcase TC_SECC_CMN_VTB_CmValidate_013() runs on SECC_Tester system SystemSECC
   {
-    var HAL_61851_Listener v_HAL_61851_Listener;
-    var verdicttype preConVerdict;
+    HAL_61851_Listener v_HAL_61851_Listener;
+    verdicttype preConVerdict;
     // -------------- Pre Conditions-------------------------------------------------------
     f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
     preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);

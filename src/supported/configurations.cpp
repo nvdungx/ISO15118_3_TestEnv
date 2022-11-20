@@ -60,13 +60,13 @@ void Configurations_15118_3::f_SECC_CMN_PR_InitConfiguration_SLAC_001(
 
   v_HAL_61851_Listener = HAL_61851_Listener::create("IEC 61851 Listener");
   map(v_HAL_61851_Listener->pt_HAL_61851_Listener_Port, v_SystemSECC->pt_HAL_61851_Listener_Port);
-  
+
   map(SECC_Tester::pt_SLAC_Port, v_SystemSECC->pt_SLAC_Port);
   map(SECC_Tester::pt_HAL_61851_Port, v_SystemSECC->pt_HAL_61851_Port);
   connect(SECC_Tester::pt_HAL_61851_Internal_Port, v_HAL_61851_Listener->pt_HAL_61851_Internal_Port);
-  
+
   v_HAL_61851_Listener->start(f_SECC_HAL61851Listener(false));
-  
+
   activate(a_CMN_IEC61851ListenerBehavior(SECC_Tester::pt_HAL_61851_Internal_Port));
 }
 
@@ -124,7 +124,7 @@ void Configurations_15118_3::f_SECC_CMN_PR_InitConfiguration_SLAC_002(
   map(v_HAL_61851_Listener->pt_HAL_61851_Listener_Port, systemSECC->pt_HAL_61851_Listener_Port);
 
   v_HAL_61851_Listener->start(f_SECC_HAL61851Listener(false));
-  
+
   vc_Default_IEC_61851_ListenerBehavior = activate(a_CMN_IEC61851ListenerBehavior(SECC_Tester::pt_HAL_61851_Internal_Port));
 }
 
@@ -190,12 +190,12 @@ void Configurations_15118_3::f_EVCC_CMN_PR_InitConfiguration_SLAC_002(
     std::shared_ptr<SystemEVCC> &systemEVCC)
 {
   hexstring<6> emptyMacAddress({0x00, 0x00, 0x00, 0x00, 0x00, 0x00});
-  
+
   v_HAL_61851_Listener = HAL_61851_Listener::create("IEC 61851 Listener");
-  
+
   map(EVCC_Tester::pt_SLAC_Port, systemEVCC->pt_SLAC_Port);
   map(EVCC_Tester::pt_HAL_61851_Port, systemEVCC->pt_HAL_61851_Port);
-  
+
   if ((par_slac_node2_mac != emptyMacAddress) || isbound(v_SLAC_Tester2))
   {
     v_SLAC_Tester2 = SLAC_Tester::create("Slac Tester 2", par_slac_node2_mac);
@@ -205,10 +205,10 @@ void Configurations_15118_3::f_EVCC_CMN_PR_InitConfiguration_SLAC_002(
   {
     SLOGE("MAC address of Slac node 2 is empty.");
   }
-  
+
   map(v_HAL_61851_Listener->pt_HAL_61851_Listener_Port, systemEVCC->pt_HAL_61851_Listener_Port);
   connect(EVCC_Tester::pt_HAL_61851_Internal_Port, v_HAL_61851_Listener->pt_HAL_61851_Internal_Port);
-  
+
   v_HAL_61851_Listener->start(f_EVCC_HAL61851Listener(false));
   vc_Default_IEC_61851_ListenerBehavior = activate(a_CMN_IEC61851ListenerBehavior(EVCC_Tester::pt_HAL_61851_Internal_Port));
 }

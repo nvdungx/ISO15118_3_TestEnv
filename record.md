@@ -1,14 +1,14 @@
-Test framework
+Test frameworkt 
 
 TTCN-3 Control Interface (TCI) - test modification
 
 Test Management (TM): Overall management of the test system, test system user interface, execution of tests, provider of parameters
 
-Executable	Test	Suite	(ETS)
+Executable Test Suite (ETS)
 
 Test Logging (TL): Handling of all log events of the test system
 
-Encoding/Decoding	System(EDS) - Coding and Decoding (CD): Encoding and decoding data associated with message based or procedure based communication within the TE
+Encoding/Decoding System(EDS) - Coding and Decoding (CD): Encoding and decoding data associated with message based or procedure based communication within the TE
 
 Component Handling (CH): Distributing and communication between parallel test components
 
@@ -16,9 +16,9 @@ TTCN-3 Runtime Interface (TRI)
 - System Adaptor (SA): Adapts message based or procedure based communication to and from the SUT, and SUT action operations
 - Platform Adaptor (PA): Implements TTCN-3 external functions and provides a TTCN-3 test system with a single notion of time
 
-Test System Interface(TSI): test	component	that	provides	a	mapping	of	the	ports
+Test System Interface(TSI): test component that provides a mapping of the ports
 
-
+\[\][\s\t]*((EV|SE)CC_Tester::pt_[^;]+?)[\r\n\s\t]*->[\s\t]*value v_requestMessage[\s\t]*\{
 
 https://www.boost.org/doc/libs/1_76_0/more/getting_started/unix-variants.html
 wget https://boostorg.jfrog.io/artifactory/main/release/1.76.0/source/boost_1_76_0.tar.gz

@@ -1,17 +1,17 @@
 #include "supported/preconditions.hpp"
 #include "supported/libfunctions.hpp"
+
 namespace TestLib
 {
 
 using namespace LibFunctions_15118_3::generalFunctions;
 
-VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_StateA_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_StateA_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = pass;
   f_SECC_changeValidStateCondition(A);
   verdict = f_SECC_setState(A, v_HAL_61851_Listener);
-  SECC::pt_HAL_61851_Port->clear();
+  SECC_Tester::pt_HAL_61851_Port->clear();
   sleep(par_CMN_waitForNextHAL);
   verdict = f_SECC_setProximity(0);
   if ((PICS_SECC_CMN_EIMDone == beforePlugin) && vc_testCaseSpecific)
@@ -24,19 +24,18 @@ VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_StateA_001(
   }
   return verdict;
 }
+
 // SECC
-VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_DisconnectDataLink_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_DisconnectDataLink_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = f_SECC_CMN_PR_StateA_001(v_HAL_61851_Listener);
   // generate Nid and Nmk
-  vc_Nmk = f_randomHexStringGen(32);
+  vc_Nmk = f_randomHexStringGen(16);
   vc_Nid = fx_generateNID(vc_Nmk);
   verdict = f_SECC_CMN_TB_VTB_CmSetKey_001(true);
   return verdict;
 }
-VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_SetProximityPilot_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_SetProximityPilot_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = f_SECC_CMN_PR_DisconnectDataLink_001(v_HAL_61851_Listener);
   if (verdict == pass)
@@ -62,7 +61,7 @@ VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_SetProximityPilot_001(
     {
       if (PICS_CMN_CMN_ChargingMode == aC)
       {
-        var integer v_proximity_type2_AC;
+        integer v_proximity_type2_AC;
         if (PICS_CMN_AC_CableCapability == capability13A)
         {
           v_proximity_type2_AC = cc_proximity_type2_AC_13A;
@@ -89,8 +88,8 @@ VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_SetProximityPilot_001(
   }
   return verdict;
 }
-VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_StateB_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+
+VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_StateB_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = f_SECC_CMN_PR_SetProximityPilot_001(v_HAL_61851_Listener);
   if (verdict == pass)
@@ -101,9 +100,7 @@ VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_StateB_001(
     if ((PICS_SECC_CMN_EIMDone == afterPlugin) && vc_testCaseSpecific)
     {
       f_SECC_setIsConfirmationFlagDC();
-      verdict = f_SECC_confirmDutyCycle(v_HAL_61851_Listener,
-                                        par_T_conn_max_comm,
-                                        inconc);
+      verdict = f_SECC_confirmDutyCycle(v_HAL_61851_Listener, par_T_conn_max_comm, inconc);
       f_SECC_changeValidStateCondition(EorF);
       f_SECC_changeValidFrequencyRange(0, 0);
       f_SECC_changeValidDutyCycleRange(0, 0);
@@ -117,9 +114,7 @@ VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_StateB_001(
     else if ((PICS_SECC_CMN_EIMDone == duringSlac) && vc_testCaseSpecific)
     {
       f_SECC_setIsConfirmationFlagDC();
-      verdict = f_SECC_confirmDutyCycle(v_HAL_61851_Listener,
-                                        par_T_conn_max_comm,
-                                        inconc);
+      verdict = f_SECC_confirmDutyCycle(v_HAL_61851_Listener, par_T_conn_max_comm, inconc);
       if (verdict == pass)
       {
         if (PIXIT_SECC_AC_InitialDutyCyle == dc5)
@@ -135,8 +130,7 @@ VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_StateB_001(
   tc_TT_matching_repetition.start(par_TT_matching_repetition);
   return verdict;
 }
-VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_CmSlacParm_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_CmSlacParm_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = f_SECC_CMN_PR_StateB_001(v_HAL_61851_Listener);
   if (verdict == pass)
@@ -145,8 +139,7 @@ VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_CmSlacParm_001(
   }
   return verdict;
 }
-VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_AttenuationCharacterization_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_AttenuationCharacterization_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
   // SECC_AttenuationCharacterization Behavior
@@ -156,11 +149,9 @@ VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_AttenuationCharacterizati
   }
   return verdict;
 }
-VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_CmValidate_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_CmValidate_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
-  VerdictValue verdict = f_SECC_CMN_PR_AttenuationCharacterization_001(
-      v_HAL_61851_Listener);
+  VerdictValue verdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
   // SECC_CmSlacMatch Behavior
   if (verdict == pass)
   {
@@ -168,8 +159,7 @@ VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_CmValidate_001(
   }
   return verdict;
 }
-VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_CmSlacMatch_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_CmSlacMatch_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict;
   if (PIXIT_SECC_CMN_CmValidate == cmValidate)
@@ -187,8 +177,7 @@ VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_CmSlacMatch_001(
   }
   return verdict;
 }
-VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_CmSetKey_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_CmSetKey_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = f_SECC_CMN_PR_CmSlacMatch_001(v_HAL_61851_Listener);
   // SECC_CmSetKey Behavior
@@ -199,8 +188,7 @@ VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_CmSetKey_001(
   }
   return verdict;
 }
-VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_PLCLinkStatus_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_PLCLinkStatus_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = f_SECC_CMN_PR_CmSetKey_001(v_HAL_61851_Listener);
   // SECC_PLCLinkStatus Behavior
@@ -211,8 +199,7 @@ VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_PLCLinkStatus_001(
   }
   return verdict;
 }
-VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_CmAmpMap_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_SECC_15118_3::f_SECC_CMN_PR_CmAmpMap_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = f_SECC_CMN_PR_PLCLinkStatus_001(v_HAL_61851_Listener);
   // EVCC_CmAmpMap Behavior
@@ -263,8 +250,7 @@ VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_CmSetKey_001(void)
   }
   return verdict;
 }
-VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_SetProximityPilot_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_SetProximityPilot_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = f_EVCC_CMN_PR_CmSetKey_001();
   if (verdict == pass)
@@ -279,7 +265,7 @@ VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_SetProximityPilot_001(
     {
       if (PICS_CMN_CMN_ChargingMode == aC)
       {
-        var integer v_proximity_type2_AC;
+        integer v_proximity_type2_AC;
         if (PICS_CMN_AC_CableCapability == capability13A)
         {
           v_proximity_type2_AC = cc_proximity_type2_AC_13A;
@@ -306,8 +292,7 @@ VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_SetProximityPilot_001(
   }
   return verdict;
 }
-VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_EnableControlPilot_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_EnableControlPilot_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = f_EVCC_CMN_PR_SetProximityPilot_001(v_HAL_61851_Listener);
   if (verdict == pass)
@@ -318,8 +303,7 @@ VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_EnableControlPilot_001(
   }
   return verdict;
 }
-VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_StateB_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_StateB_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = f_EVCC_CMN_PR_EnableControlPilot_001(v_HAL_61851_Listener);
   if (verdict == pass)
@@ -330,10 +314,9 @@ VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_StateB_001(
   tc_TT_EVSE_SLAC_init.start(par_TT_EVSE_SLAC_init_min);
   return verdict;
 }
-VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_DutyCycle_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_DutyCycle_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
-  var integer v_oscOff = 100;
+  integer v_oscOff = 100;
   VerdictValue verdict = f_EVCC_CMN_PR_StateB_001(v_HAL_61851_Listener);
   if (verdict == pass)
   {
@@ -351,12 +334,11 @@ VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_DutyCycle_001(
       verdict = f_EVCC_setDutyCycle(5);
       verdict = f_EVCC_setPwmMode(e_OscOn);
     }
-    EVCC::pt_SLAC_Port->clear();
+    EVCC_Tester::pt_SLAC_Port->clear();
   }
   return verdict;
 }
-VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_CmSlacParm_001(
-  std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_CmSlacParm_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = f_EVCC_CMN_PR_DutyCycle_001(v_HAL_61851_Listener);
   if (verdict == pass)
@@ -365,8 +347,7 @@ VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_CmSlacParm_001(
   }
   return verdict;
 }
-VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_AttenuationCharacterization_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_AttenuationCharacterization_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
   if (verdict == pass)
@@ -375,32 +356,25 @@ VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_AttenuationCharacterizati
   }
   return verdict;
 }
-VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_CmValidate_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_CmValidate_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
-  VerdictValue verdict = f_EVCC_CMN_PR_AttenuationCharacterization_001(
-      v_HAL_61851_Listener);
+  VerdictValue verdict = f_EVCC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
   if (verdict == passand PIXIT_EVCC_CMN_CmValidate == cmValidate)
   {
-    verdict = f_EVCC_CMN_TB_VTB_CmValidate_001(v_HAL_61851_Listener, false,
-                                                vc_DutyCycle, inconc);
+    verdict = f_EVCC_CMN_TB_VTB_CmValidate_001(v_HAL_61851_Listener, false, vc_DutyCycle, inconc);
   }
   return verdict;
 }
-VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
-  VerdictValue verdict = f_EVCC_CMN_PR_AttenuationCharacterization_001(
-      v_HAL_61851_Listener);
+  VerdictValue verdict = f_EVCC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
   if (verdict == pass)
   {
-    verdict = f_EVCC_CMN_TB_VTB_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener,
-                                                            inconc);
+    verdict = f_EVCC_CMN_TB_VTB_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener, inconc);
   }
   return verdict;
 }
-VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_PLCLinkStatus_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_PLCLinkStatus_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(v_HAL_61851_Listener);
   if (verdict == pass)
@@ -409,8 +383,7 @@ VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_PLCLinkStatus_001(
   }
   return verdict;
 }
-VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_CmAmpMap_001(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue PreConditions_EVCC_15118_3::f_EVCC_CMN_PR_CmAmpMap_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   VerdictValue verdict = f_EVCC_CMN_PR_PLCLinkStatus_001(v_HAL_61851_Listener);
   if (verdict == pass)
