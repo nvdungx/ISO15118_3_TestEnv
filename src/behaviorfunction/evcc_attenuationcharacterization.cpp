@@ -39,8 +39,9 @@ AttenProfile_TYPE averageCalc(const ResponseMessageList_TYPE &resMessagelist, in
   }
   return attenuation_list;
 }
-VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vct)
-{
+VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vct) {
+
+
   MME v_responseMessage;
   integer v_Num_soundsInt;
   ResponseMessageList_TYPE reponseMessageList;
@@ -307,8 +308,9 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vc
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_002() // runs on SLAC_Tester
-{
+VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_002() {
+ // runs on SLAC_Tester
+
   MME v_responseMessage;
   integer v_Num_soundsInt;
   ResponseMessageList_TYPE reponseMessageList;
@@ -558,8 +560,9 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_002() // runs on SLAC
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_003() // runs on SLAC_Tester
-{
+VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_003() {
+ // runs on SLAC_Tester
+
   MME v_responseMessage;
   integer v_Num_soundsInt;
   ResponseMessageList_TYPE reponseMessageList;
@@ -761,8 +764,9 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_003() // runs on SLAC
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_004() // runs on EVCC_Tester
-{
+VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_004() {
+ // runs on EVCC_Tester
+
   MME v_responseMessage;
   integer v_Num_soundsInt;
   ResponseMessageList_TYPE reponseMessageList;
@@ -992,8 +996,9 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_004() // runs on EVCC
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(template MME_Payload v_payload) // runs on EVCC_Tester
-{
+VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(template MME_Payload v_payload) {
+ // runs on EVCC_Tester
+
   MME v_responseMessage;
   integer v_Num_soundsInt;
   ResponseMessageList_TYPE reponseMessageList;
@@ -1234,8 +1239,9 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(template MME_Payl
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_006(HAL_61851_PwmMode_Type pwmMode) // runs on EVCC_Tester
-{
+VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_006(HAL_61851_PwmMode_Type pwmMode) {
+ // runs on EVCC_Tester
+
   // set error state
   f_EVCC_changeValidStateCondition(E, E);
   f_EVCC_setPwmMode(pwmMode);
@@ -1270,8 +1276,9 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_006(HAL_61851_PwmMode
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_AC_TB_VTB_AttenuationCharacterization_001(integer v_dutcCycle) // runs on EVCC_Tester
-{
+VerdictValue f_EVCC_AC_TB_VTB_AttenuationCharacterization_001(integer v_dutcCycle) {
+ // runs on EVCC_Tester
+
   MME v_responseMessage;
   integer v_Num_soundsInt;
   ResponseMessageList_TYPE reponseMessageList;

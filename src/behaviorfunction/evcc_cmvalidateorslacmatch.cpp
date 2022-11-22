@@ -23,24 +23,24 @@
 // import from Templates_CMN_CmSlacMatch all;
 // import from Timer_15118 all;
 namespace TestLib {
-VerdictValue f_EVCC_CMN_TB_VTB_CmValidateOrCmSlacMatch_001(in HAL_61851_Listener
+VerdictValue f_EVCC_CMN_TB_VTB_CmValidateOrCmSlacMatch_001(HAL_61851_Listener
 v_HAL_61851_Listener,
 in VerdictValue v_vct)
-runs on EVCC_Tester
-return VerdictValue {
+// runs on EVCC_Tester
+//return VerdictValue {
 MME v_requestMessage;
 integer cnt = 0;
 boolean isStep2 = false;
 float v_TT_EVSE_vald_toggle;
 boolean isCmValidate = false;
 while(true) {
-[] EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_REQ = "607C"}),
 md_CMN_CMN_CmSlacMatchReq_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
 vc_sut_mac, par_testSystem_mac,
-vc_RunID))) {
+vc_RunID)))) {
 setverdict(pass,"CM_SLAC_MATCH.REQ is correct.");
 EVCC_Tester::tc_TT_EVSE_match_session->stop();
 }
@@ -69,8 +69,7 @@ EVCC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_VALIDATE_CNF = "6079"}),
 md_CMN_CMN_CmValidateCnf_001(
-par_cmValidate_result_ready)))
-to vc_sut_mac;
+par_cmValidate_result_ready))); //to vc_sut_mac;
 EVCC_Tester::tc_TT_match_sequence->start(par_TT_match_sequence);
 repeat;
 }
@@ -87,22 +86,22 @@ timer statetimer = (par_T_vald_state_duration_max + par_CMN_Transmission_Delay);
 statetimer.start;
 integer toggleCnt = 0;
 while(true) {
-[] a_EVCC_BCBToggleDetection(EVCC_Tester::pt_HAL_61851_Internal_Port, B){
+if (a_EVCC_BCBToggleDetection(EVCC_Tester::pt_HAL_61851_Internal_Port, B)) {
 statetimer.stop;
 toggleCnt = toggleCnt + 1;
 f_EVCC_changeValidStateCondition(B,C);
 repeat;
 }
-[] a_EVCC_BCBToggleDetection(EVCC_Tester::pt_HAL_61851_Internal_Port, C){
+if (a_EVCC_BCBToggleDetection(EVCC_Tester::pt_HAL_61851_Internal_Port, C)) {
 statetimer.stop;
 f_EVCC_changeValidStateCondition(C,B);
 statetimer.start(par_T_vald_state_duration_max);
 repeat;
 }
-[] EVCC_Tester::pt_HAL_61851_Internal_Port.receive {
+if (EVCC_Tester::pt_HAL_61851_Internal_Port.receive()) {
 setverdict(v_vct, "Received state has an invalid value.");
 }
-[] statetimer.timeout {
+if (statetimer.timeout()) {
 setverdict(v_vct, "The EVSE could not detect the corresponding toggle value within the maximal valid state duration.");
 }
 if (EVCC_Tester::tc_TT_EVSE_vald_toggle->timeout()) {
@@ -113,8 +112,7 @@ md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_VALIDATE_CNF = "6079"}),
 md_CMN_CMN_CmValidateCnf_002(
 int2hex(toggleCnt,2),
-par_cmValidate_result_success)))
-to vc_sut_mac;
+par_cmValidate_result_success))); //to vc_sut_mac;
 f_EVCC_changeValidStateCondition(C,B);
 EVCC_Tester::tc_TT_match_sequence->start(par_TT_match_sequence);
 }
@@ -131,26 +129,26 @@ else {
 setverdict(v_vct, "Invalid message content was received from the SUT.");
 }
 }
-[] EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_VALIDATE_REQ = "6078"}),
-mw_CMN_CMN_CmValidateReq_003())) {
+mw_CMN_CMN_CmValidateReq_003()))) {
 setverdict(v_vct,"Result field is not set to 'Ready'. Matching process is considered as FAILED.");
 }
-[] EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_PARM_REQ = "6064"}),
 md_CMN_CMN_CmSlacParmReq_001(
-m_CMN_CMN_SlacPayloadHeader_001(),MATCH_ANY))) {
+m_CMN_CMN_SlacPayloadHeader_001(),MATCH_ANY)))) {
 setverdict(inconc,"CM_SLAC_PARM.REQ message was received. New Matching process is started.");
 }
-[] EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
   md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_CHAR_RSP = "606F"}),MATCH_ANY)) {
+CM_ATTEN_CHAR_RSP = "606F"}),MATCH_ANY))) {
 // CM_ATTEN_CHAR.RSP messages will be ignored!
 repeat;
 }
-[] EVCC_Tester::pt_SLAC_Port->receive {
+if (EVCC_Tester::pt_SLAC_Port->receive()) {
 setverdict(v_vct, "Invalid message type or content was received.");
 }
 if (EVCC_Tester::tc_TT_match_sequence->timeout()) {
@@ -166,8 +164,7 @@ EVCC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_VALIDATE_CNF = "6079"}),
 md_CMN_CMN_CmValidateCnf_001(
-par_cmValidate_result_ready)))
-to vc_sut_mac;
+par_cmValidate_result_ready))); //to vc_sut_mac;
 EVCC_Tester::tc_TT_match_sequence->start(par_TT_match_sequence);
 repeat;
 }

@@ -26,9 +26,10 @@
 // import from Services_HAL_61851 all;
 namespace TestLib {
 
-VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_001(in VerdictValue v_vct)
-runs on SECC_Tester
-return VerdictValue {
+VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vct) {
+
+//runs on SECC_Tester
+//return VerdictValue
 MME v_responseMessage;
 SourceRnd_Type v_source_rnd = f_randomHexStringGen(32);
 vc_LowestAverageAttenuation = 0.0;
@@ -60,13 +61,13 @@ SECC_Tester::tc_TP_EV_batch_msg_interval->timeout;
 };
 integer v_cnt_pot_evse = 0;
 while(true) {
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_ATTEN_CHAR_IND = "606E"}),
 mdw_SECC_CMN_CmAttenCharInd_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_RunID,MATCH_ANY)))
--> value v_responseMessage sender v_sut_mac {
+par_testSystem_mac, vc_RunID,MATCH_ANY)))) {
+//-> value v_responseMessage sender v_sut_mac
 setverdict(pass,"CM_ATTEN_CHAR.IND is correct.");
 v_cnt_pot_evse = v_cnt_pot_evse + 1;
 vc_attenuation_list = v_responseMessage.mme_payload.payload.
@@ -86,20 +87,20 @@ log("CM_ATTEN_CHAR.IND messages from all EVSEs are received.");
 }
 else{repeat;}
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY)) {
+CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY))) {
 // CM_SLAC_PARM.CNF messages will be ignored!
 repeat;
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY)) {
+CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY))) {
 // CM_ATTEN_PROFILE.IND messages will be ignored!
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(v_vct, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_EV_atten_results->timeout()) {
@@ -114,8 +115,9 @@ repeat;
 }
 return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_002() runs on SECC_Tester
-return VerdictValue {
+VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_002() {
+// runs on SECC_Tester
+//return VerdictValue
 MME v_responseMessage;
 SourceRnd_Type v_source_rnd = f_randomHexStringGen(32);
 vc_LowestAverageAttenuation = 0.0;
@@ -145,13 +147,13 @@ vc_RunID, v_source_rnd))) to cc_eth_broadcast;
 SECC_Tester::tc_TP_EV_batch_msg_interval->timeout;
 };
 while(true) {
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_ATTEN_CHAR_IND = "606E"}),
 mdw_SECC_CMN_CmAttenCharInd_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_RunID,MATCH_ANY)))
--> value v_responseMessage {
+par_testSystem_mac, vc_RunID,MATCH_ANY)))) {
+//-> value v_responseMessage
 setverdict(pass,"CM_ATTEN_CHAR.IND is correct.");
 SECC_Tester::tc_TT_EV_atten_results->stop();
 vc_RunID = f_randomHexStringGen(16);
@@ -163,17 +165,17 @@ md_CMN_CMN_CmSlacParmReq_001(
 m_CMN_CMN_SlacPayloadHeader_001(), vc_RunID)))
 to cc_eth_broadcast;
 while(true) {
-[]SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_PARM_CNF = "6065"}),
 md_CMN_CMN_CmSlacParmCnf_001(
 par_testSystem_mac ,
-m_CMN_CMN_SlacPayloadHeader_001(), vc_RunID))) {
+m_CMN_CMN_SlacPayloadHeader_001(), vc_RunID)))) {
 setverdict(pass,"CM_SLAC_PARM.CNF is correct.");
 SECC_Tester::tc_TP_match_sequence->stop();
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_match_response->timeout()) {
@@ -185,20 +187,20 @@ repeat;
 }
 }
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY)) {
+CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY))) {
 // CM_SLAC_PARM.CNF messages will be ignored!
 repeat;
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY)) {
+CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY))) {
 // CM_ATTEN_PROFILE.IND messages will be ignored!
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_EV_atten_results->timeout()) {
@@ -211,8 +213,9 @@ repeat;
 }
 return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_003(in integer n) runs on SECC_Tester
-return VerdictValue {
+VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_003(integer n) {
+// runs on SECC_Tester
+//return VerdictValue
 MME v_responseMessage;
 SourceRnd_Type v_source_rnd = f_randomHexStringGen(32);
 SECC_Tester::tc_TP_match_sequence->timeout;
@@ -243,29 +246,29 @@ to cc_eth_broadcast;
 SECC_Tester::tc_TP_EV_batch_msg_interval->timeout;
 };
 while(true) {
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_ATTEN_CHAR_IND = "606E"}),
 mdw_SECC_CMN_CmAttenCharInd_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_RunID,MATCH_ANY)))
--> value v_responseMessage {
+par_testSystem_mac, vc_RunID,MATCH_ANY)))) {
+//-> value v_responseMessage
 setverdict(pass,"Anticipated number of CM_MNBC_SOUND.IND messages was not sent, but CM_ATTEN_CHAR.IND is correct.");
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY)) {
+CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY))) {
 // CM_SLAC_PARM.CNF messages will be ignored!
 repeat;
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY)) {
+CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY))) {
 // CM_ATTEN_PROFILE.IND messages will be ignored!
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_EV_atten_results->timeout()) {
@@ -278,8 +281,9 @@ repeat;
 }
 return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_004() runs on SECC_Tester
-return VerdictValue {
+VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_004() {
+// runs on SECC_Tester
+//return VerdictValue
 MME v_responseMessage;
 SourceRnd_Type v_source_rnd = f_randomHexStringGen(32);
 vc_LowestAverageAttenuation = 0.0;
@@ -312,13 +316,13 @@ to cc_eth_broadcast;
 SECC_Tester::tc_TP_EV_batch_msg_interval->timeout;
 };
 while(true) {
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_ATTEN_CHAR_IND = "606E"}),
 mdw_SECC_CMN_CmAttenCharInd_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_RunID,MATCH_ANY)))
--> sender v_sut_mac {
+par_testSystem_mac, vc_RunID,MATCH_ANY)))) {
+//-> sender v_sut_mac
 if(v_count > 0){
 setverdict(pass,"CM_ATTEN_CHAR.IND message was repeated.",v_count);
 }
@@ -327,13 +331,13 @@ SECC_Tester::tc_TT_match_response->start(par_TT_match_response +
 par_CMN_Transmission_Delay);
 if(v_count > par_C_EV_match_retry) {
 while(true){
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_ATTEN_CHAR_IND = "606E"}),
 mdw_SECC_CMN_CmAttenCharInd_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_RunID,MATCH_ANY)))
--> sender v_sut_mac {
+par_testSystem_mac, vc_RunID,MATCH_ANY)))) {
+//-> sender v_sut_mac
 setverdict(fail,"CM_ATTEN_CHAR.IND message was repeated, but v_count > par_C_EV_match_retry.");
 }
 if (SECC_Tester::tc_TT_match_response->timeout()) {
@@ -355,24 +359,24 @@ m_CMN_CMN_SlacPayloadHeader_001(),
 par_testSystem_mac, v_sut_mac, vc_RunID)))
 to v_sut_mac;
 while(true) {
-[]SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_CNF = "607D"}),
 md_CMN_CMN_CmSlacMatchCnf_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
 par_testSystem_mac, v_sut_mac,
-vc_RunID,MATCH_ANY,MATCH_ANY))) {
+vc_RunID,MATCH_ANY,MATCH_ANY)))) {
 setverdict(fail,"CM_SLAC_MATCH.CNF message was not expected. Repetition limit was reached.");
 SECC_Tester::tc_TT_match_response->stop();
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_CHAR_IND = "606E"}),MATCH_ANY)) {
+CM_ATTEN_CHAR_IND = "606E"}),MATCH_ANY))) {
 // CM_ATTEN_CHAR.IND messages will be ignored!
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_match_response->timeout()) {
@@ -390,20 +394,20 @@ else{
 repeat;
 }
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY)) {
+CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY))) {
 // CM_SLAC_PARM.CNF messages will be ignored!
 repeat;
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY)) {
+CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY))) {
 // CM_ATTEN_PROFILE.IND messages will be ignored!
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_EV_atten_results->timeout()) {
@@ -419,12 +423,13 @@ repeat;
 }
 return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_005(in template(present)
+VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_005(template(present) {
+
 SLAC_Header payloadHeader,
 in template(present)
 Acvarfield_Type acvarfield)
-runs on SECC_Tester
-return VerdictValue {
+//runs on SECC_Tester
+//return VerdictValue
 MME v_responseMessage;
 SourceRnd_Type v_source_rnd = f_randomHexStringGen(32);
 vc_LowestAverageAttenuation = 0.0;
@@ -455,13 +460,13 @@ vc_RunID, v_source_rnd))) to cc_eth_broadcast;
 SECC_Tester::tc_TP_EV_batch_msg_interval->timeout;
 };
 while(true) {
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_ATTEN_CHAR_IND = "606E"}),
 mdw_SECC_CMN_CmAttenCharInd_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_RunID,MATCH_ANY)))
--> sender v_sut_mac {
+par_testSystem_mac, vc_RunID,MATCH_ANY)))) {
+//-> sender v_sut_mac
 if(v_count > 0){
 setverdict(pass,"CM_ATTEN_CHAR.IND message was repeated.",v_count);
 }
@@ -476,13 +481,13 @@ md_CMN_CMN_CmAttenCharRsp_001(
 payloadHeader, acvarfield))) to v_sut_mac;
 if(v_count > par_C_EV_match_retry) {
 while(true){
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_ATTEN_CHAR_IND = "606E"}),
 mdw_SECC_CMN_CmAttenCharInd_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_RunID,MATCH_ANY)))
--> sender v_sut_mac {
+par_testSystem_mac, vc_RunID,MATCH_ANY)))) {
+//-> sender v_sut_mac
 setverdict(fail,"CM_ATTEN_CHAR.IND message was repeated, but v_count > par_C_EV_match_retry.");
 }
 if (SECC_Tester::tc_TT_match_response->timeout()) {
@@ -501,27 +506,26 @@ md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_REQ = "607C"}),
 md_CMN_CMN_CmSlacMatchReq_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_sut_mac, vc_RunID)))
-to vc_sut_mac;
+par_testSystem_mac, vc_sut_mac, vc_RunID))); //to vc_sut_mac;
 while(true) {
-[]SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_CNF = "607D"}),
 md_CMN_CMN_CmSlacMatchCnf_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
 par_testSystem_mac, vc_sut_mac,
-vc_RunID,MATCH_ANY,MATCH_ANY))) {
+vc_RunID,MATCH_ANY,MATCH_ANY)))) {
 setverdict(fail,"CM_SLAC_MATCH.CNF message was not expected. Repetition limit was reached.");
 SECC_Tester::tc_TT_match_response->stop();
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_CHAR_IND = "606E"}),MATCH_ANY)) {
+CM_ATTEN_CHAR_IND = "606E"}),MATCH_ANY))) {
 // CM_ATTEN_CHAR.IND messages will be ignored!
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_match_response->timeout()) {
@@ -539,20 +543,20 @@ else{
 repeat;
 }
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY)) {
+CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY))) {
 // CM_SLAC_PARM.CNF messages will be ignored!
 repeat;
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY)) {
+CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY))) {
 // CM_ATTEN_PROFILE.IND messages will be ignored!
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_EV_atten_results->timeout()) {
@@ -568,8 +572,9 @@ repeat;
 }
 return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_006() runs on SECC_Tester
-return VerdictValue {
+VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_006() {
+// runs on SECC_Tester
+//return VerdictValue
 MME v_responseMessage;
 SourceRnd_Type v_source_rnd = f_randomHexStringGen(32);
 vc_LowestAverageAttenuation = 0.0;
@@ -602,29 +607,29 @@ to cc_eth_broadcast;
 SECC_Tester::tc_TP_EV_batch_msg_interval->timeout;
 };
 while(true) {
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_ATTEN_CHAR_IND = "606E"}),
 mdw_SECC_CMN_CmAttenCharInd_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_RunID,MATCH_ANY)))
--> value v_responseMessage {
+par_testSystem_mac, vc_RunID,MATCH_ANY)))) {
+//-> value v_responseMessage
 setverdict(fail,"CM_ATTEN_CHAR.IND message was not expected. TT_EV_atten_results timer should have expired.");
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY)) {
+CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY))) {
 // CM_SLAC_PARM.CNF messages will be ignored!
 repeat;
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY)) {
+CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY))) {
 // CM_ATTEN_PROFILE.IND messages will be ignored!
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_EV_atten_results->timeout()) {
@@ -637,9 +642,10 @@ repeat;
 }
 return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_007(in template MME_Payload v_payload)
-runs on SECC_Tester
-return VerdictValue {
+VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_007(template MME_Payload v_payload) {
+
+//runs on SECC_Tester
+//return VerdictValue
 MME v_responseMessage;
 SourceRnd_Type v_source_rnd = f_randomHexStringGen(32);
 vc_LowestAverageAttenuation = 0.0;
@@ -668,29 +674,29 @@ to cc_eth_broadcast;
 SECC_Tester::tc_TP_EV_batch_msg_interval->timeout;
 };
 while(true) {
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_ATTEN_CHAR_IND = "606E"}),
 mdw_SECC_CMN_CmAttenCharInd_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_RunID,MATCH_ANY)))
--> value v_responseMessage {
+par_testSystem_mac, vc_RunID,MATCH_ANY)))) {
+//-> value v_responseMessage
 setverdict(fail,"CM_ATTEN_CHAR.IND message was not expected. Invalid CM_START_ATTEN_CHAR.IND message was sent before.");
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY)) {
+CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY))) {
 // CM_SLAC_PARM.CNF messages will be ignored!
 repeat;
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY)) {
+CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY))) {
 // CM_ATTEN_PROFILE.IND messages will be ignored!
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_EV_atten_results->timeout()) {
@@ -703,10 +709,10 @@ repeat;
 }
 return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_008(in HAL_61851_Listener
+VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_008(HAL_61851_Listener
 v_HAL_61851_Listener)
-runs on SECC_Tester
-return VerdictValue {
+//runs on SECC_Tester
+//return VerdictValue {
 MME v_responseMessage;
 SourceRnd_Type v_source_rnd = f_randomHexStringGen(32);
 vc_LowestAverageAttenuation = 0.0;
@@ -741,29 +747,29 @@ vc_RunID, v_source_rnd))) to cc_eth_broadcast;
 SECC_Tester::tc_TP_EV_batch_msg_interval->timeout;
 };
 while(true) {
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_ATTEN_CHAR_IND = "606E"}),
 mdw_SECC_CMN_CmAttenCharInd_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_RunID,MATCH_ANY)))
--> value v_responseMessage {
+par_testSystem_mac, vc_RunID,MATCH_ANY)))) {
+//-> value v_responseMessage
 setverdict(fail,"CM_ATTEN_CHAR.IND message was not expected.CP State A should be detected before.");
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY)) {
+CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY))) {
 // CM_SLAC_PARM.CNF messages will be ignored!
 repeat;
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY)) {
+CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY))) {
 // CM_ATTEN_PROFILE.IND messages will be ignored!
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_EV_atten_results->timeout()) {
@@ -776,10 +782,10 @@ repeat;
 }
 return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_009(in MACAddress_TYPE
+VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_009(MACAddress_TYPE
 v_macAddress)
 runs on SLAC_Tester
-return VerdictValue {
+//return VerdictValue {
 MME v_responseMessage;
 boolean v_repetition = true;
 integer v_count1 = 0;
@@ -800,13 +806,13 @@ md_CMN_CMN_CmSlacParmReq_001(
 m_CMN_CMN_SlacPayloadHeader_001(), vc_RunID)))
 to cc_eth_broadcast;
 while(true) {
-[]SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_PARM_CNF = "6065"}),
 md_CMN_CMN_CmSlacParmCnf_001(
 v_macAddress ,m_CMN_CMN_SlacPayloadHeader_001(),
-vc_RunID)))
--> value v_responseMessage sender v_sut_mac{
+vc_RunID)))) {
+//-> value v_responseMessage sender v_sut_mac
 setverdict(pass,"CM_SLAC_PARM is correct.");
 vc_macAddresList.macAddressList[v_count2] = v_sut_mac;
 v_count2 = v_count2 + 1;
@@ -816,8 +822,8 @@ vc_Time_out = v_responseMessage.mme_payload.payload.
 cm_slac_parm_cnf.time_out;
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_002();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_002()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 v_repetition = false;
 }
@@ -868,13 +874,13 @@ SECC_Tester::tc_TP_EV_batch_msg_interval->timeout;
 };
 integer v_cnt_pot_evse = 0;
 while(true) {
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_ATTEN_CHAR_IND = "606E"}),
 mdw_SECC_CMN_CmAttenCharInd_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-v_macAddress, vc_RunID,MATCH_ANY)))
--> value v_responseMessage sender v_sut_mac {
+v_macAddress, vc_RunID,MATCH_ANY)))) {
+//-> value v_responseMessage sender v_sut_mac
 setverdict(pass,"CM_ATTEN_CHAR.IND is correct.");
 v_cnt_pot_evse = v_cnt_pot_evse + 1;
 SECC_Tester::tc_TP_match_sequence->start(par_TP_match_sequence);
@@ -892,20 +898,20 @@ log("CM_ATTEN_CHAR.IND messages from all EVSEs are received.");
 }
 else{repeat;}
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY)) {
+CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY))) {
 // CM_SLAC_PARM.CNF messages will be ignored!
 repeat;
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY)) {
+CM_ATTEN_PROFILE_IND = "6086"}),MATCH_ANY))) {
 // CM_ATTEN_PROFILE.IND messages will be ignored!
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_002();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_002()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_EV_atten_results->timeout()) {
@@ -921,8 +927,9 @@ repeat;
 }
 return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_setMac(MME v_responseMessage, MACAddress_TYPE v_sut_mac_temp) runs on
-SLAC_Tester {
+VerdictValue f_SECC_CMN_setMac(MME v_responseMessage, MACAddress_TYPE v_sut_mac_temp) {
+ runs on
+SLAC_Tester
 AttenProfile_TYPE v_attenuation_list = v_responseMessage.mme_payload.
 payload.cm_atten_char_ind.attenuation_list;
 float averageAttenuation = f_SECC_CMN_calculateAttenuation(v_attenuation_list);
@@ -934,9 +941,10 @@ vc_sut_mac = v_sut_mac_temp;
 log("An SECC with a lower attenuation could be detected.");
 }
 }
-VerdictValue f_SECC_CMN_calculateAttenuation(AttenProfile_TYPE v_attenuation_list) runs on
+VerdictValue f_SECC_CMN_calculateAttenuation(AttenProfile_TYPE v_attenuation_list) {
+ runs on
 SLAC_Tester
-return float {
+return float
 integer v_attenuationAdded = 0;
 for (integer i=0; i<sizeof(v_attenuation_list); i=i + 1) {
 v_attenuationAdded = v_attenuationAdded + hex2int(v_attenuation_list.attenuation[i]);
@@ -945,7 +953,8 @@ float v_averageAttenuation = (int2float(v_attenuationAdded)/
 int2float(sizeof(v_attenuation_list)));
 return v_averageAttenuation;
 }
-VerdictValue f_SECC_CMN_Reset_001(in HAL_61851_Listener v_HAL_61851_Listener) runs on SECC_Tester {
+VerdictValue f_SECC_CMN_Reset_001(HAL_61851_Listener v_HAL_61851_Listener) {
+// runs on SECC_Tester
 // initiate restart of the matching process
 all timer.stop;
 v_HAL_61851_Listener.stop;
@@ -988,7 +997,7 @@ f_SECC_changeValidStateCondition(valid_Matching);
 f_SECC_setState(vc_state,v_HAL_61851_Listener);
 SECC_Tester::tc_TT_matching_repetition->start(par_TT_matching_repetition);
 }
-VerdictValue f_SECC_CMN_compareAttenuationValues_001(in AttenProfile_TYPE
+VerdictValue f_SECC_CMN_compareAttenuationValues_001(AttenProfile_TYPE
 v_attenuation_list1,
 in AttenProfile_TYPE
 v_attenuation_list2) {
@@ -1004,7 +1013,7 @@ setverdict(fail, "Invalid attenuation values were detected. The deviation was sm
 setverdict(pass, "Valid attenuation values were detected. The deviation was greater or equal than 'par_SECC_attenuationDeviation'.");
 }
 }
-VerdictValue f_SECC_CMN_calculateMeanOfAttenuationValues_001(in AttenProfile_TYPE
+VerdictValue f_SECC_CMN_calculateMeanOfAttenuationValues_001(AttenProfile_TYPE
 v_attenuation_list)
 return integer{
 integer v_result = 0;
