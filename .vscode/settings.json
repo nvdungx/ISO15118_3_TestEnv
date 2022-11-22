@@ -76,7 +76,8 @@
     "typeinfo": "cpp",
     "variant": "cpp",
     "unordered_set": "cpp",
-    "bit": "cpp"
+    "bit": "cpp",
+    "xtr1common": "cpp"
   },
   "cSpell.words": [
     "GPIOIF",

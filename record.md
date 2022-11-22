@@ -1,4 +1,4 @@
-Test frameworkt 
+Test frameworkt
 
 TTCN-3 Control Interface (TCI) - test modification
 
@@ -19,6 +19,7 @@ TTCN-3 Runtime Interface (TRI)
 Test System Interface(TSI): test component that provides a mapping of the ports
 
 \[\][\s\t]*((EV|SE)CC_Tester::pt_[^;]+?)[\r\n\s\t]*->[\s\t]*value v_requestMessage[\s\t]*\{
+\[\][\s\t]*((EV|SE)CC_Tester::pt_[^;]+?\))[\r\n\s\t]*\{
 
 https://www.boost.org/doc/libs/1_76_0/more/getting_started/unix-variants.html
 wget https://boostorg.jfrog.io/artifactory/main/release/1.76.0/source/boost_1_76_0.tar.gz

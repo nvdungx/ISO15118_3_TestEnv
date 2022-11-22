@@ -24,8 +24,9 @@ using namespace Timer_15118::Timer_par_15118;
 using namespace Timer_15118_3::Timer_par_15118_3;
 using namespace LibFunctions_15118_3::generalFunctions;
 
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_001(VerdictValue v_vct)
-{
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_001(VerdictValue v_vct) {
+
+
   MME v_responseMessage;
   boolean v_repetition = true;
   integer v_count1 = 0;
@@ -174,8 +175,9 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_002(
   return SECC_Tester::getverdict();
 }
 
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_003(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
-{
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_003(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener) {
+
+
   SECC_Tester::vc_RunID = f_randomHexStringGen(16);
   sleep(1.0);
   f_SECC_changeValidStateCondition(invalid);
@@ -214,8 +216,9 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_003(std::shared_ptr<HAL_61851_Listener
   return SECC_Tester::getverdict();
 }
 
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_004(void)
-{
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_004(void) {
+
+
   MME v_responseMessage;
   boolean v_repetition = true;
   integer v_count1 = 0;
@@ -288,8 +291,9 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_004(void)
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_005(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
-{
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_005(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener) {
+
+
   MME v_responseMessage;
   MACAddress_TYPE v_sut_mac;
   f_SECC_setIsConfirmationFlagDC();
@@ -326,8 +330,9 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_005(std::shared_ptr<HAL_61851_Listener
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
-{
+VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener) {
+
+
   if (!SECC_Tester::vc_confirmState)
   {
     timer statetimer = par_CMN_HAL_Timeout;
@@ -401,8 +406,9 @@ VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_001(std::shared_ptr<HAL_61851_Listener>
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_002(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
-{
+VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_002(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener) {
+
+
   integer v_count = 1;
   SECC_Tester::tc_TP_EVSE_SLAC_init->start(par_TT_EVSE_SLAC_init_min - cc_offset);
   while (true)
@@ -570,8 +576,9 @@ VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_002(std::shared_ptr<HAL_61851_Listener>
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_003(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
-{
+VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_003(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener) {
+
+
   f_SECC_changeValidStateCondition(valid_Matching);
   f_SECC_changeValidDutyCycleRange(10, 96);
   SECC_Tester::vc_validDutyCycleLowerBound1 = 10;

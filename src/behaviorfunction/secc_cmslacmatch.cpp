@@ -16,9 +16,10 @@
 // import from Timer_15118 all;
 namespace TestLib {
 
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_001(in VerdictValue v_vct)
-runs on SECC_Tester
-return VerdictValue {
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_001(VerdictValue v_vct) {
+
+//runs on SECC_Tester
+//return VerdictValue
 MME v_responseMessage;
 boolean v_repetition = true;
 integer v_counter = 0;
@@ -30,25 +31,24 @@ md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_REQ = "607C"}),
 md_CMN_CMN_CmSlacMatchReq_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_sut_mac, vc_RunID)))
-to vc_sut_mac;
+par_testSystem_mac, vc_sut_mac, vc_RunID))); //to vc_sut_mac;
 while(true) {
-[]SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_CNF = "607D"}),
 md_CMN_CMN_CmSlacMatchCnf_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_sut_mac, vc_RunID,MATCH_ANY,MATCH_ANY)))
--> value v_responseMessage {
+par_testSystem_mac, vc_sut_mac, vc_RunID,MATCH_ANY,MATCH_ANY)))) {
+//-> value v_responseMessage
 setverdict(pass,"CM_SLAC_MATCH is correct.");
 vc_Nid = v_responseMessage.mme_payload.payload.cm_slac_match_cnf.nid;
 vc_Nmk = v_responseMessage.mme_payload.payload.cm_slac_match_cnf.nmk;
 v_repetition = false;
 SECC_Tester::tc_TT_match_response->stop();
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_CHAR_IND = "606E"}),MATCH_ANY)) {
+CM_ATTEN_CHAR_IND = "606E"}),MATCH_ANY))) {
 SECC_Tester::tc_TT_match_response->stop();
 SECC_Tester::tc_TT_match_response->start(par_TT_match_response);
 SECC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
@@ -57,13 +57,12 @@ CM_ATTEN_CHAR_RSP ="606F"}),
 md_CMN_CMN_CmAttenCharRsp_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
 md_CMN_CMN_Acvarfield_001(
-par_testSystem_mac, vc_RunID))))
-to vc_sut_mac;
+par_testSystem_mac, vc_RunID)))); //to vc_sut_mac;
 log("A further CM_ATTEN_CHAR.IND message was received. A new CM_ATTEN_CHAR.RSP has to be send.");
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(v_vct, "Invalid message type or content was received.");
 v_repetition = false;
 }
@@ -84,27 +83,27 @@ repeat;
 }
 return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_002() runs on SECC_Tester return VerdictValue {
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_002() {
+// runs on SECC_Tester return VerdictValue
 SECC_Tester::tc_TT_match_response->start(par_TT_match_response);
 SECC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_REQ = "607C"}),
 md_CMN_CMN_CmSlacMatchReq_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_sut_mac, vc_RunID)))
-to vc_sut_mac;
+par_testSystem_mac, vc_sut_mac, vc_RunID))); //to vc_sut_mac;
 while(true) {
-[]SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_CNF = "607D"}),
 md_CMN_CMN_CmSlacMatchCnf_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_sut_mac, vc_RunID,MATCH_ANY,MATCH_ANY))) {
+par_testSystem_mac, vc_sut_mac, vc_RunID,MATCH_ANY,MATCH_ANY)))) {
 repeat;
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_CHAR_IND = "606E"}),MATCH_ANY)) {
+CM_ATTEN_CHAR_IND = "606E"}),MATCH_ANY))) {
 SECC_Tester::tc_TT_match_response->stop();
 SECC_Tester::tc_TT_match_response->start(par_TT_match_response);
 SECC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
@@ -113,13 +112,12 @@ CM_ATTEN_CHAR_RSP ="606F"}),
 md_CMN_CMN_CmAttenCharRsp_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
 md_CMN_CMN_Acvarfield_001(
-par_testSystem_mac, vc_RunID))))
-to vc_sut_mac;
+par_testSystem_mac, vc_RunID)))); //to vc_sut_mac;
 log("A further CM_ATTEN_CHAR.IND message was received. A new CM_ATTEN_CHAR.RSP has to be send.");
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_match_response->timeout()) {
@@ -130,20 +128,19 @@ md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_REQ = "607C"}),
 md_CMN_CMN_CmSlacMatchReq_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_sut_mac, vc_RunID)))
-to vc_sut_mac;
+par_testSystem_mac, vc_sut_mac, vc_RunID))); //to vc_sut_mac;
 while(true) {
-[]SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_CNF = "607D"}),
 md_CMN_CMN_CmSlacMatchCnf_001(
 m_CMN_CMN_SlacPayloadHeader_001(), par_testSystem_mac,
-vc_sut_mac, vc_RunID,MATCH_ANY,MATCH_ANY))) {
+vc_sut_mac, vc_RunID,MATCH_ANY,MATCH_ANY)))) {
 SECC_Tester::tc_TT_match_response->stop();
 setverdict(pass,"TT_match_response timeout. CM_SLAC_MATCH.CNF was retransmitted.");
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_match_response->timeout()) {
@@ -158,7 +155,8 @@ repeat;
 }
 return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_003() runs on SECC_Tester return VerdictValue {
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_003() {
+// runs on SECC_Tester return VerdictValue
 charstring v_timer_name;
 if(PIXIT_SECC_CMN_CmValidate == cmValidate) {
 v_timer_name = "TT_match_sequence";
@@ -167,8 +165,8 @@ par_CMN_Transmission_Delay);
 // wait until TT_match_sequence timer expires
 while(true) {
 if (SECC_Tester::tc_TT_match_sequence->timeout());
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_matching_repetition->timeout()) {
@@ -184,8 +182,8 @@ par_CMN_Transmission_Delay);
 // wait until TT_EVSE_match_session timer expires
 while(true) {
 if (SECC_Tester::tc_TT_EVSE_match_session->timeout());
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_matching_repetition->timeout()) {
@@ -200,22 +198,21 @@ md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_REQ = "607C"}),
 md_CMN_CMN_CmSlacMatchReq_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_sut_mac, vc_RunID)))
-to vc_sut_mac;
+par_testSystem_mac, vc_sut_mac, vc_RunID))); //to vc_sut_mac;
 while(true) {
-[]SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_CNF = "607D"}),
 md_CMN_CMN_CmSlacMatchCnf_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_sut_mac, vc_RunID,MATCH_ANY,MATCH_ANY))) {
+par_testSystem_mac, vc_sut_mac, vc_RunID,MATCH_ANY,MATCH_ANY)))) {
 setverdict(fail,"CM_SLAC_MATCH.CNF was not expected, " & v_timer_name &
 " timer has been expired.");
 SECC_Tester::tc_TT_match_response->stop();
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_CHAR_IND = "606E"}),MATCH_ANY)) {
+CM_ATTEN_CHAR_IND = "606E"}),MATCH_ANY))) {
 SECC_Tester::tc_TT_match_response->stop();
 SECC_Tester::tc_TT_match_response->start(par_TT_match_response);
 SECC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
@@ -224,13 +221,12 @@ CM_ATTEN_CHAR_RSP ="606F"}),
 md_CMN_CMN_CmAttenCharRsp_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
 md_CMN_CMN_Acvarfield_001(
-par_testSystem_mac, vc_RunID))))
-to vc_sut_mac;
+par_testSystem_mac, vc_RunID)))); //to vc_sut_mac;
 log("A further CM_ATTEN_CHAR.IND message was received. A new CM_ATTEN_CHAR.RSP has to be send.");
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_match_response->timeout()) {
@@ -243,8 +239,9 @@ repeat;
 }
 return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_004(in template MME_Payload v_payload)
-runs on SECC_Tester return VerdictValue {
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_004(template MME_Payload v_payload) {
+
+//runs on SECC_Tester return VerdictValue
 timer v_timer;
 charstring v_timer_name;
 if(PIXIT_SECC_CMN_CmValidate == cmValidate) {
@@ -258,18 +255,17 @@ v_timer.start(par_TT_EVSE_match_session + par_CMN_Transmission_Delay);
 // send invalid CM_SLAC_MATCH.REQ message
 SECC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_SLAC_MATCH_REQ = "607C"}), v_payload))
-to vc_sut_mac;
+CM_SLAC_MATCH_REQ = "607C"}), v_payload)); //to vc_sut_mac;
 while(true) {
-[]SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_SLAC_MATCH_CNF = "607D"}),MATCH_ANY)) {
+CM_SLAC_MATCH_CNF = "607D"}),MATCH_ANY))) {
 setverdict(fail,"Invalid CM_SLAC_MATCH.REQ messages shall be ignored.");
 SECC_Tester::tc_TT_EVSE_match_session->stop();
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_CHAR_IND = "606E"}),MATCH_ANY)) {
+CM_ATTEN_CHAR_IND = "606E"}),MATCH_ANY))) {
 SECC_Tester::tc_TT_match_response->stop();
 SECC_Tester::tc_TT_match_response->start(par_TT_match_response);
 SECC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
@@ -278,43 +274,41 @@ CM_ATTEN_CHAR_RSP ="606F"}),
 md_CMN_CMN_CmAttenCharRsp_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
 md_CMN_CMN_Acvarfield_001(
-par_testSystem_mac, vc_RunID))))
-to vc_sut_mac;
+par_testSystem_mac, vc_RunID)))); //to vc_sut_mac;
 log("A further CM_ATTEN_CHAR.IND message was received. A new CM_ATTEN_CHAR.RSP has to be send.");
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
-[] v_timer.timeout {
+if (v_timer.timeout()) {
 SECC_Tester::tc_TT_match_response->start(par_TT_match_response);
 SECC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_REQ = "607C"}),
 md_CMN_CMN_CmSlacMatchReq_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_sut_mac, vc_RunID)))
-to vc_sut_mac;
+par_testSystem_mac, vc_sut_mac, vc_RunID))); //to vc_sut_mac;
 while(true) {
-[]SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_CNF = "607D"}),
 md_CMN_CMN_CmSlacMatchCnf_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_sut_mac, vc_RunID,MATCH_ANY,MATCH_ANY))) {
+par_testSystem_mac, vc_sut_mac, vc_RunID,MATCH_ANY,MATCH_ANY)))) {
 setverdict(fail,"CM_SLAC_MATCH.CNF was not expected, "
 & v_timer_name & " has been expired.");
 SECC_Tester::tc_TT_match_response->stop();
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_CHAR_IND = "606E"}),MATCH_ANY)) {
+CM_ATTEN_CHAR_IND = "606E"}),MATCH_ANY))) {
 // CM_ATTEN_CHAR.IND messages will be ignored!
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_match_response->timeout()) {
@@ -329,8 +323,9 @@ repeat;
 }
 return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_005(in HAL_61851_Listener v_HAL_61851_Listener)
-runs on SECC_Tester return VerdictValue {
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_005(HAL_61851_Listener v_HAL_61851_Listener) {
+
+//runs on SECC_Tester return VerdictValue
 f_SECC_changeValidStateCondition(invalid);
 f_SECC_changeValidFrequencyRange(0,0);
 f_SECC_changeValidDutyCycleRange(100,100);
@@ -342,22 +337,21 @@ md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_REQ = "607C"}),
 md_CMN_CMN_CmSlacMatchReq_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
-par_testSystem_mac, vc_sut_mac, vc_RunID)))
-to vc_sut_mac;
+par_testSystem_mac, vc_sut_mac, vc_RunID))); //to vc_sut_mac;
 while(true) {
-[]SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_CNF = "607D"}),
 md_CMN_CMN_CmSlacMatchCnf_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
 par_testSystem_mac, vc_sut_mac,
-vc_RunID,MATCH_ANY,MATCH_ANY))) {
+vc_RunID,MATCH_ANY,MATCH_ANY)))) {
 setverdict(fail,"CM_SLAC_MATCH.CNF message was not expected.CP State A should be detected before.");
 SECC_Tester::tc_TT_match_response->stop();
 }
-[] SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
-CM_ATTEN_CHAR_IND = "606E"}),MATCH_ANY)) {
+CM_ATTEN_CHAR_IND = "606E"}),MATCH_ANY))) {
 SECC_Tester::tc_TT_match_response->stop();
 SECC_Tester::tc_TT_match_response->start(par_TT_match_response);
 SECC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
@@ -366,13 +360,12 @@ CM_ATTEN_CHAR_RSP ="606F"}),
 md_CMN_CMN_CmAttenCharRsp_001(
 m_CMN_CMN_SlacPayloadHeader_001(),
 md_CMN_CMN_Acvarfield_001(
-par_testSystem_mac, vc_RunID))))
-to vc_sut_mac;
+par_testSystem_mac, vc_RunID)))); //to vc_sut_mac;
 log("A further CM_ATTEN_CHAR.IND message was received. A new CM_ATTEN_CHAR.RSP has to be send.");
 repeat;
 }
-[] a_SECC_processPLCLinkNotifications_001();
-[] SECC_Tester::pt_SLAC_Port->receive {
+if (a_SECC_processPLCLinkNotifications_001()) {}
+if (SECC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (SECC_Tester::tc_TT_match_response->timeout()) {

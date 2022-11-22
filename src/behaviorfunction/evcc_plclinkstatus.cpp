@@ -19,9 +19,10 @@
 // import from TestBehavior_EVCC_CmSlacParm all;
 // import from Templates_CMN_CmNwStats all;
 namespace TestLib {
-VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_001(in VerdictValue v_vct)
-runs on EVCC_Tester
-return VerdictValue {
+VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_001(VerdictValue v_vct) {
+
+// runs on EVCC_Tester
+//return VerdictValue
 VerdictValue v_verdict;
 EVCC_Tester::tc_TT_match_join->start(par_TT_match_join);
 EVCC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
@@ -29,8 +30,7 @@ md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_CNF = "607D"}),
 md_CMN_CMN_CmSlacMatchCnf_001(
 m_CMN_CMN_SlacPayloadHeader_001(), vc_sut_mac,
-par_testSystem_mac, vc_RunID, vc_Nid,vc_Nmk)))
-to vc_sut_mac;
+par_testSystem_mac, vc_RunID, vc_Nid,vc_Nmk))); //to vc_sut_mac;
 v_verdict = f_EVCC_getPLCLinkEstablishment(v_vct);
 if(v_verdict == pass) {
 setverdict(pass, "The data link was established by the SUT.");
@@ -40,7 +40,8 @@ setverdict(v_vct, "The data link could not be established by the SUT.");
 }
 return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_002() runs on EVCC_Tester return VerdictValue {
+VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_002() {
+// runs on EVCC_Tester return VerdictValue
 VerdictValue v_verdict;
 // set state E
 f_EVCC_changeValidStateCondition(E,E);
@@ -55,9 +56,10 @@ setverdict(fail, "The data link did not terminated by the SUT.");
 }
 return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_003(HAL_61851_PwmMode_Type pwmMode)
-runs on EVCC_Tester
-return VerdictValue {
+VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_003(HAL_61851_PwmMode_Type pwmMode) {
+
+// runs on EVCC_Tester
+//return VerdictValue
 VerdictValue v_verdict;
 // set error state
 f_EVCC_changeValidStateCondition(E,E);
@@ -68,8 +70,7 @@ md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_SLAC_MATCH_CNF = "607D"}),
 md_CMN_CMN_CmSlacMatchCnf_001(
 m_CMN_CMN_SlacPayloadHeader_001(), vc_sut_mac,
-par_testSystem_mac, vc_RunID,vc_Nid,vc_Nmk)))
-to vc_sut_mac;
+par_testSystem_mac, vc_RunID,vc_Nid,vc_Nmk))); //to vc_sut_mac;
 v_verdict = f_EVCC_getPLCLinkError();
 if(v_verdict == pass) {
 setverdict(pass, "The data link was not established by the SUT.");
@@ -79,10 +80,10 @@ setverdict(fail, "The data link was established by the SUT.");
 }
 return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_004(in HAL_61851_Listener
+VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_004(HAL_61851_Listener
 v_HAL_61851_Listener)
-runs on EVCC_Tester
-return VerdictValue {
+// runs on EVCC_Tester
+//return VerdictValue {
 VerdictValue verdict = pass;
 v_HAL_61851_Listener.stop;
 v_HAL_61851_Listener.start(f_EVCC_HAL61851Listener(true));
@@ -95,11 +96,11 @@ verdict = f_EVCC_CMN_TB_VTB_SDP_001(MATCH_ANY, fail);
 }
 return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_005(in HAL_61851_Listener
+VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_005(HAL_61851_Listener
 v_HAL_61851_Listener,
 in float v_time)
-runs on EVCC_Tester
-return VerdictValue {
+// runs on EVCC_Tester
+//return VerdictValue {
 VerdictValue verdict = pass;
 v_HAL_61851_Listener.stop;
 v_HAL_61851_Listener.start(f_EVCC_HAL61851Listener(true));
@@ -109,19 +110,19 @@ timer statetimer = (PICS_CMN_CMN_WakeUp -
 v_time + 5.0);
 statetimer.start;
 while(true) {
-[] a_EVCC_BCBToggleDetection(EVCC_Tester::pt_HAL_61851_Internal_Port, B){
+if (a_EVCC_BCBToggleDetection(EVCC_Tester::pt_HAL_61851_Internal_Port, B)) {
 statetimer.stop;
 }
-[] a_EVCC_BCBToggleDetection(EVCC_Tester::pt_HAL_61851_Internal_Port, C){
+if (a_EVCC_BCBToggleDetection(EVCC_Tester::pt_HAL_61851_Internal_Port, C)) {
 statetimer.stop;
 f_EVCC_changeValidStateCondition(C,B);
 statetimer.start(par_T_vald_state_duration_max);
 repeat;
 }
-[] EVCC_Tester::pt_HAL_61851_Internal_Port.receive {
+if (EVCC_Tester::pt_HAL_61851_Internal_Port.receive()) {
 setverdict(fail, "Received state has an invalid value.");
 }
-[] statetimer.timeout {
+if (statetimer.timeout()) {
 setverdict(fail, "The EVSE could not detect the corresponding toggle value within the maximal valid state duration.");
 }
 }
@@ -135,12 +136,12 @@ verdict = f_EVCC_CMN_TB_VTB_SDP_001(MATCH_ANY, fail);
 }
 return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_006(in HAL_61851_Listener
+VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_006(HAL_61851_Listener
 v_HAL_61851_Listener,
 in integer v_dutyCycle,
 in IEC_61851_States v_state)
-runs on EVCC_Tester
-return VerdictValue {
+// runs on EVCC_Tester
+//return VerdictValue {
 VerdictValue v_verdict = pass;
 sleep(par_CMN_waitForConnectionLoss);
 // generate new Nid and Nmk
@@ -161,8 +162,8 @@ v_verdict = f_EVCC_setPwmMode(e_OscOff);
 EVCC_Tester::tc_T_step_EF->start(par_T_step_EF_min);
 while(true) {
 if (EVCC_Tester::tc_T_step_EF->timeout()) {}
-[] a_EVCC_processPLCLinkNotifications_001();
-[] EVCC_Tester::pt_SLAC_Port->receive {
+if (a_EVCC_processPLCLinkNotifications_001()) {}
+if (EVCC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 }
@@ -186,12 +187,13 @@ f_EVCC_CMN_TB_VTB_CmSlacParm_001(fail);
 return EVCC_Tester::getverdict();
 }
 
-VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_007() runs on EVCC_Tester
-return VerdictValue {
+VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_007() {
+// runs on EVCC_Tester
+//return VerdictValue
 EVCC_Tester::tc_TP_match_leave->start(par_TP_match_leave);
 while(true) {
 if (EVCC_Tester::tc_TP_match_leave->timeout()) {}
-[] EVCC_Tester::pt_SLAC_Port->receive {
+if (EVCC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 }
@@ -201,19 +203,19 @@ CM_NW_STATS_REQ = "6048"}),
 md_CMN_CMN_CmNwStatsReq_001()))
 to par_testSystem_plc_node_mac;
 while(true) {
-[] EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_NW_STATS_CNF = "6049"}),
-md_CMN_CMN_CmNwStatsCnf_001())) {
+md_CMN_CMN_CmNwStatsCnf_001()))) {
 setverdict(fail,"The SUTs node was detected in the current logical network.");
 }
-[] EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
+if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
 md_CMN_CMN_SlacMmeCmnHeader_001({
 CM_NW_STATS_CNF = "6049"}),
-md_CMN_CMN_CmNwStatsCnf_002())) {
+md_CMN_CMN_CmNwStatsCnf_002()))) {
 setverdict(pass,"The SUTs node has left the current logical network.");
 }
-[] EVCC_Tester::pt_SLAC_Port->receive {
+if (EVCC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 if (EVCC_Tester::tc_TT_link_status_response->timeout()) {
@@ -222,10 +224,10 @@ setverdict(fail,"CM_NW_STATS timeout.");
 }
 return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_008(in HAL_61851_Listener
+VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_008(HAL_61851_Listener
 v_HAL_61851_Listener)
-runs on EVCC_Tester
-return VerdictValue {
+// runs on EVCC_Tester
+//return VerdictValue {
 VerdictValue v_verdict = pass;
 hexstring v_Nmk_old;
 hexstring v_Nid_old;
@@ -252,8 +254,9 @@ v_verdict = f_EVCC_checkLeavingLogicalNetwork();
 }
 return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_AC_TB_VTB_PLCLinkStatus_001() runs on EVCC_Tester
-return VerdictValue {
+VerdictValue f_EVCC_AC_TB_VTB_PLCLinkStatus_001() {
+// runs on EVCC_Tester
+//return VerdictValue
 VerdictValue v_verdict = pass;
 sleep(par_CMN_waitForConnectionLoss);
 // generate new Nid and Nmk
@@ -266,8 +269,8 @@ v_verdict = f_EVCC_getPLCLinkTermination(par_TP_match_leave, fail);
 EVCC_Tester::tc_TconnResetup->start(PIXIT_EVCC_AC_TconnResetup);
 while(true) {
 if (EVCC_Tester::tc_TconnResetup->timeout()) {}
-[] a_EVCC_processPLCLinkNotifications_001();
-[] EVCC_Tester::pt_SLAC_Port->receive {
+if (a_EVCC_processPLCLinkNotifications_001()) {}
+if (EVCC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 }
@@ -277,11 +280,11 @@ v_verdict = f_EVCC_CMN_TB_VTB_CmSlacParm_001(fail);
 }
 return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_AC_TB_VTB_PLCLinkStatus_002(in HAL_61851_Listener
+VerdictValue f_EVCC_AC_TB_VTB_PLCLinkStatus_002(HAL_61851_Listener
 v_HAL_61851_Listener,
 in IEC_61851_States v_state)
-runs on EVCC_Tester
-return VerdictValue {
+// runs on EVCC_Tester
+//return VerdictValue {
 VerdictValue v_verdict = pass;
 sleep(par_CMN_waitForConnectionLoss);
 // generate new Nid and Nmk
@@ -294,8 +297,8 @@ v_verdict = f_EVCC_getPLCLinkTermination(par_TP_match_leave, fail);
 EVCC_Tester::tc_TconnResetup->start(PIXIT_EVCC_AC_TconnResetup/2.0);
 while(true) {
 if (EVCC_Tester::tc_TconnResetup->timeout()) {}
-[] a_EVCC_processPLCLinkNotifications_001();
-[] EVCC_Tester::pt_SLAC_Port->receive {
+if (a_EVCC_processPLCLinkNotifications_001()) {}
+if (EVCC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 }
@@ -310,8 +313,8 @@ v_verdict = f_EVCC_setPwmMode(e_OscOff);
 EVCC_Tester::tc_T_step_EF->start(par_T_step_EF_min);
 while(true) {
 if (EVCC_Tester::tc_T_step_EF->timeout()) {}
-[] a_EVCC_processPLCLinkNotifications_001();
-[] EVCC_Tester::pt_SLAC_Port->receive {
+if (a_EVCC_processPLCLinkNotifications_001()) {}
+if (EVCC_Tester::pt_SLAC_Port->receive()) {
 setverdict(fail, "Invalid message type or content was received.");
 }
 }
