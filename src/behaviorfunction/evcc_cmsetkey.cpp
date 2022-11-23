@@ -1,7 +1,5 @@
 #include "behaviorfunction/evcc_cmsetkey.hpp"
 #include "template/template.hpp"
-#include "datatype.hpp"
-#include "slac_type.hpp"
 
 // import from Timer_15118_3 all;
 // import from Pics_15118_3 all;
@@ -17,7 +15,9 @@
 #define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 namespace TestLib
 {
-VerdictValue f_EVCC_CMN_TB_VTB_CmSetKey_001()
+namespace TestBehavior_EVCC_CmSetKey
+{
+VerdictValue f_EVCC_CMN_TB_VTB_CmSetKey_001(void)
 {
   // runs on EVCC_Tester return VerdictValue
   timer t1 = par_CMN_setKey;
@@ -52,5 +52,6 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmSetKey_001()
     }
   }
   return EVCC_Tester::getverdict();
+}
 }
 }

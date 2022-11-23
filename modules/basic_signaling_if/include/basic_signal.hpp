@@ -1,11 +1,9 @@
 #ifndef __BASIC_SIGNAL_H__
 #define __BASIC_SIGNAL_H__
 
-#include <unordered_map>
 #include <list>
-#include <memory>
-#include "service.hpp"
 #include "datatype.hpp"
+#include "service.hpp"
 
 namespace TestLib
 {
@@ -35,13 +33,13 @@ namespace TestLib
     {
       OFF = 0,
       ON
-    } RelayVal;
+    } relayVal;
 
     #define NUM_STATE 6
     #define NUM_RELAY 6
     #define NUM_ERROR 4
     const std::vector<uint32_t> RELAYS{RELAY_PE_LINE, RELAY_RES_B, RELAY_RES_C, RELAY_RES_D, RELAY_DIODE, RELAY_SHORT_CIRCUIT};
-    const RelayVal STATE_RELAY_MAP[NUM_STATE][NUM_RELAY] = {
+    const relayVal STATE_RELAY_MAP[NUM_STATE][NUM_RELAY] = {
         // PE    B     C    D     DIODE  SH
         [A] = {OFF, OFF, OFF, OFF, OFF, OFF},
         [B] = {ON, ON, OFF, OFF, OFF, OFF},
@@ -49,7 +47,7 @@ namespace TestLib
         [D] = {ON, ON, OFF, ON, OFF, OFF},
         [E] = {ON, ON, OFF, OFF, OFF, ON},
         [F] = {OFF, OFF, OFF, OFF, OFF, OFF}};
-    const RelayVal ERROR_RELAY_MAP[NUM_ERROR][NUM_RELAY] = {
+    const relayVal ERROR_RELAY_MAP[NUM_ERROR][NUM_RELAY] = {
         // PE    B     C    D     DIODE  SH
         [LOST_CP] = {OFF, OFF, OFF, OFF, OFF, OFF},
         [LOST_PE] = {OFF, ON, OFF, OFF, OFF, OFF},

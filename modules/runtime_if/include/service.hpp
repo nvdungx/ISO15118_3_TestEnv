@@ -3,8 +3,6 @@
 
 #include <boost/asio.hpp>
 #include <thread>
-#include <vector>
-#include <memory>
 #include <atomic>
 #include "datatype.hpp"
 

@@ -1,7 +1,5 @@
 #include "behaviorfunction/evcc_attenuationcharacterization.hpp"
 #include "template/template.hpp"
-#include "datatype.hpp"
-#include "slac_type.hpp"
 
 // import from Templates_CMN_CmStartAttenCharInd all;
 // import from Templates_CMN_SlacManagementMessageEntry all;
@@ -27,6 +25,8 @@
 #define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 namespace TestLib
 {
+namespace TestBehavior_EVCC_AttenuationCharacterization
+{
 AttenProfile_TYPE averageCalc(const ResponseMessageList_TYPE &resMessagelist, integer vcount)
 {
   AttenProfile_TYPE attenuation_list;
@@ -42,8 +42,8 @@ AttenProfile_TYPE averageCalc(const ResponseMessageList_TYPE &resMessagelist, in
   }
   return attenuation_list;
 }
-VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vct) {
-
+VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vct)
+{
 
   MME v_responseMessage;
   integer v_Num_soundsInt;
@@ -65,8 +65,8 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vc
   while (true)
   {
     if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
-      md_CMN_CMN_SlacMmeCmnHeader_001({CM_START_ATTEN_CHAR_IND = "606A"}),
-      md_CMN_CMN_CmStartAttenCharInd_001(m_CMN_CMN_SlacPayloadHeader_001(), MATCH_ANY, MATCH_ANY, "01", MATCH_ANY, vc_RunID))))
+            md_CMN_CMN_SlacMmeCmnHeader_001({CM_START_ATTEN_CHAR_IND = "606A"}),
+            md_CMN_CMN_CmStartAttenCharInd_001(m_CMN_CMN_SlacPayloadHeader_001(), MATCH_ANY, MATCH_ANY, "01", MATCH_ANY, vc_RunID))))
     {
       if (v_count2 == 0)
       {
@@ -124,9 +124,9 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vc
           if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
                   md_CMN_CMN_SlacMmeCmnHeader_001({CM_MNBC_SOUND_IND = "6076"}),
                   md_CMN_CMN_CmMnbcSoundInd_001(m_CMN_CMN_SlacPayloadHeader_001(),
-                      MATCH_ANY, vc_RunID, MATCH_ANY))))
+                                                MATCH_ANY, vc_RunID, MATCH_ANY))))
           {
-          // -> value v_responseMessage
+            // -> value v_responseMessage
             v_countStart = hex2int(v_responseMessage.mme_payload.payload.cm_mnbc_sound_ind.count);
             v_firstSound = false;
             if (v_countStart == cc_numberOfSoundings)
@@ -148,7 +148,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vc
             // repeat;
           }
         }
-        if (not v_firstSound)
+        if (!v_firstSound)
         {
           if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
                   md_CMN_CMN_SlacMmeCmnHeader_001({CM_MNBC_SOUND_IND = "6076"}),
@@ -309,8 +309,9 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vc
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_002() {
- // runs on SLAC_Tester
+VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_002(void)
+{
+  // runs on SLAC_Tester
 
   MME v_responseMessage;
   integer v_Num_soundsInt;
@@ -342,7 +343,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_002() {
             md_CMN_CMN_CmStartAttenCharInd_001(m_CMN_CMN_SlacPayloadHeader_001(), MATCH_ANY, MATCH_ANY,
                                                 "01", MATCH_ANY, vc_RunID))))
     {
-    // -> value v_responseMessage
+      // -> value v_responseMessage
       if (v_count2 == 0)
       {
         EVCC_Tester::tc_TT_EVSE_match_MNBC->start(par_TT_EVSE_match_MNBC);
@@ -405,7 +406,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_002() {
                   md_CMN_CMN_SlacMmeCmnHeader_001({CM_MNBC_SOUND_IND = "6076"}),
                   md_CMN_CMN_CmMnbcSoundInd_001(m_CMN_CMN_SlacPayloadHeader_001(), MATCH_ANY, vc_RunID, MATCH_ANY))))
           {
-          // -> value v_responseMessage
+            // -> value v_responseMessage
             v_countStart = hex2int(v_responseMessage.mme_payload.payload.cm_mnbc_sound_ind.count);
             v_firstSound = false;
             if (v_countStart == cc_numberOfSoundings)
@@ -427,7 +428,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_002() {
             // repeat;
           }
         }
-        if (not v_firstSound)
+        if (!v_firstSound)
         {
           if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
                   md_CMN_CMN_SlacMmeCmnHeader_001({CM_MNBC_SOUND_IND = "6076"}), md_CMN_CMN_CmMnbcSoundInd_001(m_CMN_CMN_SlacPayloadHeader_001(),
@@ -441,7 +442,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_002() {
                 md_CMN_CMN_SlacMmeCmnHeader_001({CM_ATTEN_PROFILE_IND = "6086"}),
                 md_EVCC_CMN_CmAttenProfileInd_001(vc_sut_mac, MATCH_ANY, MATCH_SKIP))))
         {
-        // -> value v_responseMessage
+          // -> value v_responseMessage
           if (ispresent(v_responseMessage.mme_payload.payload.cm_atten_profile_ind.attenuation_list))
           {
             if (v_responseMessage.mme_payload.payload.cm_atten_profile_ind.num_groups != "3A")
@@ -561,8 +562,9 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_002() {
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_003() {
- // runs on SLAC_Tester
+VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_003(void)
+{
+  // runs on SLAC_Tester
 
   MME v_responseMessage;
   integer v_Num_soundsInt;
@@ -581,7 +583,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_003() {
   t_TT_EVSE_SLAC_init.start(par_TT_EVSE_SLAC_init_min);
   while (true)
   {
-    if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_REQ = "6064"}),md_CMN_CMN_CmSlacParmReq_001(m_CMN_CMN_SlacPayloadHeader_001(), MATCH_ANY))))
+    if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_REQ = "6064"}), md_CMN_CMN_CmSlacParmReq_001(m_CMN_CMN_SlacPayloadHeader_001(), MATCH_ANY))))
     //-> value v_responseMessage sender vc_sut_mac
     {
       setverdict(pass, "CM_SLAC_PARM.REQ is correct.");
@@ -611,7 +613,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_003() {
               md_CMN_CMN_SlacMmeCmnHeader_001({CM_START_ATTEN_CHAR_IND = "606A"}),
               md_CMN_CMN_CmStartAttenCharInd_001(m_CMN_CMN_SlacPayloadHeader_001(), MATCH_ANY, MATCH_ANY, "01", MATCH_ANY, vc_RunID))))
       {
-      // -> value v_responseMessage
+        // -> value v_responseMessage
         if (v_count2 == 0)
         {
           EVCC_Tester::tc_TT_EVSE_match_MNBC->start(par_TT_EVSE_match_MNBC);
@@ -667,7 +669,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_003() {
                     md_CMN_CMN_SlacMmeCmnHeader_001({CM_MNBC_SOUND_IND = "6076"}),
                     md_CMN_CMN_CmMnbcSoundInd_001(m_CMN_CMN_SlacPayloadHeader_001(), MATCH_ANY, vc_RunID, MATCH_ANY))))
             {
-            // -> value v_responseMessage
+              // -> value v_responseMessage
               v_countStart = hex2int(v_responseMessage.mme_payload.payload.cm_mnbc_sound_ind.count);
               v_firstSound = false;
               if (v_countStart == cc_numberOfSoundings)
@@ -689,7 +691,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_003() {
               // repeat;
             }
           }
-          if (not v_firstSound)
+          if (!v_firstSound)
           {
             if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
                     md_CMN_CMN_SlacMmeCmnHeader_001({CM_MNBC_SOUND_IND = "6076"}),
@@ -703,7 +705,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_003() {
                   md_CMN_CMN_SlacMmeCmnHeader_001({CM_ATTEN_PROFILE_IND = "6086"}),
                   md_EVCC_CMN_CmAttenProfileInd_001(vc_sut_mac, MATCH_ANY, MATCH_SKIP))))
           {
-          // -> value v_responseMessage
+            // -> value v_responseMessage
             if (ispresent(v_responseMessage.mme_payload.payload.cm_atten_profile_ind.attenuation_list))
             {
               if (v_responseMessage.mme_payload.payload.cm_atten_profile_ind.num_groups != "3A")
@@ -765,8 +767,9 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_003() {
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_004() {
- // runs on EVCC_Tester
+VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_004(void)
+{
+  // runs on EVCC_Tester
 
   MME v_responseMessage;
   integer v_Num_soundsInt;
@@ -790,7 +793,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_004() {
             md_CMN_CMN_SlacMmeCmnHeader_001({CM_START_ATTEN_CHAR_IND = "606A"}),
             md_CMN_CMN_CmStartAttenCharInd_001(m_CMN_CMN_SlacPayloadHeader_001(), MATCH_ANY, MATCH_ANY, "01", MATCH_ANY, vc_RunID))))
     {
-    // -> value v_responseMessage
+      // -> value v_responseMessage
       if (v_count2 == 0)
       {
         EVCC_Tester::tc_TT_EVSE_match_MNBC->start(par_TT_EVSE_match_MNBC);
@@ -847,7 +850,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_004() {
                   md_CMN_CMN_SlacMmeCmnHeader_001({CM_MNBC_SOUND_IND = "6076"}),
                   md_CMN_CMN_CmMnbcSoundInd_001(m_CMN_CMN_SlacPayloadHeader_001(), MATCH_ANY, vc_RunID, MATCH_ANY))))
           {
-          // -> value v_responseMessage
+            // -> value v_responseMessage
             v_countStart = hex2int(v_responseMessage.mme_payload.payload.cm_mnbc_sound_ind.count);
             v_firstSound = false;
             if (v_countStart == cc_numberOfSoundings)
@@ -869,7 +872,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_004() {
             // repeat;
           }
         }
-        if (not v_firstSound)
+        if (!v_firstSound)
         {
           if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
                   md_CMN_CMN_SlacMmeCmnHeader_001({CM_MNBC_SOUND_IND = "6076"}),
@@ -883,7 +886,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_004() {
                 md_CMN_CMN_SlacMmeCmnHeader_001({CM_ATTEN_PROFILE_IND = "6086"}),
                 md_EVCC_CMN_CmAttenProfileInd_001(vc_sut_mac, MATCH_ANY, MATCH_SKIP))))
         {
-        // -> value v_responseMessage
+          // -> value v_responseMessage
           if (ispresent(v_responseMessage.mme_payload.payload.cm_atten_profile_ind.attenuation_list))
           {
             if (v_responseMessage.mme_payload.payload.cm_atten_profile_ind.num_groups != "3A")
@@ -997,8 +1000,9 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_004() {
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(MME_Payload v_payload) {
- // runs on EVCC_Tester
+VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(const MME_Payload &v_payload)
+{
+  // runs on EVCC_Tester
 
   MME v_responseMessage;
   integer v_Num_soundsInt;
@@ -1022,7 +1026,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(MME_Payload v_pay
             md_CMN_CMN_SlacMmeCmnHeader_001({CM_START_ATTEN_CHAR_IND = "606A"}),
             md_CMN_CMN_CmStartAttenCharInd_001(m_CMN_CMN_SlacPayloadHeader_001(), MATCH_ANY, MATCH_ANY, "01", MATCH_ANY, vc_RunID))))
     {
-    // -> value v_responseMessage
+      // -> value v_responseMessage
       if (v_count2 == 0)
       {
         EVCC_Tester::tc_TT_EVSE_match_MNBC->start(par_TT_EVSE_match_MNBC);
@@ -1083,7 +1087,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(MME_Payload v_pay
                   md_CMN_CMN_SlacMmeCmnHeader_001({CM_MNBC_SOUND_IND = "6076"}),
                   md_CMN_CMN_CmMnbcSoundInd_001(m_CMN_CMN_SlacPayloadHeader_001(), MATCH_ANY, vc_RunID, MATCH_ANY))))
           {
-          // -> value v_responseMessage
+            // -> value v_responseMessage
             v_countStart = hex2int(v_responseMessage.mme_payload.payload.cm_mnbc_sound_ind.count);
             v_firstSound = false;
             if (v_countStart == cc_numberOfSoundings)
@@ -1105,7 +1109,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(MME_Payload v_pay
             // repeat;
           }
         }
-        if (not v_firstSound)
+        if (!v_firstSound)
         {
           if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
                   md_CMN_CMN_SlacMmeCmnHeader_001({CM_MNBC_SOUND_IND = "6076"}),
@@ -1119,7 +1123,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(MME_Payload v_pay
                 md_CMN_CMN_SlacMmeCmnHeader_001({CM_ATTEN_PROFILE_IND = "6086"}),
                 md_EVCC_CMN_CmAttenProfileInd_001(vc_sut_mac, MATCH_ANY, MATCH_SKIP))))
         {
-        // -> value v_responseMessage
+          // -> value v_responseMessage
           if (ispresent(v_responseMessage.mme_payload.payload.cm_atten_profile_ind.attenuation_list))
           {
             if (v_responseMessage.mme_payload.payload.cm_atten_profile_ind.num_groups != "3A")
@@ -1240,8 +1244,9 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(MME_Payload v_pay
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_006(HAL_61851_PwmMode_Type pwmMode) {
- // runs on EVCC_Tester
+VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_006(HAL_61851_PwmMode_Type pwmMode)
+{
+  // runs on EVCC_Tester
 
   // set error state
   f_EVCC_changeValidStateCondition(E, E);
@@ -1277,8 +1282,9 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_006(HAL_61851_PwmMode
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_AC_TB_VTB_AttenuationCharacterization_001(integer v_dutcCycle) {
- // runs on EVCC_Tester
+VerdictValue f_EVCC_AC_TB_VTB_AttenuationCharacterization_001(integer v_dutcCycle)
+{
+  // runs on EVCC_Tester
 
   MME v_responseMessage;
   integer v_Num_soundsInt;
@@ -1359,7 +1365,7 @@ VerdictValue f_EVCC_AC_TB_VTB_AttenuationCharacterization_001(integer v_dutcCycl
                   md_CMN_CMN_SlacMmeCmnHeader_001({CM_MNBC_SOUND_IND = "6076"}),
                   md_CMN_CMN_CmMnbcSoundInd_001(m_CMN_CMN_SlacPayloadHeader_001(), MATCH_ANY, vc_RunID, MATCH_ANY))))
           {
-          // -> value v_responseMessage
+            // -> value v_responseMessage
             v_countStart = hex2int(v_responseMessage.mme_payload.payload.cm_mnbc_sound_ind.count);
             v_firstSound = false;
             if (v_countStart == cc_numberOfSoundings)
@@ -1381,7 +1387,7 @@ VerdictValue f_EVCC_AC_TB_VTB_AttenuationCharacterization_001(integer v_dutcCycl
             // repeat;
           }
         }
-        if (not v_firstSound)
+        if (!v_firstSound)
         {
           if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
                   md_CMN_CMN_SlacMmeCmnHeader_001({CM_MNBC_SOUND_IND = "6076"}),
@@ -1395,7 +1401,7 @@ VerdictValue f_EVCC_AC_TB_VTB_AttenuationCharacterization_001(integer v_dutcCycl
                 md_CMN_CMN_SlacMmeCmnHeader_001({CM_ATTEN_PROFILE_IND = "6086"}),
                 md_EVCC_CMN_CmAttenProfileInd_001(vc_sut_mac, MATCH_ANY, MATCH_SKIP))))
         {
-        // -> value v_responseMessage
+          // -> value v_responseMessage
           if (ispresent(v_responseMessage.mme_payload.payload.cm_atten_profile_ind.attenuation_list))
           {
             if (v_responseMessage.mme_payload.payload.cm_atten_profile_ind.num_groups != "3A")
@@ -1516,5 +1522,6 @@ VerdictValue f_EVCC_AC_TB_VTB_AttenuationCharacterization_001(integer v_dutcCycl
     }
   }
   return EVCC_Tester::getverdict();
+}
 }
 }

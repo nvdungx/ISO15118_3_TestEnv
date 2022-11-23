@@ -1,7 +1,6 @@
 #include "behaviorfunction/secc_cmslacmatch.hpp"
 #include "template/template.hpp"
-#include "datatype.hpp"
-#include "slac_type.hpp"
+
 // import from Timer_15118_3 all;
 // import from Pics_15118 all;
 // import from Pics_15118_3 all;
@@ -22,6 +21,8 @@
 #define SLOGE(msg) spdlog::error("{0} {1}: {2}", __FILE__, __LINE__, msg)
 #define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 namespace TestLib
+{
+namespace TestBehavior_SECC_CmSlacMatch
 {
 VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_001(VerdictValue v_vct)
 {
@@ -95,7 +96,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_001(VerdictValue v_vct)
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_002()
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_002(void)
 {
   // runs on SECC_Tester return VerdictValue
   SECC_Tester::tc_TT_match_response->start(par_TT_match_response);
@@ -165,7 +166,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_002()
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_003()
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_003(void)
 {
   // runs on SECC_Tester return VerdictValue
   charstring v_timer_name;
@@ -260,7 +261,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_003()
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_004(MME_Payload v_payload)
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_004(const MME_Payload &v_payload)
 {
   // runs on SECC_Tester return VerdictValue
   timer v_timer;
@@ -353,7 +354,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_004(MME_Payload v_payload)
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_005(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_005(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   // runs on SECC_Tester return VerdictValue
   f_SECC_changeValidStateCondition(invalid);
@@ -404,5 +405,6 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacMatch_005(HAL_61851_Listener v_HAL_61851_Li
     }
   }
   return SECC_Tester::getverdict();
+}
 }
 }

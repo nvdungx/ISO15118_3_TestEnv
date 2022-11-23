@@ -1,7 +1,6 @@
 #include "behaviorfunction/evcc_plclinkstatus.hpp"
 #include "template/template.hpp"
-#include "datatype.hpp"
-#include "slac_type.hpp"
+
 // import from Timer_15118_3 all;
 // import from Pics_15118 all;
 // import from Pixit_15118_3 all;
@@ -26,6 +25,8 @@
 #define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 namespace TestLib
 {
+namespace TestBehavior_EVCC_PLCLinkStatus
+{
 VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_001(VerdictValue v_vct)
 {
   // runs on EVCC_Tester
@@ -46,7 +47,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_001(VerdictValue v_vct)
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_002()
+VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_002(void)
 {
   // runs on EVCC_Tester return VerdictValue
   VerdictValue v_verdict;
@@ -87,7 +88,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_003(HAL_61851_PwmMode_Type pwmMode)
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_004(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_004(const std::shared_ptr<HAL_61851_Listener > &v_HAL_61851_Listener)
 {
   // runs on EVCC_Tester
   // return VerdictValue
@@ -104,7 +105,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_004(HAL_61851_Listener v_HAL_61851_
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_005(HAL_61851_Listener v_HAL_61851_Listener, float v_time)
+VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_005(const std::shared_ptr<HAL_61851_Listener > &v_HAL_61851_Listener, float v_time)
 {
   // runs on EVCC_Tester
   // return VerdictValue
@@ -149,7 +150,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_005(HAL_61851_Listener v_HAL_61851_
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_006(HAL_61851_Listener v_HAL_61851_Listener, integer v_dutyCycle, IEC_61851_States v_state)
+VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_006(const std::shared_ptr<HAL_61851_Listener > &v_HAL_61851_Listener, integer v_dutyCycle, IEC_61851_States v_state)
 {
   // runs on EVCC_Tester
   // return VerdictValue
@@ -210,7 +211,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_006(HAL_61851_Listener v_HAL_61851_
   return EVCC_Tester::getverdict();
 }
 
-VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_007()
+VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_007(void)
 {
   // runs on EVCC_Tester
   // return VerdictValue
@@ -253,7 +254,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_007()
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_008(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_008(const std::shared_ptr<HAL_61851_Listener > &v_HAL_61851_Listener)
 {
   // runs on EVCC_Tester
   // return VerdictValue
@@ -286,7 +287,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_PLCLinkStatus_008(HAL_61851_Listener v_HAL_61851_
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_AC_TB_VTB_PLCLinkStatus_001()
+VerdictValue f_EVCC_AC_TB_VTB_PLCLinkStatus_001(void)
 {
   // runs on EVCC_Tester
   // return VerdictValue
@@ -321,7 +322,7 @@ VerdictValue f_EVCC_AC_TB_VTB_PLCLinkStatus_001()
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_AC_TB_VTB_PLCLinkStatus_002(HAL_61851_Listener v_HAL_61851_Listener, IEC_61851_States v_state)
+VerdictValue f_EVCC_AC_TB_VTB_PLCLinkStatus_002(const std::shared_ptr<HAL_61851_Listener > &v_HAL_61851_Listener, IEC_61851_States v_state)
 {
   // runs on EVCC_Tester
   // return VerdictValue
@@ -395,5 +396,6 @@ VerdictValue f_EVCC_AC_TB_VTB_PLCLinkStatus_002(HAL_61851_Listener v_HAL_61851_L
     f_EVCC_CMN_TB_VTB_CmSlacParm_001(fail);
   }
   return EVCC_Tester::getverdict();
+}
 }
 }

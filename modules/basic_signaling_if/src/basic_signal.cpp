@@ -232,7 +232,7 @@ namespace TestLib
           {LOST_PE, RELAY_PE_LINE},
           {LOST_DIODE, RELAY_DIODE},
           {SHORT_CP_PE, RELAY_SHORT_CIRCUIT}};
-      int value = gpio_write(this->gpiod_pid, target[error_state], RelayVal::ON);
+      int value = gpio_write(this->gpiod_pid, target[error_state], relayVal::ON);
       if (0 > value)
       {
         SLOGE(fmt::format("Failed to write gpio {}", GPIOIF_ERROR[result]));

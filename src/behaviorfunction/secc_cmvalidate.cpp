@@ -1,7 +1,6 @@
 #include "behaviorfunction/secc_cmvalidate.hpp"
 #include "template/template.hpp"
-#include "datatype.hpp"
-#include "slac_type.hpp"
+
 // import from Timer_15118_3 all;
 // import from Pics_15118_3 all;
 // import from Templates_CMN_CmValidate all;
@@ -26,8 +25,68 @@
 #define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 namespace TestLib
 {
+namespace TestBehavior_SECC_CmValidate
+{
+boolean f_checkResultFieldStep1(hexstring v_result, boolean v_repetition, VerdictValue v_vct)
+{
+  // runs on SECC_Tester
+  //  return boolean {
+  if (v_result == par_cmValidate_result_notReady)
+  {
+    sleep(0.5);
+  }
+  else if (v_result == par_cmValidate_result_ready)
+  {
+    setverdict(pass, "CM_VALIDATE.CNF is correct. The EV will send the step 2 CM_VALIDATE.REQ with a Timer value which covers the whole BCB toggle sequence.");
+    v_repetition = false;
+  }
+  else if ((v_result == par_cmValidate_result_success) or
+           (v_result == par_cmValidate_result_failure))
+  {
+    setverdict(v_vct, "Invalid result code, the EV will stop the Validation process with the current EVSE.");
+    v_repetition = false;
+  }
+  else if (v_result == par_cmValidate_result_notRequired)
+  {
+    setverdict(inconc, "The validation process is not required.");
+    v_repetition = false;
+  }
+  else
+  {
+    setverdict(v_vct, "Unkwnown result format.");
+    v_repetition = false;
+  }
+  return v_repetition;
+}
+void f_checkResultFieldStep2(hexstring v_result, VerdictValue v_vct)
+{
+  // runs on SECC_Tester
+  if (v_result == par_cmValidate_result_success)
+  {
+    setverdict(pass, "CM_VALIDATE.CNF is correct. The EV will compare the ToggleNum field of the CM_VALIDATE.CNF message with the number of BCB toggles executed.");
+  }
+  else if ((v_result == par_cmValidate_result_notReady) or
+           (v_result == par_cmValidate_result_ready) or
+           (v_result == par_cmValidate_result_failure) or
+           (v_result == par_cmValidate_result_notRequired))
+  {
+    setverdict(v_vct, "Invalid result code, the EV will stop the Validation process with the current EVSE.");
+  }
+  else
+  {
+    setverdict(v_vct, "Unkwnown result format.");
+  }
+}
+boolean f_checkValidToggleConfig(void)
+{
+  if ((int2float(C_vald_nb_toggles) * par_TP_EV_vald_state_duration * 3.0) < par_TP_EV_vald_toggle)
+  {
+    return true;
+  }
+  return false;
+}
 // SECC Tester
-VerdictValue f_SECC_CMN_TB_VTB_CmValidate_001(HAL_61851_Listener v_HAL_61851_Listener, VerdictValue v_vct)
+VerdictValue f_SECC_CMN_TB_VTB_CmValidate_001(const std::shared_ptr<HAL_61851_Listener > &v_HAL_61851_Listener, VerdictValue v_vct)
 {
   // runs on SECC_Tester return VerdictValue {
   boolean v_repetition = true;
@@ -177,7 +236,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmValidate_001(HAL_61851_Listener v_HAL_61851_Lis
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmValidate_002()
+VerdictValue f_SECC_CMN_TB_VTB_CmValidate_002(void)
 {
   // runs on SECC_Tester return VerdictValue
   boolean v_repetition = true;
@@ -282,7 +341,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmValidate_002()
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmValidate_003(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_TB_VTB_CmValidate_003(const std::shared_ptr<HAL_61851_Listener > &v_HAL_61851_Listener)
 {
   // runs on SECC_Tester return VerdictValue
   MME v_responseMessage;
@@ -418,7 +477,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmValidate_003(HAL_61851_Listener v_HAL_61851_Lis
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmValidate_004(HAL_61851_Listener v_HAL_61851_Listener, MME_Payload mmePayload)
+VerdictValue f_SECC_CMN_TB_VTB_CmValidate_004(const std::shared_ptr<HAL_61851_Listener > &v_HAL_61851_Listener, const MME_Payload &mmePayload)
 {
   // runs on SECC_Tester return VerdictValue {
   MME v_responseMessage;
@@ -554,7 +613,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmValidate_004(HAL_61851_Listener v_HAL_61851_Lis
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmValidate_005(MME_Payload mmePayload)
+VerdictValue f_SECC_CMN_TB_VTB_CmValidate_005(const MME_Payload &mmePayload)
 {
   // runs on SECC_Tester return VerdictValue
   MME v_responseMessage;
@@ -632,8 +691,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmValidate_005(MME_Payload mmePayload)
   }
   return SECC_Tester::getverdict();
 }
-
-VerdictValue f_SECC_CMN_TB_VTB_CmValidate_006()
+VerdictValue f_SECC_CMN_TB_VTB_CmValidate_006(void)
 {
   // runs on SECC_Tester return VerdictValue
   boolean v_repetition = true;
@@ -703,7 +761,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmValidate_006()
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmValidate_007(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_TB_VTB_CmValidate_007(const std::shared_ptr<HAL_61851_Listener > &v_HAL_61851_Listener)
 {
   // runs on SECC_Tester return VerdictValue
   MME v_responseMessage;
@@ -847,7 +905,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmValidate_008(Result_TYPE p_result)
   return SECC_Tester::getverdict();
 }
 // SLAC Tester
-VerdictValue f_SECC_CMN_TB_VTB_CmValidate_009()
+VerdictValue f_SECC_CMN_TB_VTB_CmValidate_009(void)
 {
   //  runs on SLAC_Tester return VerdictValue
   boolean v_repetition = true;
@@ -899,7 +957,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmValidate_009()
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmValidate_010(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_TB_VTB_CmValidate_010(const std::shared_ptr<HAL_61851_Listener > &v_HAL_61851_Listener)
 {
   // runs on SECC_Tester return VerdictValue
   f_SECC_changeValidStateCondition(invalid);
@@ -949,7 +1007,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmValidate_010(HAL_61851_Listener v_HAL_61851_Lis
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmValidatePreCondition_001()
+VerdictValue f_SECC_CMN_TB_VTB_CmValidatePreCondition_001(void)
 {
   //  runs on SLAC_Tester
   // return VerdictValue
@@ -1104,62 +1162,5 @@ VerdictValue f_SECC_CMN_TB_VTB_CmValidatePreCondition_001()
   }
   return SECC_Tester::getverdict();
 }
-boolean f_checkResultFieldStep1(hexstring v_result, boolean v_repetition, VerdictValue v_vct)
-{
-  // runs on SECC_Tester
-  //  return boolean {
-  if (v_result == par_cmValidate_result_notReady)
-  {
-    sleep(0.5);
-  }
-  else if (v_result == par_cmValidate_result_ready)
-  {
-    setverdict(pass, "CM_VALIDATE.CNF is correct. The EV will send the step 2 CM_VALIDATE.REQ with a Timer value which covers the whole BCB toggle sequence.");
-    v_repetition = false;
-  }
-  else if ((v_result == par_cmValidate_result_success) or
-           (v_result == par_cmValidate_result_failure))
-  {
-    setverdict(v_vct, "Invalid result code, the EV will stop the Validation process with the current EVSE.");
-    v_repetition = false;
-  }
-  else if (v_result == par_cmValidate_result_notRequired)
-  {
-    setverdict(inconc, "The validation process is not required.");
-    v_repetition = false;
-  }
-  else
-  {
-    setverdict(v_vct, "Unkwnown result format.");
-    v_repetition = false;
-  }
-  return v_repetition;
-}
-void f_checkResultFieldStep2(hexstring v_result, VerdictValue v_vct)
-{
-  // runs on SECC_Tester
-  if (v_result == par_cmValidate_result_success)
-  {
-    setverdict(pass, "CM_VALIDATE.CNF is correct. The EV will compare the ToggleNum field of the CM_VALIDATE.CNF message with the number of BCB toggles executed.");
-  }
-  else if ((v_result == par_cmValidate_result_notReady) or
-           (v_result == par_cmValidate_result_ready) or
-           (v_result == par_cmValidate_result_failure) or
-           (v_result == par_cmValidate_result_notRequired))
-  {
-    setverdict(v_vct, "Invalid result code, the EV will stop the Validation process with the current EVSE.");
-  }
-  else
-  {
-    setverdict(v_vct, "Unkwnown result format.");
-  }
-}
-boolean f_checkValidToggleConfig()
-{
-  if ((int2float(C_vald_nb_toggles) * par_TP_EV_vald_state_duration * 3.0) < par_TP_EV_vald_toggle)
-  {
-    return true;
-  }
-  return false;
 }
 }
