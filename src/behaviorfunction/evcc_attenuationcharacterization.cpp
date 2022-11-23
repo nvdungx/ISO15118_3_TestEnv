@@ -21,7 +21,10 @@
 // import from LibFunctions_15118_3 { group generalFunctions; }
 // import from Services_PLCLinkStatus all;
 // import from DataStructure_HAL_61851 all;
-
+#define SLOGW(msg) spdlog::warn("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGI(msg) spdlog::info("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGE(msg) spdlog::error("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 namespace TestLib
 {
 AttenProfile_TYPE averageCalc(const ResponseMessageList_TYPE &resMessagelist, integer vcount)
@@ -62,10 +65,8 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vc
   while (true)
   {
     if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
-            md_CMN_CMN_SlacMmeCmnHeader_001({CM_START_ATTEN_CHAR_IND = "606A"}),
-            md_CMN_CMN_CmStartAttenCharInd_001(
-                m_CMN_CMN_SlacPayloadHeader_001(), MATCH_ANY, MATCH_ANY,
-                "01", MATCH_ANY, vc_RunID))))
+      md_CMN_CMN_SlacMmeCmnHeader_001({CM_START_ATTEN_CHAR_IND = "606A"}),
+      md_CMN_CMN_CmStartAttenCharInd_001(m_CMN_CMN_SlacPayloadHeader_001(), MATCH_ANY, MATCH_ANY, "01", MATCH_ANY, vc_RunID))))
     {
       if (v_count2 == 0)
       {
@@ -91,7 +92,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vc
           md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}),
           md_CMN_CMN_CmSlacParmCnf_001(vc_sut_mac,
                                         m_CMN_CMN_SlacPayloadHeader_001(), vc_RunID))); // to vc_sut_mac;
-      log("A further CM_SLAC_PARM.REQ message was received. A new CM_SLAC_PARM.CNF has to be send.");
+      SLOGI("A further CM_SLAC_PARM.REQ message was received. A new CM_SLAC_PARM.CNF has to be send.");
       // repeat;
     }
     if (EVCC_Tester::pt_SLAC_Port->receive())
@@ -179,7 +180,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vc
           }
           else
           {
-            log("Attenuation list was empty, the received message could not be considered for attenuation calculation.");
+            SLOGI("Attenuation list was empty, the received message could not be considered for attenuation calculation.");
           }
         }
         if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
@@ -260,7 +261,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vc
           if (EVCC_Tester::pt_SLAC_Port->receive(
                   md_CMN_CMN_SlacMme_001(md_CMN_CMN_SlacMmeCmnHeader_001({CM_ATTEN_CHAR_RSP = "606F"}), MATCH_ANY)))
           {
-            log("The CM_ATTEN_CHAR.RSP message content is not conform but graceful message handling is enabled.");
+            SLOGI("The CM_ATTEN_CHAR.RSP message content is not conform but graceful message handling is enabled.");
             v_repetition = false;
             EVCC_Tester::tc_TT_match_response->stop();
             EVCC_Tester::tc_TT_EVSE_match_session->start(par_TT_EVSE_match_session);
@@ -292,7 +293,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vc
         }
         if (EVCC_Tester::tc_TT_match_response->timeout())
         {
-          log("TT_match_response timeout.");
+          SLOGI("TT_match_response timeout.");
           if (v_count mod(par_C_EV_match_retry + 1) == 0)
           {
             setverdict(v_vct, "The repetition limit is reached. The Matching process is considered as FAILED.");
@@ -300,7 +301,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vc
           }
           else
           {
-            log("The repetition limit is not reached, a new CM_ATTEN_CHAR.IND message will be send.");
+            SLOGI("The repetition limit is not reached, a new CM_ATTEN_CHAR.IND message will be send.");
           }
         }
       }
@@ -364,7 +365,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_002() {
       EVCC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
           md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}),
           md_CMN_CMN_CmSlacParmCnf_001(vc_sut_mac, m_CMN_CMN_SlacPayloadHeader_001(), vc_RunID))); // to vc_sut_mac;
-      log("A further CM_SLAC_PARM.REQ message was received. A new CM_SLAC_PARM.CNF has to be send.");
+      SLOGI("A further CM_SLAC_PARM.REQ message was received. A new CM_SLAC_PARM.CNF has to be send.");
       // repeat;
     }
     if (a_EVCC_processPLCLinkNotifications_002())
@@ -454,7 +455,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_002() {
           }
           else
           {
-            log("Attenuation list was empty, the received message could not be considered for attenuation calculation.");
+            SLOGI("Attenuation list was empty, the received message could not be considered for attenuation calculation.");
           }
         }
         if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
@@ -544,7 +545,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_002() {
         }
         if (EVCC_Tester::tc_TT_match_response->timeout())
         {
-          log("TT_match_response timeout.");
+          SLOGI("TT_match_response timeout.");
           if (v_count mod(par_C_EV_match_retry + 1) == 0)
           {
             setverdict(fail, "The repetition limit is reached. The Matching process is considered as FAILED.");
@@ -552,7 +553,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_002() {
           }
           else
           {
-            log("The repetition limit is not reached, a new CM_ATTEN_CHAR.IND message will be send.");
+            SLOGI("The repetition limit is not reached, a new CM_ATTEN_CHAR.IND message will be send.");
           }
         }
       }
@@ -633,7 +634,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_003() {
         EVCC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
             md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}),
             md_CMN_CMN_CmSlacParmCnf_001(vc_sut_mac, m_CMN_CMN_SlacPayloadHeader_001(), vc_RunID))); // to vc_sut_mac;
-        log("A further CM_SLAC_PARM.REQ message was received. A new CM_SLAC_PARM.CNF has to be send.");
+        SLOGI("A further CM_SLAC_PARM.REQ message was received. A new CM_SLAC_PARM.CNF has to be send.");
         // repeat;
       }
       if (EVCC_Tester::pt_SLAC_Port->receive())
@@ -716,7 +717,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_003() {
             }
             else
             {
-              log("Attenuation list was empty, the received message could not be considered for attenuation calculation.");
+              SLOGI("Attenuation list was empty, the received message could not be considered for attenuation calculation.");
             }
           }
           if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
@@ -813,7 +814,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_004() {
       EVCC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
           md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}),
           md_CMN_CMN_CmSlacParmCnf_001(vc_sut_mac, m_CMN_CMN_SlacPayloadHeader_001(), vc_RunID))); // to vc_sut_mac;
-      log("A further CM_SLAC_PARM.REQ message was received. A new CM_SLAC_PARM.CNF has to be send.");
+      SLOGI("A further CM_SLAC_PARM.REQ message was received. A new CM_SLAC_PARM.CNF has to be send.");
       // repeat;
     }
     if (EVCC_Tester::pt_SLAC_Port->receive())
@@ -896,7 +897,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_004() {
           }
           else
           {
-            log("Attenuation list was empty, the received message could not be considered for attenuation calculation.");
+            SLOGI("Attenuation list was empty, the received message could not be considered for attenuation calculation.");
           }
         }
         if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
@@ -996,7 +997,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_004() {
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(template MME_Payload v_payload) {
+VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(MME_Payload v_payload) {
  // runs on EVCC_Tester
 
   MME v_responseMessage;
@@ -1049,7 +1050,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(template MME_Payl
       EVCC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
           md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}),
           md_CMN_CMN_CmSlacParmCnf_001(vc_sut_mac, m_CMN_CMN_SlacPayloadHeader_001(), vc_RunID))); // to vc_sut_mac;
-      log("A further CM_SLAC_PARM.REQ message was received. A new CM_SLAC_PARM.CNF has to be send.");
+      SLOGI("A further CM_SLAC_PARM.REQ message was received. A new CM_SLAC_PARM.CNF has to be send.");
       // repeat;
     }
     if (EVCC_Tester::pt_SLAC_Port->receive())
@@ -1132,7 +1133,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_005(template MME_Payl
           }
           else
           {
-            log("Attenuation list was empty, the received message could not be considered for attenuation calculation.");
+            SLOGI("Attenuation list was empty, the received message could not be considered for attenuation calculation.");
           }
         }
         if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
@@ -1262,7 +1263,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_AttenuationCharacterization_006(HAL_61851_PwmMode
     {
       EVCC_Tester::tc_TT_match_sequence->start(par_TT_match_sequence);
       EVCC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}), md_CMN_CMN_CmSlacParmCnf_001(vc_sut_mac, m_CMN_CMN_SlacPayloadHeader_001(), vc_RunID))); // to vc_sut_mac;
-      log("A further CM_SLAC_PARM.REQ message was received. A new CM_SLAC_PARM.CNF has to be send.");
+      SLOGI("A further CM_SLAC_PARM.REQ message was received. A new CM_SLAC_PARM.CNF has to be send.");
       // repeat;
     }
     if (EVCC_Tester::pt_SLAC_Port->receive())
@@ -1325,7 +1326,7 @@ VerdictValue f_EVCC_AC_TB_VTB_AttenuationCharacterization_001(integer v_dutcCycl
       EVCC_Tester::tc_TT_match_sequence->start(par_TT_match_sequence);
       EVCC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}),
                                                               md_CMN_CMN_CmSlacParmCnf_001(vc_sut_mac, m_CMN_CMN_SlacPayloadHeader_001(), vc_RunID))); // to vc_sut_mac;
-      log("A further CM_SLAC_PARM.REQ message was received. A new CM_SLAC_PARM.CNF has to be send.");
+      SLOGI("A further CM_SLAC_PARM.REQ message was received. A new CM_SLAC_PARM.CNF has to be send.");
       // repeat;
     }
     if (EVCC_Tester::pt_SLAC_Port->receive())
@@ -1408,7 +1409,7 @@ VerdictValue f_EVCC_AC_TB_VTB_AttenuationCharacterization_001(integer v_dutcCycl
           }
           else
           {
-            log("Attenuation list was empty, the received message could not be considered for attenuation calculation.");
+            SLOGI("Attenuation list was empty, the received message could not be considered for attenuation calculation.");
           }
         }
         if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
@@ -1500,7 +1501,7 @@ VerdictValue f_EVCC_AC_TB_VTB_AttenuationCharacterization_001(integer v_dutcCycl
         }
         if (EVCC_Tester::tc_TT_match_response->timeout())
         {
-          log("TT_match_response timeout.");
+          SLOGI("TT_match_response timeout.");
           if (v_count mod(par_C_EV_match_retry + 1) == 0)
           {
             setverdict(fail, "The repetition limit is reached. The Matching process is considered as FAILED.");
@@ -1508,7 +1509,7 @@ VerdictValue f_EVCC_AC_TB_VTB_AttenuationCharacterization_001(integer v_dutcCycl
           }
           else
           {
-            log("The repetition limit is not reached, a new CM_ATTEN_CHAR.IND message will be send.");
+            SLOGI("The repetition limit is not reached, a new CM_ATTEN_CHAR.IND message will be send.");
           }
         }
       }

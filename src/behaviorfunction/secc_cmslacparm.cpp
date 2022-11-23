@@ -13,8 +13,12 @@
 // import from ComponentsAndPorts all;
 // import from Services_HAL_61851 all;
 // import from Services_PLCLinkStatus all;
-namespace TestLib {
-
+#define SLOGW(msg) spdlog::warn("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGI(msg) spdlog::info("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGE(msg) spdlog::error("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
+namespace TestLib
+{
 using namespace Pics_15118;
 using namespace Pics_15118_3;
 using namespace Pixit_15118_3;
@@ -24,9 +28,8 @@ using namespace Timer_15118::Timer_par_15118;
 using namespace Timer_15118_3::Timer_par_15118_3;
 using namespace LibFunctions_15118_3::generalFunctions;
 
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_001(VerdictValue v_vct) {
-
-
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_001(VerdictValue v_vct)
+{
   MME v_responseMessage;
   boolean v_repetition = true;
   integer v_count1 = 0;
@@ -38,22 +41,22 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_001(VerdictValue v_vct) {
   {
     SECC_Tester::tc_TT_match_response->start(par_TT_match_response);
     v_count1 = v_count1 + 1;
-    SECC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_REQ = "6064"}),
-                                             md_CMN_CMN_CmSlacParmReq_001(
-                                                 m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID)), cc_eth_broadcast)
+    SECC_Tester::pt_SLAC_Port->send(
+        md_CMN_CMN_SlacMme_001(md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_REQ = "6064"}),
+                                md_CMN_CMN_CmSlacParmReq_001(m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID)),
+        cc_eth_broadcast);
     while (true)
     {
       if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
               md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}),
-              md_CMN_CMN_CmSlacParmCnf_001(par_testSystem_mac,
-                                           m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID))))
+              md_CMN_CMN_CmSlacParmCnf_001(par_testSystem_mac, m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID))))
       {
         SECC_Tester::setverdict(pass, "CM_SLAC_PARM is correct.");
         SECC_Tester::vc_macAddresList.macAddressList[v_count2] = v_sut_mac;
         v_count2 = v_count2 + 1;
         SECC_Tester::vc_Num_sounds = v_responseMessage.mme_payload.payload.cm_slac_parm_cnf.num_sounds;
         SECC_Tester::vc_Time_out = v_responseMessage.mme_payload.payload.cm_slac_parm_cnf.time_out;
-        repeat;
+        // repeat;
       }
       if (a_SECC_processPLCLinkNotifications_001())
       {
@@ -64,7 +67,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_001(VerdictValue v_vct) {
         SECC_Tester::setverdict(v_vct, "Invalid message type or content was received.");
         v_repetition = false;
       }
-      if (SECC_Tester::tc_TT_match_response->timeout)
+      if (SECC_Tester::tc_TT_match_response->timeout())
       {
         if (sizeof(SECC_Tester::vc_macAddresList.macAddressList) > 0)
         {
@@ -73,17 +76,17 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_001(VerdictValue v_vct) {
         }
         else if (v_count1 mod(par_C_EV_match_retry + 1) == 0)
         {
-          log("The Matching process is considered as FAILED.");
-          if (tc_TT_matching_repetition.running)
+          SLOGI("The Matching process is considered as FAILED.");
+          if (tc_TT_matching_repetition.running())
           {
-            log("TT_matching_repetition is still running. "
-                "A new Matching process is started.");
+            SLOGI("TT_matching_repetition is still running. "
+                  "A new Matching process is started.");
             v_count1 = 0;
           }
           else
           {
             SECC_Tester::setverdict(v_vct, "TT_matching_repetition has expired. "
-                                           "No new Matching process will be started.");
+                                            "No new Matching process will be started.");
             v_repetition = false;
           }
         }
@@ -93,9 +96,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_001(VerdictValue v_vct) {
   return SECC_Tester::getverdict();
 }
 
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_002(
-    std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener,
-    SLAC_Header &v_slac_Header, boolean v_sendInvalid)
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_002(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener, SLAC_Header &v_slac_Header, boolean v_sendInvalid)
 {
   MME v_responseMessage;
   boolean v_repetition = true;
@@ -104,15 +105,15 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_002(
   if (v_sendInvalid)
   {
     SECC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
-        md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_REQ = "6064"}),
-        md_CMN_CMN_CmSlacParmReq_001(v_slac_Header, SECC_Tester::vc_RunID)), cc_eth_broadcast)
+                                        md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_REQ = "6064"}),
+                                        md_CMN_CMN_CmSlacParmReq_001(v_slac_Header, SECC_Tester::vc_RunID)),
+                                    cc_eth_broadcast)
   }
   while (true)
   {
     if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
             md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}),
-            md_CMN_CMN_CmSlacParmCnf_001(par_testSystem_mac,
-                                         m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID))))
+            md_CMN_CMN_CmSlacParmCnf_001(par_testSystem_mac, m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID))))
     {
       SECC_Tester::setverdict(fail, "Invalid CM_SLAC_PARM.REQ message was not ignored.");
       SECC_Tester::tc_TT_EVSE_SLAC_init->stop();
@@ -125,9 +126,9 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_002(
     {
       SECC_Tester::setverdict(fail, "Invalid message type or content was received.");
     }
-    if (SECC_Tester::tc_TT_EVSE_SLAC_init->timeout)
+    if (SECC_Tester::tc_TT_EVSE_SLAC_init->timeout())
     {
-      v_HAL_61851_Listener.stop;
+      v_HAL_61851_Listener.stop();
       v_HAL_61851_Listener.start(f_SECC_HAL61851Listener(false));
       f_SECC_changeValidStateCondition(valid_Matching);
       f_SECC_changeValidFrequencyRange(0, 0);
@@ -135,20 +136,19 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_002(
       SECC_Tester::tc_TT_EVSE_SLAC_init->start(par_TT_EVSE_SLAC_init_max - par_TT_EVSE_SLAC_init_min);
       while (true)
       {
-        if (SECC_Tester::tc_TT_EVSE_SLAC_init->timeout)
+        if (SECC_Tester::tc_TT_EVSE_SLAC_init->timeout())
         {
           break;
         }
       }
       SECC_Tester::tc_TT_match_response->start(par_TT_match_response);
-      SECC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
-          md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_REQ = "6064"}),
-          md_CMN_CMN_CmSlacParmReq_001(
-              m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID)), cc_eth_broadcast)
+      SECC_Tester::pt_SLAC_Port->send(
+          md_CMN_CMN_SlacMme_001(md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_REQ = "6064"}),
+                                  md_CMN_CMN_CmSlacParmReq_001(m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID)),
+          cc_eth_broadcast);
       while (true)
       {
-        if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
-          md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}),MATCH_ANY)))
+        if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}), MATCH_ANY)))
         {
           SECC_Tester::setverdict(fail, "CM_SLAC_PARM.CNF was sent from the SUT although "
                                         "the timer TT_EVSE_SLAC_init should have "
@@ -163,7 +163,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_002(
         {
           SECC_Tester::setverdict(fail, "Invalid message type or content was received.");
         }
-        if (SECC_Tester::tc_TT_match_response->timeout)
+        if (SECC_Tester::tc_TT_match_response->timeout())
         {
           SECC_Tester::setverdict(pass, "TT_match_response timeout. "
                                         "CM_SLAC_PARM.CNF was not sent from the SUT "
@@ -175,9 +175,8 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_002(
   return SECC_Tester::getverdict();
 }
 
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_003(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener) {
-
-
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_003(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+{
   SECC_Tester::vc_RunID = f_randomHexStringGen(16);
   sleep(1.0);
   f_SECC_changeValidStateCondition(invalid);
@@ -186,15 +185,15 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_003(std::shared_ptr<HAL_61851_Listener
   deactivate(SECC_Tester::vc_Default_IEC_61851_ListenerBehavior);
   f_SECC_setState(A, v_HAL_61851_Listener);
   SECC_Tester::tc_TT_match_response->start(par_TT_match_response);
-  SECC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_REQ = "6064"}),
-                                           md_CMN_CMN_CmSlacParmReq_001(
-                                               m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID)), cc_eth_broadcast)
+  SECC_Tester::pt_SLAC_Port->send(
+      md_CMN_CMN_SlacMme_001(md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_REQ = "6064"}),
+                              md_CMN_CMN_CmSlacParmReq_001(m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID)),
+      cc_eth_broadcast);
   while (true)
   {
     if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
             md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}),
-            md_CMN_CMN_CmSlacParmCnf_001(par_testSystem_mac,
-                                         m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID))))
+            md_CMN_CMN_CmSlacParmCnf_001(par_testSystem_mac, m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID))))
     {
       SECC_Tester::setverdict(fail, "CM_SLAC_PARM.CNF message was not expected."
                                     "CP State A should be detected before.");
@@ -207,7 +206,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_003(std::shared_ptr<HAL_61851_Listener
     {
       SECC_Tester::setverdict(fail, "Invalid message type or content was received.");
     }
-    if (SECC_Tester::tc_TT_match_response->timeout)
+    if (SECC_Tester::tc_TT_match_response->timeout())
     {
       SECC_Tester::setverdict(pass, "TT_match_response timer has expired, "
                                     "the Matching process was terminated by the SUT.");
@@ -216,9 +215,8 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_003(std::shared_ptr<HAL_61851_Listener
   return SECC_Tester::getverdict();
 }
 
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_004(void) {
-
-
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_004(void)
+{
   MME v_responseMessage;
   boolean v_repetition = true;
   integer v_count1 = 0;
@@ -231,22 +229,22 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_004(void) {
   {
     SECC_Tester::tc_TT_match_response->start(par_TT_match_response);
     v_count1 = v_count1 + 1;
-    SECC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_REQ = "6064"}),
-                                             md_CMN_CMN_CmSlacParmReq_001(
-                                                 m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID)), cc_eth_broadcast)
+    SECC_Tester::pt_SLAC_Port->send(
+        md_CMN_CMN_SlacMme_001(md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_REQ = "6064"}),
+                                md_CMN_CMN_CmSlacParmReq_001(m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID)),
+        cc_eth_broadcast);
     while (true)
     {
       if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
               md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}),
-              md_CMN_CMN_CmSlacParmCnf_001(par_testSystem_mac,
-                                           m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID))))
+              md_CMN_CMN_CmSlacParmCnf_001(par_testSystem_mac, m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID))))
       {
         SECC_Tester::setverdict(pass, "CM_SLAC_PARM is correct.");
         SECC_Tester::vc_macAddresList.macAddressList[v_count2] = v_sut_mac;
         v_count2 = v_count2 + 1;
         SECC_Tester::vc_Num_sounds = v_responseMessage.mme_payload.payload.cm_slac_parm_cnf.num_sounds;
         SECC_Tester::vc_Time_out = v_responseMessage.mme_payload.payload.cm_slac_parm_cnf.time_out;
-        repeat;
+        // repeat;
       }
       if (a_SECC_processPLCLinkNotifications_001())
       {
@@ -257,7 +255,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_004(void) {
         SECC_Tester::setverdict(fail, "Invalid message type or content was received.");
         v_repetition = false;
       }
-      if (SECC_Tester::tc_TT_match_response->timeout)
+      if (SECC_Tester::tc_TT_match_response->timeout())
       {
         if (sizeof(SECC_Tester::vc_macAddresList.macAddressList) > 0)
         {
@@ -266,11 +264,11 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_004(void) {
         }
         else if (v_count1 mod(par_C_EV_match_retry + 1) == 0)
         {
-          log("The Matching process is considered as FAILED.");
-          if (tc_TT_matching_repetition.running)
+          SLOGI("The Matching process is considered as FAILED.");
+          if (tc_TT_matching_repetition.running())
           {
-            log("TT_matching_repetition is still running. "
-                "A new Matching process is started.");
+            SLOGI("TT_matching_repetition is still running. "
+                  "A new Matching process is started.");
             v_count1 = 0;
           }
           else
@@ -281,7 +279,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_004(void) {
           }
         }
       }
-      if (SECC_Tester::tc_T_conn_max_comm->timeout)
+      if (SECC_Tester::tc_T_conn_max_comm->timeout())
       {
         SECC_Tester::setverdict(fail, "T_conn_max_comm has expired. "
                                       "The SUT was not ready for communication "
@@ -291,8 +289,8 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_004(void) {
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_005(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener) {
-
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_005(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+{
 
   MME v_responseMessage;
   MACAddress_TYPE v_sut_mac;
@@ -301,15 +299,14 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_005(std::shared_ptr<HAL_61851_Listener
   SECC_Tester::vc_macAddresList = m_CMN_CMN_EmptyMacAddressList();
   SECC_Tester::vc_RunID = f_randomHexStringGen(16);
   SECC_Tester::tc_TT_match_response->start(par_TT_match_response);
-  SECC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_REQ = "6064"}),
-                                           md_CMN_CMN_CmSlacParmReq_001(
-                                               m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID)), cc_eth_broadcast)
+  SECC_Tester::pt_SLAC_Port->send(
+    md_CMN_CMN_SlacMme_001(md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_REQ = "6064"}),
+      md_CMN_CMN_CmSlacParmReq_001(m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID)), cc_eth_broadcast);
   while (true)
   {
     if (SECC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
-            md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}),
-            md_CMN_CMN_CmSlacParmCnf_001(par_testSystem_mac,
-                                         m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID))))
+      md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}),
+      md_CMN_CMN_CmSlacParmCnf_001(par_testSystem_mac, m_CMN_CMN_SlacPayloadHeader_001(), SECC_Tester::vc_RunID))))
     {
       SECC_Tester::setverdict(pass, "CM_SLAC_PARM is correct.");
     }
@@ -321,7 +318,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_005(std::shared_ptr<HAL_61851_Listener
     {
       SECC_Tester::setverdict(fail, "Invalid message type or content was received.");
     }
-    if (SECC_Tester::tc_TT_match_response->timeout)
+    if (SECC_Tester::tc_TT_match_response->timeout())
     {
       SECC_Tester::setverdict(fail, "TT_match_response timeout. "
                                     "The SUT did not respond to CM_SLAC_PARM.REQ message "
@@ -330,8 +327,8 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_005(std::shared_ptr<HAL_61851_Listener
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener) {
-
+VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+{
 
   if (!SECC_Tester::vc_confirmState)
   {
@@ -350,7 +347,7 @@ VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_001(std::shared_ptr<HAL_61851_Listener>
   {
     while (true)
     {
-      if (SECC_Tester::tc_T_step_EF->timeout)
+      if (SECC_Tester::tc_T_step_EF->timeout())
       {
         break;
       }
@@ -374,15 +371,15 @@ VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_001(std::shared_ptr<HAL_61851_Listener>
     SECC_Tester::tc_T_step_EF->start(par_T_step_EF_max - (par_T_step_EF_min - cc_offset));
     while (true)
     {
-      if (SECC_Tester::tc_T_step_EF->timeout)
+      if (SECC_Tester::tc_T_step_EF->timeout())
       {
         break;
       }
       if (a_SECC_DCDetection(SECC_Tester::pt_HAL_61851_Internal_Port,
-                             SECC_Tester::vc_validDutyCycleLowerBound1,
-                             SECC_Tester::vc_validDutyCycleUpperBound1,
-                             SECC_Tester::vc_validDutyCycleLowerBound2,
-                             SECC_Tester::vc_validDutyCycleUpperBound2))
+                              SECC_Tester::vc_validDutyCycleLowerBound1,
+                              SECC_Tester::vc_validDutyCycleUpperBound1,
+                              SECC_Tester::vc_validDutyCycleLowerBound2,
+                              SECC_Tester::vc_validDutyCycleUpperBound2))
       {
         SECC_Tester::vc_confirmDC = true;
       }
@@ -406,14 +403,14 @@ VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_001(std::shared_ptr<HAL_61851_Listener>
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_002(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener) {
-
+VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_002(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+{
 
   integer v_count = 1;
   SECC_Tester::tc_TP_EVSE_SLAC_init->start(par_TT_EVSE_SLAC_init_min - cc_offset);
   while (true)
   {
-    if (SECC_Tester::tc_TP_EVSE_SLAC_init->timeout)
+    if (SECC_Tester::tc_TP_EVSE_SLAC_init->timeout())
     {
       break;
     }
@@ -430,11 +427,10 @@ VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_002(std::shared_ptr<HAL_61851_Listener>
   f_SECC_changeValidFrequencyRange(0, 0);
   f_SECC_changeValidDutyCycleRange(0, 0);
   f_SECC_setIsConfirmationFlagVoltage();
-  SECC_Tester::tc_TP_EVSE_SLAC_init->start(par_TT_EVSE_SLAC_init_max -
-                             (par_TT_EVSE_SLAC_init_min - cc_offset));
+  SECC_Tester::tc_TP_EVSE_SLAC_init->start(par_TT_EVSE_SLAC_init_max - (par_TT_EVSE_SLAC_init_min - cc_offset));
   while (true)
   {
-    if (SECC_Tester::tc_TP_EVSE_SLAC_init->timeout)
+    if (SECC_Tester::tc_TP_EVSE_SLAC_init->timeout())
     {
       break;
     }
@@ -465,7 +461,7 @@ VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_002(std::shared_ptr<HAL_61851_Listener>
     {
       while (true)
       {
-        if (SECC_Tester::tc_T_step_EF->timeout)
+        if (SECC_Tester::tc_T_step_EF->timeout())
         {
           break;
         }
@@ -484,7 +480,7 @@ VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_002(std::shared_ptr<HAL_61851_Listener>
       SECC_Tester::tc_T_step_EF->start(par_T_step_EF_max - (par_T_step_EF_min - cc_offset));
       while (true)
       {
-        if (SECC_Tester::tc_T_step_EF->timeout)
+        if (SECC_Tester::tc_T_step_EF->timeout())
         {
           break;
         }
@@ -512,7 +508,7 @@ VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_002(std::shared_ptr<HAL_61851_Listener>
       v_count = v_count + 1;
       while (true)
       {
-        if (SECC_Tester::tc_TP_EVSE_SLAC_init->timeout)
+        if (SECC_Tester::tc_TP_EVSE_SLAC_init->timeout())
         {
           break;
         }
@@ -541,11 +537,10 @@ VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_002(std::shared_ptr<HAL_61851_Listener>
         f_SECC_changeValidStateCondition(EorF);
         f_SECC_setIsConfirmationFlagVoltage();
       }
-      SECC_Tester::tc_TP_EVSE_SLAC_init->start(par_TT_EVSE_SLAC_init_max -
-                                 (par_TT_EVSE_SLAC_init_min - cc_offset));
+      SECC_Tester::tc_TP_EVSE_SLAC_init->start(par_TT_EVSE_SLAC_init_max - (par_TT_EVSE_SLAC_init_min - cc_offset));
       while (true)
       {
-        if (SECC_Tester::tc_TP_EVSE_SLAC_init->timeout)
+        if (SECC_Tester::tc_TP_EVSE_SLAC_init->timeout())
         {
           break;
         }
@@ -576,8 +571,8 @@ VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_002(std::shared_ptr<HAL_61851_Listener>
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_003(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener) {
-
+VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_003(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+{
 
   f_SECC_changeValidStateCondition(valid_Matching);
   f_SECC_changeValidDutyCycleRange(10, 96);
