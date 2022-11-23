@@ -1,24 +1,58 @@
+#include <map>
 #include "testcase/tc_evcc_attenuationcharacterization.hpp"
 
-module TestCases_EVCC_AttenuationCharacterization
+#define SLOGW(msg) spdlog::warn("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGI(msg) spdlog::info("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGE(msg) spdlog::error("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
+namespace TestCases_EVCC_AttenuationCharacterization
 {
-import from DataStructure_SLAC all;
-import from PreConditions_EVCC_15118_3 all;
-import from TestBehavior_EVCC_AttenuationCharacterization all;
-import from ComponentsAndPorts all;
-import from Configurations_15118_3 all;
-import from PostConditions_EVCC_15118_3 all;
-import from Timer_15118_3 all;
-import from Templates_EVCC_CmAttenCharInd all;
-import from Templates_CMN_SlacPayloadHeader all;
-import from TestBehavior_EVCC_CmSlacParm all;
-import from LibFunctions_15118_3 { group generalFunctions;
+  // import from DataStructure_SLAC all;
+  // import from PreConditions_EVCC_15118_3 all;
+  // import from TestBehavior_EVCC_AttenuationCharacterization all;
+  // import from ComponentsAndPorts all;
+  // import from Configurations_15118_3 all;
+  // import from PostConditions_EVCC_15118_3 all;
+  // import from Timer_15118_3 all;
+  // import from Templates_EVCC_CmAttenCharInd all;
+  // import from Templates_CMN_SlacPayloadHeader all;
+  // import from TestBehavior_EVCC_CmSlacParm all;
+  // import from LibFunctions_15118_3 { group generalFunctions;}
+
+std::map<std::string, VerdictValue (TestCases_EVCC_AttenuationCharacterization::*)(void)> testcase_map {
+  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_001", &TC_EVCC_CMN_VTB_AttenuationCharacterization_001},
+  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_002", &TC_EVCC_CMN_VTB_AttenuationCharacterization_002},
+  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_003", &TC_EVCC_CMN_VTB_AttenuationCharacterization_003},
+  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_004", &TC_EVCC_CMN_VTB_AttenuationCharacterization_004},
+  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_005", &TC_EVCC_CMN_VTB_AttenuationCharacterization_005},
+  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_006", &TC_EVCC_CMN_VTB_AttenuationCharacterization_006},
+  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_007", &TC_EVCC_CMN_VTB_AttenuationCharacterization_007},
+  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_008", &TC_EVCC_CMN_VTB_AttenuationCharacterization_008},
+  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_009", &TC_EVCC_CMN_VTB_AttenuationCharacterization_009},
+  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_010", &TC_EVCC_CMN_VTB_AttenuationCharacterization_010},
+  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_011", &TC_EVCC_CMN_VTB_AttenuationCharacterization_011},
+  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_012", &TC_EVCC_CMN_VTB_AttenuationCharacterization_012},
+  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_013", &TC_EVCC_CMN_VTB_AttenuationCharacterization_013},
+  { "TC_EVCC_AC_VTB_AttenuationCharacterization_001", &TC_EVCC_AC_VTB_AttenuationCharacterization_001},
+  { "TC_EVCC_AC_VTB_AttenuationCharacterization_002", &TC_EVCC_AC_VTB_AttenuationCharacterization_002}
+};
+
+VerdictValue call(const std::string &testcase_name)
+{
+  if (this->testcase_map.end() != this->testcase_map.find(testcase_name))
+  {
+    return (this->*testcase_map[testcase_name])();
+  }
+  else
+  {
+    SLOGE("Testcase {0} is not existed. Please check {1}", testcase_name, __FILE__);
+    return error;
+  }
 }
-testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_001() runs on EVCC_Tester
-    system SystemEVCC
+VerdictValue TC_EVCC_CMN_VTB_AttenuationCharacterization_001(void) // runs on EVCC_Tester system SystemEVCC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -29,18 +63,17 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_001() runs on EVCC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_002() runs on EVCC_Tester
-    system SystemEVCC
+VerdictValue TC_EVCC_CMN_VTB_AttenuationCharacterization_002(void) // runs on EVCC_Tester system SystemEVCC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
   SLAC_Tester2 v_SLAC_Tester2;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_002(v_HAL_61851_Listener, v_SLAC_Tester2, system);
   preConVerdict = f_EVCC_CMN_PR_DutyCycle_001(v_HAL_61851_Listener);
@@ -48,7 +81,7 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_002() runs on EVCC_Tester
   if (preConVerdict == pass)
   {
     v_SLAC_Tester2.start(f_EVCC_CMN_TB_VTB_AttenuationCharacterization_002());
-    verdicttype testbehaviorVerdict = f_EVCC_CMN_TB_VTB_CmSlacParm_001(fail);
+    VerdictValue testbehaviorVerdict = f_EVCC_CMN_TB_VTB_CmSlacParm_001(fail);
     if (testbehaviorVerdict == pass)
     {
       f_EVCC_CMN_TB_VTB_AttenuationCharacterization_001(fail);
@@ -57,17 +90,16 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_002() runs on EVCC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_002(v_HAL_61851_Listener, v_SLAC_Tester2, system);
 }
-testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_003() runs on EVCC_Tester
-    system SystemEVCC
+VerdictValue TC_EVCC_CMN_VTB_AttenuationCharacterization_003(void) // runs on EVCC_Tester system SystemEVCC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -78,17 +110,16 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_003() runs on EVCC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_004() runs on EVCC_Tester
-    system SystemEVCC
+VerdictValue TC_EVCC_CMN_VTB_AttenuationCharacterization_004(void) // runs on EVCC_Tester system SystemEVCC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -104,17 +135,16 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_004() runs on EVCC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_005() runs on EVCC_Tester
-    system SystemEVCC
+VerdictValue TC_EVCC_CMN_VTB_AttenuationCharacterization_005(void) // runs on EVCC_Tester system SystemEVCC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -130,17 +160,16 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_005() runs on EVCC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_006() runs on EVCC_Tester
-    system SystemEVCC
+VerdictValue TC_EVCC_CMN_VTB_AttenuationCharacterization_006(void) // runs on EVCC_Tester system SystemEVCC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -157,17 +186,16 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_006() runs on EVCC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_007() runs on EVCC_Tester
-    system SystemEVCC
+VerdictValue TC_EVCC_CMN_VTB_AttenuationCharacterization_007(void) // runs on EVCC_Tester system SystemEVCC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -191,17 +219,16 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_007() runs on EVCC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_008() runs on EVCC_Tester
-    system SystemEVCC
+VerdictValue TC_EVCC_CMN_VTB_AttenuationCharacterization_008(void) // runs on EVCC_Tester system SystemEVCC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -217,17 +244,16 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_008() runs on EVCC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_009() runs on EVCC_Tester
-    system SystemEVCC
+VerdictValue TC_EVCC_CMN_VTB_AttenuationCharacterization_009(void) // runs on EVCC_Tester system SystemEVCC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -243,17 +269,16 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_009() runs on EVCC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_010() runs on EVCC_Tester
-    system SystemEVCC
+VerdictValue TC_EVCC_CMN_VTB_AttenuationCharacterization_010(void) // runs on EVCC_Tester system SystemEVCC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -269,17 +294,16 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_010() runs on EVCC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_011() runs on EVCC_Tester
-    system SystemEVCC
+VerdictValue TC_EVCC_CMN_VTB_AttenuationCharacterization_011(void) // runs on EVCC_Tester system SystemEVCC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -295,17 +319,16 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_011() runs on EVCC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_012() runs on EVCC_Tester
-    system SystemEVCC
+VerdictValue TC_EVCC_CMN_VTB_AttenuationCharacterization_012(void) // runs on EVCC_Tester system SystemEVCC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -316,17 +339,16 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_012() runs on EVCC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_013() runs on EVCC_Tester
-    system SystemEVCC
+VerdictValue TC_EVCC_CMN_VTB_AttenuationCharacterization_013(void) // runs on EVCC_Tester system SystemEVCC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -337,17 +359,16 @@ testcase TC_EVCC_CMN_VTB_AttenuationCharacterization_013() runs on EVCC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_EVCC_AC_VTB_AttenuationCharacterization_001() runs on EVCC_Tester
-    system SystemEVCC
+VerdictValue TC_EVCC_AC_VTB_AttenuationCharacterization_001(void) // runs on EVCC_Tester system SystemEVCC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -358,17 +379,16 @@ testcase TC_EVCC_AC_VTB_AttenuationCharacterization_001() runs on EVCC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_EVCC_AC_VTB_AttenuationCharacterization_002() runs on EVCC_Tester
-    system SystemEVCC
+VerdictValue TC_EVCC_AC_VTB_AttenuationCharacterization_002(void) // runs on EVCC_Tester system SystemEVCC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_EVCC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_EVCC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -379,10 +399,10 @@ testcase TC_EVCC_AC_VTB_AttenuationCharacterization_002() runs on EVCC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_EVCC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-}
+} // namespace TestCases_EVCC_AttenuationCharacterization

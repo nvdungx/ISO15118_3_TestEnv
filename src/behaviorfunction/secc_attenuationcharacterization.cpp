@@ -3,8 +3,7 @@
 #include "management/pixit_cfg.hpp"
 #include "management/timer_cfg.hpp"
 #include "supported/libfunctions.hpp"
-#include "datatype.hpp"
-#include "slac_type.hpp"
+
 // import from Timer_15118_3 all;
 // import from Pics_15118_3 all;
 // import from Pics_15118 all;
@@ -30,6 +29,42 @@
 #define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 namespace TestLib
 {
+namespace TestBehavior_SECC_AttenuationCharacterization
+{
+float f_SECC_CMN_calculateAttenuation(const AttenProfile_TYPE &v_attenuation_list)
+{
+  // runs on SLAC_Tester return float
+  integer v_attenuationAdded = 0;
+  for (integer i = 0; i < sizeof(v_attenuation_list); i = i + 1)
+  {
+    v_attenuationAdded = v_attenuationAdded + hex2int(v_attenuation_list.attenuation[i]);
+  }
+  float v_averageAttenuation = (int2float(v_attenuationAdded) / int2float(sizeof(v_attenuation_list)));
+  return v_averageAttenuation;
+}
+VerdictValue f_SECC_CMN_setMac(const MME &v_responseMessage, const MACAddress_TYPE &v_sut_mac_temp)
+{
+  // runs on SLAC_Tester
+  AttenProfile_TYPE v_attenuation_list = v_responseMessage.mme_payload.payload.cm_atten_char_ind.attenuation_list;
+  float averageAttenuation = f_SECC_CMN_calculateAttenuation(v_attenuation_list);
+  SLOGI("SUT MAC address: ", v_sut_mac_temp, "Average attenuation: ", averageAttenuation);
+  if ((averageAttenuation < vc_LowestAverageAttenuation) or (vc_LowestAverageAttenuation == 0.0))
+  {
+    vc_LowestAverageAttenuation = averageAttenuation;
+    vc_sut_mac = v_sut_mac_temp;
+    SLOGI("An SECC with a lower attenuation could be detected.");
+  }
+}
+integer f_SECC_CMN_calculateMeanOfAttenuationValues_001(const AttenProfile_TYPE &v_attenuation_list)
+{
+  integer v_result = 0;
+  for (integer i = 0; i < sizeof(v_attenuation_list); i = i + 1)
+  {
+    v_result = v_result + hex2int(v_attenuation_list.attenuation[i]);
+  }
+  v_result = v_result / sizeof(v_attenuation_list);
+  return v_result;
+}
 VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vct)
 {
   // runs on SECC_Tester
@@ -125,7 +160,7 @@ VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_001(VerdictValue v_vc
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_002()
+VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_002(void)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -306,7 +341,7 @@ VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_003(integer n)
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_004()
+VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_004(void)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -463,7 +498,7 @@ VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_004()
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_005(SLAC_Header payloadHeader, Acvarfield_Type acvarfield)
+VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_005(const SLAC_Header &payloadHeader, const Acvarfield_Type &acvarfield)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -624,7 +659,7 @@ VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_005(SLAC_Header paylo
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_006()
+VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_006(void)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -699,7 +734,7 @@ VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_006()
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_007(MME_Payload v_payload)
+VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_007(const MME_Payload &v_payload)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -765,7 +800,7 @@ VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_007(MME_Payload v_pay
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_008(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_008(const std::shared_ptr<HAL_61851_Listener > &v_HAL_61851_Listener)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -839,7 +874,7 @@ VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_008(HAL_61851_Listene
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_009(MACAddress_TYPE v_macAddress)
+VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_009(const MACAddress_TYPE &v_macAddress)
 {
   // runs on SLAC_Tester
   // return VerdictValue
@@ -989,31 +1024,7 @@ VerdictValue f_SECC_CMN_TB_VTB_AttenuationCharacterization_009(MACAddress_TYPE v
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_setMac(MME v_responseMessage, MACAddress_TYPE v_sut_mac_temp)
-{
-  // runs on SLAC_Tester
-  AttenProfile_TYPE v_attenuation_list = v_responseMessage.mme_payload.payload.cm_atten_char_ind.attenuation_list;
-  float averageAttenuation = f_SECC_CMN_calculateAttenuation(v_attenuation_list);
-  SLOGI("SUT MAC address: ", v_sut_mac_temp, "Average attenuation: ", averageAttenuation);
-  if ((averageAttenuation < vc_LowestAverageAttenuation) or (vc_LowestAverageAttenuation == 0.0))
-  {
-    vc_LowestAverageAttenuation = averageAttenuation;
-    vc_sut_mac = v_sut_mac_temp;
-    SLOGI("An SECC with a lower attenuation could be detected.");
-  }
-}
-float f_SECC_CMN_calculateAttenuation(AttenProfile_TYPE v_attenuation_list)
-{
-  // runs on SLAC_Tester return float
-  integer v_attenuationAdded = 0;
-  for (integer i = 0; i < sizeof(v_attenuation_list); i = i + 1)
-  {
-    v_attenuationAdded = v_attenuationAdded + hex2int(v_attenuation_list.attenuation[i]);
-  }
-  float v_averageAttenuation = (int2float(v_attenuationAdded) / int2float(sizeof(v_attenuation_list)));
-  return v_averageAttenuation;
-}
-VerdictValue f_SECC_CMN_Reset_001(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_Reset_001(const std::shared_ptr<HAL_61851_Listener > &v_HAL_61851_Listener)
 {
   // runs on SECC_Tester
   // initiate restart of the matching process
@@ -1072,7 +1083,7 @@ VerdictValue f_SECC_CMN_Reset_001(HAL_61851_Listener v_HAL_61851_Listener)
   f_SECC_setState(vc_state, v_HAL_61851_Listener);
   SECC_Tester::tc_TT_matching_repetition->start(par_TT_matching_repetition);
 }
-VerdictValue f_SECC_CMN_compareAttenuationValues_001(AttenProfile_TYPE v_attenuation_list1, AttenProfile_TYPE v_attenuation_list2)
+VerdictValue f_SECC_CMN_compareAttenuationValues_001(const AttenProfile_TYPE &v_attenuation_list1, const AttenProfile_TYPE &v_attenuation_list2)
 {
   integer v_meanAttenuation1;
   integer v_meanAttenuation2;
@@ -1087,14 +1098,5 @@ VerdictValue f_SECC_CMN_compareAttenuationValues_001(AttenProfile_TYPE v_attenua
     setverdict(pass, "Valid attenuation values were detected. The deviation was greater or equal than 'par_SECC_attenuationDeviation'.");
   }
 }
-integer f_SECC_CMN_calculateMeanOfAttenuationValues_001(AttenProfile_TYPE v_attenuation_list)
-{
-  integer v_result = 0;
-  for (integer i = 0; i < sizeof(v_attenuation_list); i = i + 1)
-  {
-    v_result = v_result + hex2int(v_attenuation_list.attenuation[i]);
-  }
-  v_result = v_result / sizeof(v_attenuation_list);
-  return v_result;
 }
 }

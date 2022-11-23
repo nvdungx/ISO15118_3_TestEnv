@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <string>
 #include <iostream>
+#include <memory>
 
 namespace TestLib
 {
@@ -197,6 +198,11 @@ namespace DataStructure_HAL_61851
     LOST_DIODE,
     SHORT_CP_PE
   } IEC_61851_ErrStates;
+  typedef enum enHAL_61851_PwmMode_Type
+  {
+    FIX_5_PERCENT = 0,
+    NOMINAL
+  } HAL_61851_PwmMode_Type;
 
   /* callback on change events */
   typedef enum enCallbackType

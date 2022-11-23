@@ -3,8 +3,6 @@
 #include "management/pixit_cfg.hpp"
 #include "management/timer_cfg.hpp"
 #include "supported/libfunctions.hpp"
-#include "datatype.hpp"
-#include "slac_type.hpp"
 
 // module TestBehavior_SECC_CmSlacParm {
 // import from Templates_CMN_CmSlacParm all;
@@ -18,6 +16,8 @@
 #define SLOGE(msg) spdlog::error("{0} {1}: {2}", __FILE__, __LINE__, msg)
 #define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 namespace TestLib
+{
+namespace TestBehavior_SECC_CmSlacParm
 {
 using namespace Pics_15118;
 using namespace Pics_15118_3;
@@ -95,8 +95,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_001(VerdictValue v_vct)
   }
   return SECC_Tester::getverdict();
 }
-
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_002(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener, SLAC_Header &v_slac_Header, boolean v_sendInvalid)
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_002(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener, const SLAC_Header &v_slac_Header, boolean v_sendInvalid)
 {
   MME v_responseMessage;
   boolean v_repetition = true;
@@ -174,8 +173,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_002(std::shared_ptr<HAL_61851_Listener
   }
   return SECC_Tester::getverdict();
 }
-
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_003(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_003(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   SECC_Tester::vc_RunID = f_randomHexStringGen(16);
   sleep(1.0);
@@ -214,7 +212,6 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_003(std::shared_ptr<HAL_61851_Listener
   }
   return SECC_Tester::getverdict();
 }
-
 VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_004(void)
 {
   MME v_responseMessage;
@@ -289,7 +286,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_004(void)
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_005(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_005(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
 
   MME v_responseMessage;
@@ -327,7 +324,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSlacParm_005(std::shared_ptr<HAL_61851_Listener
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_001(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
 
   if (!SECC_Tester::vc_confirmState)
@@ -403,7 +400,7 @@ VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_001(std::shared_ptr<HAL_61851_Listener>
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_002(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_002(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
 
   integer v_count = 1;
@@ -571,7 +568,7 @@ VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_002(std::shared_ptr<HAL_61851_Listener>
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_003(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
+VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_003(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
 
   f_SECC_changeValidStateCondition(valid_Matching);
@@ -589,5 +586,6 @@ VerdictValue f_SECC_AC_TB_VTB_CmSlacParm_003(std::shared_ptr<HAL_61851_Listener>
     SECC_Tester::setverdict(fail, "No nominal duty cycle could be detected.");
   }
   return SECC_Tester::getverdict();
+}
 }
 }

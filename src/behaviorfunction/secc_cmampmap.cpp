@@ -1,7 +1,6 @@
 #include "behaviorfunction/secc_cmampmap.hpp"
 #include "template/template.hpp"
-#include "datatype.hpp"
-#include "slac_type.hpp"
+
 // import from Timer_15118_3 all;
 // import from Pics_15118_3 all;
 // import from Templates_CMN_CmAmpMap all;
@@ -22,6 +21,8 @@
 #define SLOGE(msg) spdlog::error("{0} {1}: {2}", __FILE__, __LINE__, msg)
 #define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 namespace TestLib
+{
+namespace TestBehavior_SECC_CmAmpMap
 {
 VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_001(VerdictValue v_vct)
 {
@@ -110,7 +111,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_002(VerdictValue v_vct)
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_003()
+VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_003(void)
 {
   // runs on SECC_Tester return VerdictValue
   integer v_count = 0;
@@ -171,7 +172,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_003()
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_004()
+VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_004(void)
 {
   // runs on SECC_Tester return VerdictValue
   integer v_count = 0;
@@ -236,7 +237,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_004()
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_005()
+VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_005(void)
 {
   // runs on SECC_Tester return VerdictValue
   boolean v_repetition = true;
@@ -282,7 +283,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_005()
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_006()
+VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_006(void)
 {
   // runs on SECC_Tester return VerdictValue
   boolean v_repetition = true;
@@ -330,7 +331,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_006()
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_007()
+VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_007(void)
 {
   // runs on SECC_Tester return VerdictValue
   integer v_counter = 0;
@@ -375,7 +376,7 @@ VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_007()
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_008()
+VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_008(void)
 {
   // runs on SECC_Tester return VerdictValue
   Security_TYPE v_security = cc_hexTls;
@@ -385,5 +386,6 @@ VerdictValue f_SECC_CMN_TB_VTB_CmAmpMap_008()
   }
   f_SECC_CMN_TB_VTB_SDP_001(v_security, fail);
   return SECC_Tester::getverdict();
+}
 }
 }

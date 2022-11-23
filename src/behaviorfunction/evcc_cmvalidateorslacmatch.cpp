@@ -1,7 +1,6 @@
 #include "behaviorfunction/evcc_cmvalidateorslacmatch.hpp"
 #include "template/template.hpp"
-#include "datatype.hpp"
-#include "slac_type.hpp"
+
 // import from Timer_15118_3 all;
 // import from Pics_15118_3 all;
 // import from Templates_CMN_CmValidate all;
@@ -30,7 +29,9 @@
 #define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 namespace TestLib
 {
-VerdictValue f_EVCC_CMN_TB_VTB_CmValidateOrCmSlacMatch_001(HAL_61851_Listener v_HAL_61851_Listener, VerdictValue v_vct)
+namespace TestBehavior_EVCC_CmValidateOrCmSlacMatch
+{
+VerdictValue f_EVCC_CMN_TB_VTB_CmValidateOrCmSlacMatch_001(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener, VerdictValue v_vct)
 {
   // runs on EVCC_Tester
   // return VerdictValue
@@ -43,10 +44,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmValidateOrCmSlacMatch_001(HAL_61851_Listener v_
   {
     if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
             md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_MATCH_REQ = "607C"}),
-            md_CMN_CMN_CmSlacMatchReq_001(
-                m_CMN_CMN_SlacPayloadHeader_001(),
-                vc_sut_mac, par_testSystem_mac,
-                vc_RunID))))
+            md_CMN_CMN_CmSlacMatchReq_001(m_CMN_CMN_SlacPayloadHeader_001(), vc_sut_mac, par_testSystem_mac, vc_RunID))))
     {
       setverdict(pass, "CM_SLAC_MATCH.REQ is correct.");
       EVCC_Tester::tc_TT_EVSE_match_session->stop();
@@ -200,5 +198,6 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmValidateOrCmSlacMatch_001(HAL_61851_Listener v_
     }
   }
   return EVCC_Tester::getverdict();
+}
 }
 }

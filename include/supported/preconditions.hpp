@@ -6,20 +6,8 @@
 
 namespace TestLib
 {
-class PreConditions_SECC_15118_3
+namespace PreConditions_SECC_15118_3
 {
-private:
-  PreConditions_SECC_15118_3()
-  {
-  }
-public:
-  PreConditions_SECC_15118_3(const PreConditions_SECC_15118_3&) = delete;
-  PreConditions_SECC_15118_3& operator=(const PreConditions_SECC_15118_3&) = delete;
-
-  static PreConditions_SECC_15118_3 &get_instance() {
-    static PreConditions_SECC_15118_3 instance;
-    return instance;
-  }
   VerdictValue f_SECC_CMN_PR_StateA_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener);
   VerdictValue f_SECC_CMN_PR_DisconnectDataLink_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener);
   VerdictValue f_SECC_CMN_PR_SetProximityPilot_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener);
@@ -31,21 +19,10 @@ public:
   VerdictValue f_SECC_CMN_PR_CmSetKey_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener);
   VerdictValue f_SECC_CMN_PR_PLCLinkStatus_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener);
   VerdictValue f_SECC_CMN_PR_CmAmpMap_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener);
-};
+} // namespace PreConditions_SECC_15118_3
 
-class PreConditions_EVCC_15118_3
+namespace PreConditions_EVCC_15118_3
 {
-private:
-  PreConditions_EVCC_15118_3()
-  {
-  }
-public:
-  PreConditions_EVCC_15118_3(const PreConditions_EVCC_15118_3&) = delete;
-  PreConditions_EVCC_15118_3& operator=(const PreConditions_EVCC_15118_3&) = delete;
-  static PreConditions_EVCC_15118_3 &get_instance() {
-    static PreConditions_EVCC_15118_3 instance;
-    return instance;
-  }
   VerdictValue f_EVCC_CMN_PR_SetPowerFlowConfiguration_001(void);
   VerdictValue f_EVCC_CMN_PR_DisableControlPilot_001(void);
   VerdictValue f_EVCC_CMN_PR_CmSetKey_001(void);
@@ -59,7 +36,7 @@ public:
   VerdictValue f_EVCC_CMN_PR_CmValidateOrCmSlacMatch_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener);
   VerdictValue f_EVCC_CMN_PR_PLCLinkStatus_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener);
   VerdictValue f_EVCC_CMN_PR_CmAmpMap_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener);
-};
+} // namespace PreConditions_EVCC_15118_3
 } // namespace TestLib
 
 

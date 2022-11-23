@@ -10,7 +10,7 @@
 
 namespace TestLib {
 
-template <size_t size>
+template <size_t size=1>
 class hexstring
 {
 private:
@@ -46,7 +46,7 @@ public:
   }
   hexstring(const std::array<uint8_t, size> &input)
   {
-    for (size_t i = 0; i < size/2; i++)
+    for (size_t i = 0; i < size; i++)
     {
       raw_data[i] = input[i];
     }
@@ -229,7 +229,6 @@ namespace DataStructure_SLAC
     Result_TYPE result;
   } VCVarField_TYPE;
 
-  typedef std::vector<MME> ResponseMessageList_TYPE;
   typedef struct stMACAddressList_TYPE
   {
     std::vector<MACAddress_TYPE> macAddressList;
@@ -490,13 +489,15 @@ namespace DataStructure_SLAC
       VS_HST_ACTION_RSP vs_hst_action_rsp;
       CM_NW_STATS_REQ cm_nw_stats_req;
       CM_NW_STATS_CNF cm_nw_stats_cnf;
-      unPayload()
-      {
-      }
-      ~unPayload()
-      {
-      }
+      unPayload(){}
+      ~unPayload(){}
     } payload;
+    stMME_Payload(){}
+    ~stMME_Payload(){}
+    stMME_Payload(const stMME_Payload& obj)
+    {
+      std::memcpy(&this->payload, &obj.payload, sizeof(obj.payload));
+    }
   } MME_Payload;
 
   /* management message entry: messages exchange between PLC node */
@@ -505,6 +506,8 @@ namespace DataStructure_SLAC
     MME_Header mme_header;
     MME_Payload mme_payload;
   } MME;
+
+  typedef std::vector<MME> ResponseMessageList_TYPE;
 }
 // with
 // {

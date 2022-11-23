@@ -4,7 +4,15 @@
     "args": [],
     "MIMode": "gdb",
     "miDebuggerPath": "/usr/bin/gdb",
-    "externalConsole": false
+    "externalConsole": false,
+    "setupCommands": [
+      {
+        "description": "Enable pretty-printing for gdb",
+        "text": "-enable-pretty-printing",
+        "ignoreFailures": true
+      },
+      { "text": "set output-radix 16" }
+    ]
   },
   "files.associations": {
     "format": "cpp",
@@ -77,7 +85,13 @@
     "variant": "cpp",
     "unordered_set": "cpp",
     "bit": "cpp",
-    "xtr1common": "cpp"
+    "xtr1common": "cpp",
+    "compare": "cpp",
+    "concepts": "cpp",
+    "coroutine": "cpp",
+    "ranges": "cpp",
+    "stop_token": "cpp",
+    "xiosbase": "cpp"
   },
   "cSpell.words": [
     "GPIOIF",

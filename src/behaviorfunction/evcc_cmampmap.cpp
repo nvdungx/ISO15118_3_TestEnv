@@ -1,7 +1,5 @@
 #include "behaviorfunction/evcc_cmampmap.hpp"
 #include "template/template.hpp"
-#include "datatype.hpp"
-#include "slac_type.hpp"
 
 // import from Timer_15118_3 all;
 // import from Pics_15118_3 all;
@@ -21,6 +19,8 @@
 #define SLOGE(msg) spdlog::error("{0} {1}: {2}", __FILE__, __LINE__, msg)
 #define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 namespace TestLib
+{
+namespace TestBehavior_EVCC_CmAmpMap
 {
 VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_001(VerdictValue v_vct)
 {
@@ -108,7 +108,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_002(VerdictValue v_vct)
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_003()
+VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_003(void)
 {
   // runs on EVCC_Tester return VerdictValue
   integer v_count = 0;
@@ -169,7 +169,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_003()
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_004()
+VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_004(void)
 {
   // runs on EVCC_Tester return VerdictValue
   integer v_count = 0;
@@ -234,7 +234,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_004()
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_005()
+VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_005(void)
 {
   // runs on EVCC_Tester return VerdictValue
   boolean v_repetition = true;
@@ -280,7 +280,7 @@ else
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_006()
+VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_006(void)
 {
   // runs on EVCC_Tester return VerdictValue
   boolean v_repetition = true;
@@ -328,7 +328,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_006()
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_007()
+VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_007(void)
 {
   // runs on EVCC_Tester return VerdictValue
   integer v_counter = 0;
@@ -373,11 +373,12 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_007()
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_008()
+VerdictValue f_EVCC_CMN_TB_VTB_CmAmpMap_008(void)
 {
   // runs on EVCC_Tester return VerdictValue
   EVCC_Tester::tc_V2G_SECC_CommunicationSetup_Timer->start;
   f_EVCC_CMN_TB_VTB_SDP_001(MATCH_ANY, fail);
   return EVCC_Tester::getverdict();
+}
 }
 }

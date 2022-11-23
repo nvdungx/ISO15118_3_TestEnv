@@ -1,24 +1,27 @@
 #include "testcase/tc_secc_attenuationcharacterization.hpp"
 
-module TestCases_SECC_AttenuationCharacterization
+#define SLOGW(msg) spdlog::warn("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGI(msg) spdlog::info("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGE(msg) spdlog::error("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
+namespace TestCases_SECC_AttenuationCharacterization
 {
-import from DataStructure_SLAC all;
-import from TestBehavior_SECC_AttenuationCharacterization all;
-import from ComponentsAndPorts all;
-import from Configurations_15118_3 all;
-import from PreConditions_SECC_15118_3 all;
-import from PostConditions_SECC_15118_3 all;
-import from Templates_CMN_CmAttenCharRsp all;
-import from Templates_CMN_SlacPayloadHeader all;
-import from Templates_CMN_CmStartAttenCharInd all;
-import from LibFunctions_15118_3 { group generalFunctions;
-}
-import from TestBehavior_SECC_CmSlacParm all;
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_001() runs on SECC_Tester
-    system SystemSECC
+// import from DataStructure_SLAC all;
+// import from TestBehavior_SECC_AttenuationCharacterization all;
+// import from ComponentsAndPorts all;
+// import from Configurations_15118_3 all;
+// import from PreConditions_SECC_15118_3 all;
+// import from PostConditions_SECC_15118_3 all;
+// import from Templates_CMN_CmAttenCharRsp all;
+// import from Templates_CMN_SlacPayloadHeader all;
+// import from Templates_CMN_CmStartAttenCharInd all;
+// import from LibFunctions_15118_3 { group generalFunctions;}
+// import from TestBehavior_SECC_CmSlacParm all;
+
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_001(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -29,17 +32,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_001() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_002() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_002(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -50,17 +52,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_002() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_003() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_003(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -71,17 +72,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_003() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_004() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_004(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -92,17 +92,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_004() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_005() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_005(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -116,17 +115,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_005() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_006() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_006(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -140,17 +138,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_006() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_007() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_007(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -166,17 +163,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_007() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_008() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_008(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -201,17 +197,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_008() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_009() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_009(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -228,17 +223,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_009() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_010() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_010(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -255,17 +249,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_010() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_011() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_011(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -282,17 +275,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_011() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_012() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_012(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -303,17 +295,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_012() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_013() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_013(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -328,17 +319,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_013() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_014() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_014(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -353,17 +343,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_014() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_015() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_015(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -378,17 +367,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_015() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_016() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_016(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -403,17 +391,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_016() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_017() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_017(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -428,17 +415,16 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_017() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_AttenuationCharacterization_018() runs on SECC_Tester
-    system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_018(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
@@ -461,71 +447,70 @@ testcase TC_SECC_CMN_VTB_AttenuationCharacterization_018() runs on SECC_Tester
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
-  testcase TC_SECC_CMN_VTB_AttenuationCharacterization_019() runs on SECC_Tester
-      system SystemSECC
+}
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_019(void) // runs on SECC_Tester system SystemSECC
+{
+  HAL_61851_Listener v_HAL_61851_Listener;
+  VerdictValue preConVerdict;
+  // -------------- Pre Conditions-------------------------------------------------------
+  f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
+  preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
+  //-------------- Test behavior---------------------------------------------------------
+  if (preConVerdict == pass)
   {
-    HAL_61851_Listener v_HAL_61851_Listener;
-    verdicttype preConVerdict;
-    // -------------- Pre Conditions-------------------------------------------------------
-    f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
-    preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
-    //-------------- Test behavior---------------------------------------------------------
-    if (preConVerdict == pass)
-    {
-      f_SECC_CMN_TB_VTB_AttenuationCharacterization_008(v_HAL_61851_Listener);
-    }
-    else
-    {
-      log("PreCondition was unsuccessful.");
-    }
-    //------------- Post Conditions--------------------------------------------------------
-    f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
-    f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
+    f_SECC_CMN_TB_VTB_AttenuationCharacterization_008(v_HAL_61851_Listener);
   }
-  testcase TC_SECC_CMN_VTB_AttenuationCharacterization_020() runs on SECC_Tester
-      system SystemSECC
+  else
   {
-    HAL_61851_Listener v_HAL_61851_Listener;
-    verdicttype preConVerdict;
-    verdicttype verdict;
-    AttenProfile_TYPE v_attenuation_list;
-    // -------------- Pre Conditions-------------------------------------------------------
-    f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
-    preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
-    //-------------- Test behavior---------------------------------------------------------
-    if (preConVerdict == pass)
+    SLOGI("PreCondition was unsuccessful.");
+  }
+  //------------- Post Conditions--------------------------------------------------------
+  f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
+  f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
+}
+VerdictValue TC_SECC_CMN_VTB_AttenuationCharacterization_020(void) // runs on SECC_Tester system SystemSECC
+{
+  HAL_61851_Listener v_HAL_61851_Listener;
+  VerdictValue preConVerdict;
+  VerdictValue verdict;
+  AttenProfile_TYPE v_attenuation_list;
+  // -------------- Pre Conditions-------------------------------------------------------
+  f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
+  preConVerdict = f_SECC_CMN_PR_CmSlacParm_001(v_HAL_61851_Listener);
+  //-------------- Test behavior---------------------------------------------------------
+  if (preConVerdict == pass)
+  {
+    f_SECC_CMN_TB_VTB_AttenuationCharacterization_001(fail);
+    if (getverdict == pass)
+    {
+      v_attenuation_list = vc_attenuation_list;
+      f_SECC_CMN_Reset_001(v_HAL_61851_Listener);
+    }
+    if (getverdict == pass)
+    {
+      f_SECC_CMN_TB_VTB_CmSlacParm_001(fail);
+    }
+    if (getverdict == pass)
     {
       f_SECC_CMN_TB_VTB_AttenuationCharacterization_001(fail);
-      if (getverdict == pass)
-      {
-        v_attenuation_list = vc_attenuation_list;
-        f_SECC_CMN_Reset_001(v_HAL_61851_Listener);
-      }
-      if (getverdict == pass)
-      {
-        f_SECC_CMN_TB_VTB_CmSlacParm_001(fail);
-      }
-      if (getverdict == pass)
-      {
-        f_SECC_CMN_TB_VTB_AttenuationCharacterization_001(fail);
-      }
-      if (getverdict == pass)
-      {
-        f_SECC_CMN_compareAttenuationValues_001(v_attenuation_list,
-                                                vc_attenuation_list);
-      }
     }
-    else
+    if (getverdict == pass)
     {
-      log("PreCondition was unsuccessful.");
+      f_SECC_CMN_compareAttenuationValues_001(v_attenuation_list,
+                                              vc_attenuation_list);
     }
-    //------------- Post Conditions--------------------------------------------------------
-    f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
-    f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   }
+  else
+  {
+    SLOGI("PreCondition was unsuccessful.");
+  }
+  //------------- Post Conditions--------------------------------------------------------
+  f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
+  f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
+} // namespace TestCases_SECC_AttenuationCharacterization

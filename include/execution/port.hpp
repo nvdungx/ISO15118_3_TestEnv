@@ -3,6 +3,10 @@
 
 namespace TestLib
 {
+/* communication port: abstract mechanism facilitating communication between test components
+  NOTE: A communication port is modelled as a FIFO queue in the receiving direction. Ports can be
+message-based or procedure-based. */
+
 class SLAC_Port
 {
 private:

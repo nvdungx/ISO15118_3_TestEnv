@@ -1,21 +1,24 @@
 #include "testcase/tc_secc_cmslacmatch.hpp"
 
-module TestCases_SECC_CmSlacMatch
+#define SLOGW(msg) spdlog::warn("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGI(msg) spdlog::info("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGE(msg) spdlog::error("{0} {1}: {2}", __FILE__, __LINE__, msg)
+#define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
+namespace TestCases_SECC_CmSlacMatch
 {
-import from DataStructure_SLAC all;
-import from TestBehavior_SECC_CmSlacMatch all;
-import from ComponentsAndPorts all;
-import from Configurations_15118_3 all;
-import from PreConditions_SECC_15118_3 all;
-import from PostConditions_SECC_15118_3 all;
-import from Templates_CMN_CmSlacMatch all;
-import from Templates_CMN_SlacPayloadHeader all;
-import from LibFunctions_15118_3 { group generalFunctions;
-}
-testcase TC_SECC_CMN_VTB_CmSlacMatch_001() runs on SECC_Tester system SystemSECC
+// import from DataStructure_SLAC all;
+// import from TestBehavior_SECC_CmSlacMatch all;
+// import from ComponentsAndPorts all;
+// import from Configurations_15118_3 all;
+// import from PreConditions_SECC_15118_3 all;
+// import from PostConditions_SECC_15118_3 all;
+// import from Templates_CMN_CmSlacMatch all;
+// import from Templates_CMN_SlacPayloadHeader all;
+// import from LibFunctions_15118_3 { group generalFunctions;}
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_001(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -26,16 +29,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_001() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_002() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_002(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmValidate_001(v_HAL_61851_Listener);
@@ -46,16 +49,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_002() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_003() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_003(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -66,16 +69,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_003() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_004() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_004(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmValidate_001(v_HAL_61851_Listener);
@@ -86,16 +89,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_004() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_005() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_005(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -106,16 +109,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_005() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_006() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_006(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmValidate_001(v_HAL_61851_Listener);
@@ -126,16 +129,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_006() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_007() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_007(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -151,16 +154,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_007() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_008() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_008(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmValidate_001(v_HAL_61851_Listener);
@@ -176,16 +179,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_008() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_009() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_009(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -201,16 +204,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_009() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_010() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_010(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmValidate_001(v_HAL_61851_Listener);
@@ -226,16 +229,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_010() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_011() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_011(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -251,16 +254,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_011() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_012() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_012(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmValidate_001(v_HAL_61851_Listener);
@@ -276,16 +279,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_012() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_013() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_013(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -301,16 +304,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_013() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_014() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_014(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmValidate_001(v_HAL_61851_Listener);
@@ -326,16 +329,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_014() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_015() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_015(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -351,16 +354,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_015() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_016() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_016(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmValidate_001(v_HAL_61851_Listener);
@@ -376,16 +379,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_016() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_017() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_017(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -401,16 +404,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_017() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_018() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_018(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmValidate_001(v_HAL_61851_Listener);
@@ -426,16 +429,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_018() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_019() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_019(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -451,16 +454,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_019() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_020() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_020(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmValidate_001(v_HAL_61851_Listener);
@@ -476,16 +479,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_020() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_021() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_021(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -509,16 +512,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_021() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_022() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_022(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmValidate_001(v_HAL_61851_Listener);
@@ -542,16 +545,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_022() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_023() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_023(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_AttenuationCharacterization_001(v_HAL_61851_Listener);
@@ -562,16 +565,16 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_023() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-testcase TC_SECC_CMN_VTB_CmSlacMatch_024() runs on SECC_Tester system SystemSECC
+VerdictValue TC_SECC_CMN_VTB_CmSlacMatch_024(void) // runs on SECC_Tester system SystemSECC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
-  verdicttype preConVerdict;
+  VerdictValue preConVerdict;
   // -------------- Pre Conditions-------------------------------------------------------
   f_SECC_CMN_PR_InitConfiguration_SLAC_001(v_HAL_61851_Listener, system);
   preConVerdict = f_SECC_CMN_PR_CmValidate_001(v_HAL_61851_Listener);
@@ -582,10 +585,10 @@ testcase TC_SECC_CMN_VTB_CmSlacMatch_024() runs on SECC_Tester system SystemSECC
   }
   else
   {
-    log("PreCondition was unsuccessful.");
+    SLOGI("PreCondition was unsuccessful.");
   }
   //------------- Post Conditions--------------------------------------------------------
   f_SECC_CMN_PO_InitialState_001(v_HAL_61851_Listener);
   f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(v_HAL_61851_Listener, system);
 }
-}
+} // namespace TestCases_SECC_CmSlacMatch

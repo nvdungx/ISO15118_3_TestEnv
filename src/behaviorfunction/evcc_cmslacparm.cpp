@@ -1,7 +1,6 @@
 #include "behaviorfunction/evcc_cmslacparm.hpp"
 #include "template/template.hpp"
-#include "datatype.hpp"
-#include "slac_type.hpp"
+
 // import from Templates_CMN_CmSlacParm all;
 // import from Templates_CMN_SlacManagementMessageEntry all;
 // import from Templates_CMN_SlacPayloadHeader all;
@@ -26,6 +25,8 @@
 #define SLOGE(msg) spdlog::error("{0} {1}: {2}", __FILE__, __LINE__, msg)
 #define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 namespace TestLib
+{
+namespace TestBehavior_EVCC_CmSlacParm
 {
 VerdictValue f_EVCC_CMN_TB_VTB_CmSlacParm_001(VerdictValue v_vct)
 {
@@ -56,7 +57,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmSlacParm_001(VerdictValue v_vct)
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmSlacParm_002()
+VerdictValue f_EVCC_CMN_TB_VTB_CmSlacParm_002(void)
 {
   // runs on EVCC_Tester return VerdictValue
   MME v_responseMessage;
@@ -123,7 +124,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmSlacParm_002()
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmSlacParm_003(MME_Payload invalidPayload)
+VerdictValue f_EVCC_CMN_TB_VTB_CmSlacParm_003(const MME_Payload &invalidPayload)
 {
   // runs on EVCC_Tester return VerdictValue
   MME v_responseMessage;
@@ -210,7 +211,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmSlacParm_003(MME_Payload invalidPayload)
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmSlacParm_004()
+VerdictValue f_EVCC_CMN_TB_VTB_CmSlacParm_004(void)
 {
   // runs on EVCC_Tester return VerdictValue
   MME v_responseMessage;
@@ -324,7 +325,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmSlacParm_004()
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmSlacParm_005()
+VerdictValue f_EVCC_CMN_TB_VTB_CmSlacParm_005(void)
 {
   // runs on EVCC_Tester return VerdictValue
   MME v_responseMessage;
@@ -426,5 +427,6 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmSlacParm_005()
     }
   }
   return EVCC_Tester::getverdict();
+}
 }
 }

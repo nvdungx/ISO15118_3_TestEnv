@@ -1,7 +1,6 @@
 #include "behaviorfunction/secc_cmsetkey.hpp"
 #include "template/template.hpp"
-#include "datatype.hpp"
-#include "slac_type.hpp"
+
 // import from Timer_15118_3 all;
 // import from Pics_15118_3 all;
 // import from Templates_CMN_CmSetKey all;
@@ -15,6 +14,8 @@
 #define SLOGE(msg) spdlog::error("{0} {1}: {2}", __FILE__, __LINE__, msg)
 #define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 namespace TestLib
+{
+namespace TestBehavior_SECC_CmSetKey
 {
 VerdictValue f_SECC_CMN_TB_VTB_CmSetKey_001(boolean useTimer)
 {
@@ -67,5 +68,6 @@ VerdictValue f_SECC_CMN_TB_VTB_CmSetKey_001(boolean useTimer)
     }
   }
   return SECC_Tester::getverdict();
+}
 }
 }

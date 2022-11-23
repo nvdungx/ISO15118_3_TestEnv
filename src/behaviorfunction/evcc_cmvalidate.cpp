@@ -1,8 +1,7 @@
 
 #include "behaviorfunction/evcc_cmvalidate.hpp"
 #include "template/template.hpp"
-#include "datatype.hpp"
-#include "slac_type.hpp"
+
 // import from Timer_15118_3 all;
 // import from Pixit_15118_3 all;
 // import from Pics_15118_3 all;
@@ -34,9 +33,16 @@
 #define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 namespace TestLib
 {
+namespace TestBehavior_EVCC_CmValidate
+{
+float decodeValdToggleTime(PilotTimer_TYPE v_pilotTimer)
+{
+  return (int2float((hex2int(v_pilotTimer) + 1)) * 0.1);
+}
 // EVCC Tester
-VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_001(HAL_61851_Listener v_HAL_61851_Listener, boolean v_changeDC, integer v_dutyCycle, VerdictValue v_vct) {
-      // runs on EVCC_Tester return VerdictValue {
+VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_001(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener, boolean v_changeDC, integer v_dutyCycle, VerdictValue v_vct)
+{
+  // runs on EVCC_Tester return VerdictValue {
   MME v_requestMessage;
   integer cnt = 0;
   boolean isStep2 = false;
@@ -192,7 +198,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_001(HAL_61851_Listener v_HAL_61851_Lis
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_002()
+VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_002(void)
 {
   // runs on EVCC_Tester
   // return VerdictValue
@@ -247,7 +253,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_002()
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_003(MME_Payload v_validateCnf)
+VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_003(const MME_Payload &v_validateCnf)
 {
   // runs on EVCC_Tester return VerdictValue
   MME v_responseMessage;
@@ -369,7 +375,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_004(hexstring v_resultCode, boolean v_
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_005(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_005(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   // runs on EVCC_Tester return VerdictValue
   MME v_requestMessage;
@@ -513,7 +519,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_005(HAL_61851_Listener v_HAL_61851_Lis
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_006(HAL_61851_Listener v_HAL_61851_Listener, hexstring v_resultCode)
+VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_006(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener, hexstring v_resultCode)
 {
   // runs on EVCC_Tester return VerdictValue
   MME v_requestMessage;
@@ -659,7 +665,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_006(HAL_61851_Listener v_HAL_61851_Lis
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_007()
+VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_007(void)
 {
   // runs on EVCC_Tester return VerdictValue
   MME v_requestMessage;
@@ -722,7 +728,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_007()
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_008()
+VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_008(void)
 {
   // runs on EVCC_Tester return VerdictValue
   MME v_requestMessage;
@@ -791,7 +797,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_008()
   return EVCC_Tester::getverdict();
 }
 // SLAC Tester
-VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_009()
+VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_009(void)
 {
   //  runs on SLAC_Tester return VerdictValue
   MME v_responseMessage;
@@ -919,7 +925,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_010(hexstring v_resultCode)
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_011(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_011(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   // runs on SLAC_Tester return VerdictValue
   MME v_requestMessage;
@@ -1070,7 +1076,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_011(HAL_61851_Listener v_HAL_61851_Lis
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_012(HAL_61851_Listener v_HAL_61851_Listener, hexstring v_resultCode)
+VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_012(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener, hexstring v_resultCode)
 {
   // runs on SLAC_Tester return VerdictValue
   MME v_requestMessage;
@@ -1298,7 +1304,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmValidate_013(HAL_61851_PwmMode_Type pwmMode)
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmValidatePreCondition_001()
+VerdictValue f_EVCC_CMN_TB_VTB_CmValidatePreCondition_001(void)
 {
   //  runs on SLAC_Tester
   // return VerdictValue
@@ -1328,8 +1334,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmValidatePreCondition_001()
       EVCC_Tester::tc_TT_match_sequence->start(par_TT_match_sequence);
       EVCC_Tester::pt_SLAC_Port->send(md_CMN_CMN_SlacMme_001(
           md_CMN_CMN_SlacMmeCmnHeader_001({CM_SLAC_PARM_CNF = "6065"}),
-          md_CMN_CMN_CmSlacParmCnf_001(vc_sut_mac,
-                                       m_CMN_CMN_SlacPayloadHeader_001(), vc_RunID))); // to vc_sut_mac;
+          md_CMN_CMN_CmSlacParmCnf_001(vc_sut_mac, m_CMN_CMN_SlacPayloadHeader_001(), vc_RunID))); // to vc_sut_mac;
     }
     if (a_EVCC_processPLCLinkNotifications_002())
     {
@@ -1431,7 +1436,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmValidatePreCondition_001()
             // repeat;
           }
         }
-        if (not v_firstSound)
+        if (!v_firstSound)
         {
           if (EVCC_Tester::pt_SLAC_Port->receive(md_CMN_CMN_SlacMme_001(
                   md_CMN_CMN_SlacMmeCmnHeader_001({CM_MNBC_SOUND_IND = "6076"}),
@@ -1577,8 +1582,5 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmValidatePreCondition_001()
   }
   return EVCC_Tester::getverdict();
 }
-function decodeValdToggleTime(PilotTimer_TYPE v_pilotTimer) return float
-{
-  return (int2float((hex2int(v_pilotTimer) + 1)) * 0.1);
 }
 }

@@ -1,13 +1,13 @@
 #ifndef __EVCC_CMSETKEY_H__
 #define __EVCC_CMSETKEY_H__
-namespace TestLib {
-class TestBehavior_EVCC_CmSetKey
+#include "datatype.hpp"
+#include "slac_type.hpp"
+
+namespace TestLib
 {
-private:
-  /* data */
-public:
-  TestBehavior_EVCC_CmSetKey(/* args */) {}
-  ~TestBehavior_EVCC_CmSetKey() {}
-};
+namespace TestBehavior_EVCC_CmSetKey
+{
+  extern VerdictValue f_EVCC_CMN_TB_VTB_CmSetKey_001(void);
+} // namespace TestBehavior_EVCC_CmSetKey
 }
 #endif // __EVCC_CMSETKEY_H__

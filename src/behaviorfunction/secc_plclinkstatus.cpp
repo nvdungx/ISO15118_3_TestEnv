@@ -1,7 +1,6 @@
 #include "behaviorfunction/secc_plclinkstatus.hpp"
 #include "template/template.hpp"
-#include "datatype.hpp"
-#include "slac_type.hpp"
+
 // import from Timer_15118_3 all;
 // import from Pics_15118_3 all;
 // import from Pixit_15118_3 all;
@@ -29,6 +28,8 @@
 #define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 namespace TestLib
 {
+namespace TestBehavior_SECC_PLCLinkStatus
+{
 VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_001(VerdictValue v_vct)
 {
   // runs on SECC_Tester
@@ -45,7 +46,7 @@ VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_001(VerdictValue v_vct)
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_002(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_002(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   // return VerdictValue
   // runs on SECC_Tester
@@ -67,7 +68,7 @@ VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_002(HAL_61851_Listener v_HAL_61851_
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_003()
+VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_003(void)
 {
   //  runs on SECC_Tester
   // return VerdictValue
@@ -102,7 +103,7 @@ VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_003()
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_004(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_004(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -132,7 +133,7 @@ VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_004(HAL_61851_Listener v_HAL_61851_
   f_SECC_getPLCLinkEstablishmentAfterSleepMode(pass, fail, fail);
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_005(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_005(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -164,7 +165,7 @@ VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_005(HAL_61851_Listener v_HAL_61851_
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_006(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_006(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -255,7 +256,7 @@ VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_006(HAL_61851_Listener v_HAL_61851_
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_007(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_007(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -345,7 +346,7 @@ VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_007(HAL_61851_Listener v_HAL_61851_
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_008()
+VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_008(void)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -388,7 +389,7 @@ VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_008()
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_009(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_009(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -421,7 +422,7 @@ VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_009(HAL_61851_Listener v_HAL_61851_
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_010(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_010(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -465,7 +466,7 @@ VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_010(HAL_61851_Listener v_HAL_61851_
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_011(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_011(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -549,7 +550,7 @@ VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_011(HAL_61851_Listener v_HAL_61851_
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_012(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_012(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -610,7 +611,7 @@ VerdictValue f_SECC_CMN_TB_VTB_PLCLinkStatus_012(HAL_61851_Listener v_HAL_61851_
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_AC_TB_VTB_PLCLinkStatus_001()
+VerdictValue f_SECC_AC_TB_VTB_PLCLinkStatus_001(void)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -634,7 +635,7 @@ VerdictValue f_SECC_AC_TB_VTB_PLCLinkStatus_001()
   }
   return SECC_Tester::getverdict();
 }
-VerdictValue f_SECC_AC_TB_VTB_PLCLinkStatus_002(HAL_61851_Listener v_HAL_61851_Listener)
+VerdictValue f_SECC_AC_TB_VTB_PLCLinkStatus_002(const std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener)
 {
   // runs on SECC_Tester
   // return VerdictValue
@@ -654,5 +655,6 @@ VerdictValue f_SECC_AC_TB_VTB_PLCLinkStatus_002(HAL_61851_Listener v_HAL_61851_L
     f_SECC_CMN_TB_VTB_CmSlacParm_001(fail);
   }
   return SECC_Tester::getverdict();
+}
 }
 }

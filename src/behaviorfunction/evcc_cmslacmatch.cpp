@@ -1,7 +1,5 @@
 #include "behaviorfunction/evcc_cmslacmatch.hpp"
 #include "template/template.hpp"
-#include "datatype.hpp"
-#include "slac_type.hpp"
 
 // import from Templates_CMN_CmSlacMatch all;
 // import from Templates_CMN_SlacManagementMessageEntry all;
@@ -18,7 +16,9 @@
 #define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 namespace TestLib
 {
-VerdictValue f_EVCC_CMN_TB_VTB_CmSlacMatch_001()
+namespace TestBehavior_EVCC_CmSlacMatch
+{
+VerdictValue f_EVCC_CMN_TB_VTB_CmSlacMatch_001(void)
 {
   // runs on EVCC_Tester return VerdictValue
   while (true)
@@ -64,7 +64,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmSlacMatch_001()
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmSlacMatch_002()
+VerdictValue f_EVCC_CMN_TB_VTB_CmSlacMatch_002(void)
 {
   // runs on EVCC_Tester return VerdictValue
   MME v_responseMessage;
@@ -121,7 +121,7 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmSlacMatch_002()
   }
   return EVCC_Tester::getverdict();
 }
-VerdictValue f_EVCC_CMN_TB_VTB_CmSlacMatch_003(MME_Payload mmePayload)
+VerdictValue f_EVCC_CMN_TB_VTB_CmSlacMatch_003(const MME_Payload &mmePayload)
 {
   // runs on EVCC_Tester return VerdictValue
   MME v_responseMessage;
@@ -185,5 +185,6 @@ VerdictValue f_EVCC_CMN_TB_VTB_CmSlacMatch_003(MME_Payload mmePayload)
     }
   }
   return EVCC_Tester::getverdict();
+}
 }
 }
