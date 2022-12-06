@@ -51,7 +51,7 @@ list(APPEND src_files ${CMAKE_CURRENT_SOURCE_DIR}/test/main.cpp)
 add_executable(main ${src_files})
 target_link_libraries(main PUBLIC ${GLB_LINK_LIBS}
                           PRIVATE lib_basic_signaling_if lib_datatype lib_codecs
-                          lib_platform_if lib_plc_if lib_runtime_if)
+                          lib_execution lib_platform_if lib_plc_if lib_runtime_if)
 
 target_include_directories(main PUBLIC "./include")
 

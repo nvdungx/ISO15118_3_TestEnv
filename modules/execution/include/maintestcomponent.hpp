@@ -3,9 +3,20 @@
 
 namespace TestLib
 {
+
+// type component ComponentTypeIdentifier
+// {
+// PortInstance
+// VarInstance
+// TimerInstance
+// ConstDef
+// TemplateDef
+// }
+
 /****************************************************************************/
 /********************** Main Test Component *********************************/
 /****************************************************************************/
+/* factory? */
 class SECC_Tester
 {
 private:

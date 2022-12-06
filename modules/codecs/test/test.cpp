@@ -8,6 +8,7 @@ using namespace TestLib::DataStructure_SLAC;
 #define SLOGD(msg) spdlog::debug("{0} {1}: {2}", __FILE__, __LINE__, msg)
 
 using namespace std::literals;
+
 MME_Payload md_CMN_CMN_CmSlacMatchReq_001(const SLAC_Header &v_slac_header,
   const MACAddress_TYPE &v_pevmac, const MACAddress_TYPE &v_evsemac,
   const RunID_TYPE &v_runid)

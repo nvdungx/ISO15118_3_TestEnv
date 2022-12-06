@@ -1,4 +1,3 @@
-#include <map>
 #include "testcase/tc_evcc_attenuationcharacterization.hpp"
 
 #define SLOGW(msg) spdlog::warn("{0} {1}: {2}", __FILE__, __LINE__, msg)
@@ -19,36 +18,6 @@ namespace TestCases_EVCC_AttenuationCharacterization
   // import from TestBehavior_EVCC_CmSlacParm all;
   // import from LibFunctions_15118_3 { group generalFunctions;}
 
-std::map<std::string, VerdictValue (TestCases_EVCC_AttenuationCharacterization::*)(void)> testcase_map {
-  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_001", &TC_EVCC_CMN_VTB_AttenuationCharacterization_001},
-  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_002", &TC_EVCC_CMN_VTB_AttenuationCharacterization_002},
-  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_003", &TC_EVCC_CMN_VTB_AttenuationCharacterization_003},
-  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_004", &TC_EVCC_CMN_VTB_AttenuationCharacterization_004},
-  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_005", &TC_EVCC_CMN_VTB_AttenuationCharacterization_005},
-  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_006", &TC_EVCC_CMN_VTB_AttenuationCharacterization_006},
-  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_007", &TC_EVCC_CMN_VTB_AttenuationCharacterization_007},
-  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_008", &TC_EVCC_CMN_VTB_AttenuationCharacterization_008},
-  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_009", &TC_EVCC_CMN_VTB_AttenuationCharacterization_009},
-  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_010", &TC_EVCC_CMN_VTB_AttenuationCharacterization_010},
-  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_011", &TC_EVCC_CMN_VTB_AttenuationCharacterization_011},
-  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_012", &TC_EVCC_CMN_VTB_AttenuationCharacterization_012},
-  { "TC_EVCC_CMN_VTB_AttenuationCharacterization_013", &TC_EVCC_CMN_VTB_AttenuationCharacterization_013},
-  { "TC_EVCC_AC_VTB_AttenuationCharacterization_001", &TC_EVCC_AC_VTB_AttenuationCharacterization_001},
-  { "TC_EVCC_AC_VTB_AttenuationCharacterization_002", &TC_EVCC_AC_VTB_AttenuationCharacterization_002}
-};
-
-VerdictValue call(const std::string &testcase_name)
-{
-  if (this->testcase_map.end() != this->testcase_map.find(testcase_name))
-  {
-    return (this->*testcase_map[testcase_name])();
-  }
-  else
-  {
-    SLOGE("Testcase {0} is not existed. Please check {1}", testcase_name, __FILE__);
-    return error;
-  }
-}
 VerdictValue TC_EVCC_CMN_VTB_AttenuationCharacterization_001(void) // runs on EVCC_Tester system SystemEVCC
 {
   HAL_61851_Listener v_HAL_61851_Listener;
