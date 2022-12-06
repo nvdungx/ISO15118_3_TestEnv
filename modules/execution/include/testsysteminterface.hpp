@@ -4,9 +4,10 @@
 /****************************************************************************/
 /********************** Test System Interface Component *********************/
 /****************************************************************************/
+/* singleton - statically define for SUT */
 namespace TestLib
 {
-class SystemSECC
+class SystemSECC 
 {
 private:
 

@@ -44,6 +44,7 @@ public:
       raw_data[i] = 0;
     }
   }
+  /* hex array constructor */
   hexstring(const std::array<uint8_t, size> &input)
   {
     for (size_t i = 0; i < size; i++)
@@ -51,6 +52,7 @@ public:
       raw_data[i] = input[i];
     }
   }
+  /* hex string constructor */
   hexstring(const std::string_view &input)
   {
     /* clear array */

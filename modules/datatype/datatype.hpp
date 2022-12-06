@@ -6,12 +6,48 @@
 #include <string>
 #include <iostream>
 #include <memory>
+#include <string_view>
+#include <functional>
 
 namespace TestLib
 {
 
-#define boolean bool
-#define integer int
+typedef bool boolean;
+typedef signed int integer;
+
+typedef struct stSignature
+{
+  std::string_view name;
+  std::function<void()> wrapper;
+} Signature;
+
+typedef int PortAddress;
+typedef enum class enPortType
+{
+  message = 0,
+  procedure
+} PortType;
+
+typedef enum enStdStatus
+{
+  STD_OK = 1,
+  STD_ERROR = 0
+} StdStatus;
+
+class TestObj
+{
+protected:
+  std::string _name;
+  size_t _id;
+public:
+  TestObj(void) {};
+  ~TestObj(void) {};
+  virtual std::string &get_name(void) = 0;
+  virtual void set_name(const std::string &Name) = 0;
+  virtual size_t get_id(void) = 0;
+  virtual void set_id(size_t Id) = 0;
+};
+
 
 /* const string table for logging/debug */
 class EnumMap
@@ -38,6 +74,7 @@ public:
     }
   }
 };
+
 /* const string table for logging/debug */
 class EnumUnorderedMap
 {
@@ -124,7 +161,7 @@ namespace DataStructure_TestVerification
     ~VerdictType(){};
     std::string to_string(void)
     {
-      std::string str_result = std::string("VERDICT: ") + VERDICT_RESULT[this->value];
+      std::string str_result = std::string("VERDICT: ") + VERDICT_RESULT[this->value] + "\n";
       for (auto &&msg : this->msg_list)
       {
         str_result.push_back('\n');

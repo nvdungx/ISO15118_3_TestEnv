@@ -104,7 +104,7 @@ namespace TestLib
     // cancel callback
     if (0 > callback_cancel(this->gpiod_callback_id))
     {
-      SLOGE("Failed to cancel calback");
+      SLOGE("Failed to cancel callback");
     }
     // stop gpiod
     pigpio_stop(this->gpiod_pid);
@@ -298,8 +298,8 @@ namespace TestLib
   }
 
   void BasicSignalling::debounce_filter(const boost::system::error_code &ec,
-                              std::atomic_bool *execute_flag, int pull_type, int pi, uint32_t gpio,
-                              BasicSignalling *self, boost::asio::steady_timer *t)
+                                        std::atomic_bool *execute_flag, int pull_type, int pi, uint32_t gpio,
+                                        BasicSignalling *self, boost::asio::steady_timer *t)
   {
     static uint32_t press_state = 0x00000001;
     if (ec != boost::asio::error::operation_aborted)
@@ -327,10 +327,16 @@ namespace TestLib
         {
           SLOGD("wait next poll");
           if (((BasicSignalling *)self)->_strand_required)
-            t->async_wait(boost::asio::bind_executor(((BasicSignalling *)self)->_strand,
-              boost::bind(debounce_filter, boost::placeholders::_1, execute_flag, pull_type, pi, gpio, self, t)));
+          {
+            t->async_wait(
+              boost::asio::bind_executor(((BasicSignalling *)self)->_strand,
+                boost::bind(debounce_filter, boost::placeholders::_1, execute_flag, pull_type, pi, gpio, self, t)));
+
+          }
           else
+          {
             t->async_wait(boost::bind(debounce_filter, boost::placeholders::_1, execute_flag, pull_type, pi, gpio, self, t));
+          }
         }
         else
         {
@@ -360,10 +366,17 @@ namespace TestLib
       SLOGD(fmt::format("await timer {}", level));
       execute_flag = true;
       if (((BasicSignalling *)self)->_strand_required)
-        debounce_timer.async_wait(boost::asio::bind_executor(((BasicSignalling *)self)->_strand,
-          boost::bind(debounce_filter, boost::placeholders::_1, &execute_flag, PI_PUD_DOWN, pi, gpio, (BasicSignalling *)self, &debounce_timer)));
+      {
+        debounce_timer.async_wait(
+          boost::asio::bind_executor(((BasicSignalling *)self)->_strand,
+            boost::bind(debounce_filter, boost::placeholders::_1, &execute_flag, PI_PUD_DOWN, pi, gpio, (BasicSignalling *)self, &debounce_timer)));
+
+      }
       else
-        debounce_timer.async_wait(boost::bind(debounce_filter, boost::placeholders::_1, &execute_flag, PI_PUD_DOWN, pi, gpio, (BasicSignalling *)self, &debounce_timer));
+      {
+        debounce_timer.async_wait(
+          boost::bind(debounce_filter, boost::placeholders::_1, &execute_flag, PI_PUD_DOWN, pi, gpio, (BasicSignalling *)self, &debounce_timer));
+      }
     }
     else
     {

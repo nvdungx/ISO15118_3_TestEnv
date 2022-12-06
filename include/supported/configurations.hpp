@@ -12,12 +12,6 @@ namespace TestLib
 {
 namespace Configurations_15118_3
 {
-  void map();
-  void connect();
-  void activate();
-  void unmap();
-  void disconnect();
-  void all_component_kill();
   void f_SECC_CMN_PR_InitConfiguration_SLAC_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener, std::shared_ptr<SystemSECC> &v_SystemSECC);
   void f_SECC_CMN_PR_InitConfiguration_SLAC_002(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener, std::shared_ptr<SLAC_Tester> &v_SLAC_Tester2, std::shared_ptr<SLAC_Tester> &v_SLAC_Tester3, std::shared_ptr<SLAC_Tester> &v_SLAC_Tester4, std::shared_ptr<SLAC_Tester> &v_SLAC_Tester5, std::shared_ptr<SystemSECC> &systemSECC);
   void f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener, std::shared_ptr<SystemSECC> &v_SystemSECC);

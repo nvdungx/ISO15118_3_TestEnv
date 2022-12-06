@@ -22,39 +22,10 @@ establish communication channel to the real test system interface. In the test c
 the type System_EVCC or System_SECC depending on the type of the SUT */
 namespace Configurations_15118_3
 {
-void map()
-{
-
-}
-
-void connect()
-{
-
-}
-
-void activate()
-{
-
-}
-
-void unmap()
-{
-
-}
-
-void disconnect()
-{
-
-}
-
-void all_component_kill()
-{
-
-}
 
 // ::::::::::::::::::::::: Config Functions :::::::::::::::::::::::::
 // :::::::::::::::::::::::::: SECC Tester :::::::::::::::::::::::::::
-void f_SECC_CMN_PR_InitConfiguration_SLAC_001(
+void Configurations_15118_3::f_SECC_CMN_PR_InitConfiguration_SLAC_001(
     std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener,
     std::shared_ptr<SystemSECC> &v_SystemSECC)
 {
@@ -71,7 +42,7 @@ void f_SECC_CMN_PR_InitConfiguration_SLAC_001(
   activate(a_CMN_IEC61851ListenerBehavior(SECC_Tester::pt_HAL_61851_Internal_Port));
 }
 
-void f_SECC_CMN_PR_InitConfiguration_SLAC_002(
+void Configurations_15118_3::f_SECC_CMN_PR_InitConfiguration_SLAC_002(
     std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener,
     std::shared_ptr<SLAC_Tester> &v_SLAC_Tester2,
     std::shared_ptr<SLAC_Tester> &v_SLAC_Tester3,
@@ -129,7 +100,7 @@ void f_SECC_CMN_PR_InitConfiguration_SLAC_002(
   vc_Default_IEC_61851_ListenerBehavior = activate(a_CMN_IEC61851ListenerBehavior(SECC_Tester::pt_HAL_61851_Internal_Port));
 }
 
-void f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(
+void Configurations_15118_3::f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(
     std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener,
     std::shared_ptr<SystemSECC> &v_SystemSECC)
 {
@@ -140,7 +111,7 @@ void f_SECC_CMN_PO_ShutdownConfiguration_SLAC_001(
   v_HAL_61851_Listener->kill();
 }
 
-void f_SECC_CMN_PO_ShutdownConfiguration_SLAC_002(
+void Configurations_15118_3::f_SECC_CMN_PO_ShutdownConfiguration_SLAC_002(
     std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener,
     std::shared_ptr<SLAC_Tester> &v_SLAC_Tester2,
     std::shared_ptr<SLAC_Tester> &v_SLAC_Tester3,
@@ -173,7 +144,7 @@ void f_SECC_CMN_PO_ShutdownConfiguration_SLAC_002(
 
 // ::::::::::::::::::::::: Config Functions :::::::::::::::::::::::::
 // :::::::::::::::::::::::::: EVCC Tester :::::::::::::::::::::::::::
-void f_EVCC_CMN_PR_InitConfiguration_SLAC_001(
+void Configurations_15118_3::f_EVCC_CMN_PR_InitConfiguration_SLAC_001(
     std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener,
     std::shared_ptr<SystemEVCC> &v_SystemEVCC)
 {
@@ -185,7 +156,8 @@ void f_EVCC_CMN_PR_InitConfiguration_SLAC_001(
   v_HAL_61851_Listener->start(f_EVCC_HAL61851Listener(false));
   activate(a_CMN_IEC61851ListenerBehavior(EVCC_Tester::pt_HAL_61851_Internal_Port));
 }
-void f_EVCC_CMN_PR_InitConfiguration_SLAC_002(
+
+void Configurations_15118_3::f_EVCC_CMN_PR_InitConfiguration_SLAC_002(
     std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener,
     std::shared_ptr<SLAC_Tester> &v_SLAC_Tester2,
     std::shared_ptr<SystemEVCC> &systemEVCC)
@@ -213,7 +185,8 @@ void f_EVCC_CMN_PR_InitConfiguration_SLAC_002(
   v_HAL_61851_Listener->start(f_EVCC_HAL61851Listener(false));
   vc_Default_IEC_61851_ListenerBehavior = activate(a_CMN_IEC61851ListenerBehavior(EVCC_Tester::pt_HAL_61851_Internal_Port));
 }
-void f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(
+
+void Configurations_15118_3::f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(
     std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener,
     std::shared_ptr<SystemEVCC> &v_SystemEVCC)
 {
@@ -223,7 +196,8 @@ void f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_001(
   unmap(v_HAL_61851_Listener->pt_HAL_61851_Listener_Port, v_SystemEVCC->pt_HAL_61851_Listener_Port);
   v_HAL_61851_Listener->kill();
 }
-void f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_002(
+
+void Configurations_15118_3::f_EVCC_CMN_PO_ShutdownConfiguration_SLAC_002(
     std::shared_ptr<HAL_61851_Listener> &v_HAL_61851_Listener,
     std::shared_ptr<SLAC_Tester> &v_SLAC_Tester2,
     std::shared_ptr<SystemEVCC> &v_SystemEVCC)
