@@ -39,6 +39,7 @@ namespace TestLib
     #define NUM_RELAY 6
     #define NUM_ERROR 4
     const std::vector<uint32_t> RELAYS{RELAY_PE_LINE, RELAY_RES_B, RELAY_RES_C, RELAY_RES_D, RELAY_DIODE, RELAY_SHORT_CIRCUIT};
+    // list of relay value corresponding to CP state
     const relayVal STATE_RELAY_MAP[NUM_STATE][NUM_RELAY] = {
         // PE    B     C    D     DIODE  SH
         [A] = {OFF, OFF, OFF, OFF, OFF, OFF},
@@ -59,7 +60,7 @@ namespace TestLib
     int gpiod_callback_id;
     // type of SUT (corresponding control state available)
     SUTType _sut_type;
-    // map of callback type and registed callback list from upper layer (weak_ptr)
+    // map of callback type and registered callback list from upper layer (weak_ptr)
     std::unordered_map<CallbackType, std::list<std::weak_ptr<BasicSignalCallback>>> _event_noti;
     // Asio IO service
     std::shared_ptr<boost::asio::io_service> _io_service;
