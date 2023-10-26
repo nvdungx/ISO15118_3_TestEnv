@@ -48,7 +48,6 @@ public:
   virtual void set_id(size_t Id) = 0;
 };
 
-
 /* const string table for logging/debug */
 class EnumMap
 {

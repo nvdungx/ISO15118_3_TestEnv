@@ -15,7 +15,7 @@ namespace TestLib
 {
 Port::Port()
 {
-  
+
 }
 
 Port::Port(PortType ptype)
@@ -57,6 +57,11 @@ void Port::halt()
 
 }
 void Port::checkstate()
+{
+
+}
+
+void Port::check()
 {
 
 }
